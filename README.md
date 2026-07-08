@@ -1,8 +1,7 @@
-# p_MultVerso
+# Lucera Interlude (Java 25)
 
 Documentacao disponivel:
 
-- setup local padrao: [README-local.md](README-local.md)
-- stack Docker: [dist/README-docker.md](dist/README-docker.md)
-- padrao de entregas: [docs/PADRAO-ENTREGAS.md](docs/PADRAO-ENTREGAS.md)
-- changelog categorizado: [docs/CHANGELOG-CATEGORIZADO.txt](docs/CHANGELOG-CATEGORIZADO.txt)
+* setup local padrao: [README-local.md](README-local.md)
+* stack Docker: [dist/README-docker.md](dist/README-docker.md)
+* changelog categorizado: [docs/CHANGELOG-CATEGORIZADO.md](docs/CHANGELOG-CATEGORIZADO.md)

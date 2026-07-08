@@ -37,13 +37,13 @@ Pacotes recomendados:
 
 ```bash
 sudo apt update
-sudo apt install -y ant mariadb-server mariadb-client openjdk-21-jdk
+sudo apt install -y ant mariadb-server mariadb-client openjdk-25-jdk
 ```
 
 Observacoes:
 
-- o `Full-build.xml` compila com `release=21`
-- se quiser manter paridade com a stack Docker, voce pode usar JDK 25 no lugar de JDK 21
+- o projeto foi migrado para OpenJDK 25
+- para manter paridade com a stack Docker e com o ambiente suportado, use JDK 25
 - o projeto ja carrega dependencias a partir de `dist/libs`, entao nao existe etapa Maven ou Gradle
 
 ### Portas usadas pelo projeto
