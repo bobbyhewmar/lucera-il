@@ -1459,6 +1459,11 @@ public class Config{
 		ALT_POLE_DAMAGE_MODIFIER = formulasSettings.getProperty("PoleDamageModifier", 1.0);
 		MIN_ATK_DELAY = formulasSettings.getProperty("MinAttackDelay", 333);
 		CALC_EFFECT_TIME_YIELD_AND_RESIST = formulasSettings.getProperty("CalcEffectTimeYieldAndResist", false);
+		ALT_NPC_PATK_MODIFIER = formulasSettings.getProperty("NpcPAtkModifier", 1.0);
+		ALT_NPC_MATK_MODIFIER = formulasSettings.getProperty("NpcMAtkModifier", 1.0);
+		ALT_NPC_MAXHP_MODIFIER = formulasSettings.getProperty("NpcMaxHpModifier", 1.58);
+		ALT_NPC_MAXMP_MODIFIER = formulasSettings.getProperty("NpcMaxMpModifier", 1.11);
+		ALT_NPC_LIM_MCRIT = formulasSettings.getProperty("NpcLimitNpcMCritical", 20);
 	}
 
 	public static void loadAltSettings() {
@@ -2377,18 +2382,6 @@ public class Config{
 	public static double ALT_NPC_MAXHP_MODIFIER;
 	public static double ALT_NPC_MAXMP_MODIFIER;
 	public static int ALT_NPC_LIM_MCRIT;
-	public static final String NPCS_CONFIG_FILE = "./config/Npcs/npcs.properties";
-
-	public static void loadNpcsSettings() {
-		final ExProperties npcsSettings = load(Config.NPCS_CONFIG_FILE);
-
-		Config.ALT_NPC_PATK_MODIFIER = npcsSettings.getProperty("NpcPAtkModifier", 1.0);
-		Config.ALT_NPC_MATK_MODIFIER = npcsSettings.getProperty("NpcMAtkModifier", 1.0);
-		Config.ALT_NPC_MAXHP_MODIFIER = npcsSettings.getProperty("NpcMaxHpModifier", 1.58);
-		Config.ALT_NPC_MAXMP_MODIFIER = npcsSettings.getProperty("NpcMapMpModifier", 1.11);
-		Config.ALT_NPC_LIM_MCRIT = npcsSettings.getProperty("NpcLimitNpcMCritical", 20);
-
-	}
 
 	public static void load() {
 		loadServerConfig();
@@ -2409,9 +2402,6 @@ public class Config{
 		loadQuestRateSettings();
 		loadChatFilters();
 		loadGMAccess();
-
-		// Custom npcs
-		loadNpcsSettings();
 	}
 
 	public static void loadChatFilters() {
