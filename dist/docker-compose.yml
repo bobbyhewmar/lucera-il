@@ -1,0 +1,120 @@
+name: ${COMPOSE_PROJECT_NAME:-lucera}
+
+x-l2-build: &l2-build
+  context: .
+  dockerfile: docker/server/Dockerfile
+
+services:
+  db:
+    image: mariadb:11.4
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-name-resolve
+    environment:
+      TZ: ${TZ:-UTC}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-123456}
+      MARIADB_ROOT_HOST: "%"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mariadb-admin ping --host=127.0.0.1 --user=root --password=$$MARIADB_ROOT_PASSWORD --silent",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    ports:
+      - "${DB_PUBLISHED_PORT:-3308}:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  db-init:
+    image: mariadb:11.4
+    restart: "no"
+    depends_on:
+      db:
+        condition: service_healthy
+    entrypoint: ["sh", "/docker/db/init-database.sh"]
+    environment:
+      TZ: ${TZ:-UTC}
+      DB_HOST: db
+      DB_PORT: 3306
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-123456}
+      DB_APP_USER: ${DB_APP_USER:-lucera}
+      DB_APP_PASSWORD: ${DB_APP_PASSWORD:-lucera}
+      AUTH_DB_NAME: ${AUTH_DB_NAME:-p_lucera}
+      GAME_DB_NAME: ${GAME_DB_NAME:-p_lucera}
+      DEFAULT_GAMESERVER_ID: ${DEFAULT_GAMESERVER_ID:-1}
+      DEFAULT_GAMESERVER_HOST: ${DEFAULT_GAMESERVER_HOST:-127.0.0.1}
+    volumes:
+      - ./docker/db:/docker/db:ro
+      - ./authserver/sql:/workspace/authserver/sql:ro
+      - ./gameserver/sql:/workspace/gameserver/sql:ro
+
+  authserver:
+    image: ${L2_SERVER_IMAGE:-lucera-server:local}
+    build: *l2-build
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+    environment:
+      TZ: ${TZ:-UTC}
+      L2_SERVER_KIND: authserver
+      L2_JAVA_OPTS: ${AUTH_JAVA_OPTS:--Xms256m -Xmx256m}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_APP_USER: ${DB_APP_USER:-lucera}
+      DB_APP_PASSWORD: ${DB_APP_PASSWORD:-lucera}
+      AUTH_DB_NAME: ${AUTH_DB_NAME:-p_lucera}
+      AUTH_BIND_HOST: ${AUTH_BIND_HOST:-*}
+      AUTH_CLIENT_PORT: ${AUTH_CLIENT_PORT:-2106}
+      AUTH_GAMESERVER_BIND_HOST: ${AUTH_GAMESERVER_BIND_HOST:-*}
+      AUTH_GAMESERVER_PORT: ${AUTH_GAMESERVER_PORT:-9014}
+    ports:
+      - "${AUTH_CLIENT_PORT:-2106}:2106"
+    volumes:
+      - ./authserver/config:/opt/l2/authserver/config
+      - ./authserver/log:/opt/l2/authserver/log
+
+  gameserver:
+    image: ${L2_SERVER_IMAGE:-lucera-server:local}
+    build: *l2-build
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      db-init:
+        condition: service_completed_successfully
+      authserver:
+        condition: service_started
+    environment:
+      TZ: ${TZ:-UTC}
+      L2_SERVER_KIND: gameserver
+      L2_JAVA_OPTS: ${GAME_JAVA_OPTS:--Xms2g -Xmx3g}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_APP_USER: ${DB_APP_USER:-lucera}
+      DB_APP_PASSWORD: ${DB_APP_PASSWORD:-lucera}
+      GAME_DB_NAME: ${GAME_DB_NAME:-p_lucera}
+      AUTH_SERVICE_HOST: authserver
+      AUTH_GAMESERVER_PORT: ${AUTH_GAMESERVER_PORT:-9014}
+      GAME_BIND_HOST: ${GAME_BIND_HOST:-*}
+      GAME_PORT: ${GAME_PORT:-7777}
+      GAME_EXTERNAL_HOSTNAME: ${GAME_EXTERNAL_HOSTNAME:-127.0.0.1}
+      GAME_INTERNAL_HOSTNAME: ${GAME_INTERNAL_HOSTNAME:-127.0.0.1}
+      GAME_REQUEST_SERVER_ID: ${GAME_REQUEST_SERVER_ID:-1}
+    ports:
+      - "${GAME_PORT:-7777}:7777"
+    volumes:
+      - ./gameserver/config:/opt/l2/gameserver/config
+      - ./gameserver/log:/opt/l2/gameserver/log
+      - ./gameserver/serverstats:/opt/l2/gameserver/serverstats
+
+volumes:
+  mariadb_data:

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "client_teleports.dtd">
+<list>
+	<!--
+		Authoritative client teleport ids were not found in the workspace.
+		Observed ids pending mapping: 51, 52.
+
+		Example:
+		<teleport id="100" loc="147451 46728 -3410" item_id="57" price="18000" min_level="0" max_level="0" castle_id="0" gatekeeper_restrictions="true"/>
+	-->
+</list>

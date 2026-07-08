@@ -1,0 +1,6 @@
+authserver/log
+gameserver/log
+gameserver/serverstats
+.env
+.env.example
+README-docker.md

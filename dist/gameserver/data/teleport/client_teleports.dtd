@@ -1,0 +1,11 @@
+<!ELEMENT list (teleport*)>
+<!ELEMENT teleport EMPTY>
+<!ATTLIST teleport
+	id CDATA #REQUIRED
+	loc CDATA #REQUIRED
+	item_id CDATA #IMPLIED
+	price CDATA #IMPLIED
+	min_level CDATA #IMPLIED
+	max_level CDATA #IMPLIED
+	castle_id CDATA #IMPLIED
+	gatekeeper_restrictions CDATA #IMPLIED>
