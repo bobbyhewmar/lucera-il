@@ -3,6 +3,7 @@ CORRECOES
 
 REFATORACOES
 - [REF] Loader dedicado `GeoRegionLoader` para decode e parse da geodata.
+- [REF] Configs `Npc*` centralizadas em `formulas.properties`, com remocao da rota paralela `Npcs/npcs.properties` e normalizacao da chave `NpcMaxMpModifier`.
 
 IMPLEMENTACOES
 - [ADD] `AutoLearnSkillsMaxLevel` (adiciona level maximo ao ganhar skills automaticamente).
