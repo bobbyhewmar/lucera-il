@@ -34,7 +34,7 @@ public class ClanHallMiniGameEvent extends SiegeEvent<ClanHall, CMGSiegeClanObje
 	public void startEvent()
 	{
 		_oldOwner = getResidence().getOwner();
-		List<CMGSiegeClanObject> siegeClans = getObjects("attackers");
+		List<CMGSiegeClanObject> siegeClans = getObjects("attackers", CMGSiegeClanObject.class);
 		if(siegeClans.size() < 2)
 		{
 			CMGSiegeClanObject siegeClan = CollectionUtils.safeGet(siegeClans, 0);
@@ -126,6 +126,18 @@ public class ClanHallMiniGameEvent extends SiegeEvent<ClanHall, CMGSiegeClanObje
 			broadcastTo(SystemMsg.THE_REGISTRATION_PERIOD_FOR_A_CLAN_HALL_WAR_HAS_ENDED, "attackers");
 		}
 		super.setRegistrationOver(b);
+	}
+	
+	@Override
+	protected Class<CMGSiegeClanObject> getSiegeClanType()
+	{
+		return CMGSiegeClanObject.class;
+	}
+
+	@Override
+	protected Class<ClanHall> getResidenceType()
+	{
+		return ClanHall.class;
 	}
 	
 	@Override

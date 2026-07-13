@@ -4,7 +4,6 @@ import events.GvG.GvG;
 import gnu.trove.TIntObjectHashMap;
 import l2.commons.lang.reference.HardReference;
 import l2.commons.lang.reference.HardReferences;
-import l2.commons.listener.Listener;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
@@ -41,7 +40,7 @@ public class GvGInstance extends Reflection
 	private final int eventTime = 1200;
 	private final long bossSpawnTime = 600000;
 	private final List<HardReference<Player>> bothTeams = new CopyOnWriteArrayList<>();
-	private final TIntObjectHashMap<MutableInt> score = new TIntObjectHashMap();
+	private final TIntObjectHashMap<MutableInt> score = new TIntObjectHashMap<>();
 	private final DeathListener _deathListener;
 	private final TeleportListener _teleportListener;
 	private final PlayerPartyLeaveListener _playerPartyLeaveListener;
@@ -351,7 +350,7 @@ public class GvGInstance extends Reflection
 	public NpcInstance addSpawnWithoutRespawn(int npcId, Location loc, int randomOffset)
 	{
 		NpcInstance npc = super.addSpawnWithoutRespawn(npcId, loc, randomOffset);
-		npc.addListener((Listener) _deathListener);
+		npc.addListener(_deathListener);
 		return npc;
 	}
 	

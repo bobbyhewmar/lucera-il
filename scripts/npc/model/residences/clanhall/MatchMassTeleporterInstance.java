@@ -26,7 +26,7 @@ public class MatchMassTeleporterInstance extends NpcInstance
 	public void showChatWindow(Player player, int val, Object... arg)
 	{
 		ClanHall clanHall = getClanHall();
-		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent(ClanHallTeamBattleEvent.class);
 		if(_timeout > System.currentTimeMillis())
 		{
 			showChatWindow(player, "residence2/clanhall/agit_mass_teleporter001.htm");

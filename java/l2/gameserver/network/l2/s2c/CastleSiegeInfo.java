@@ -26,7 +26,7 @@ public class CastleSiegeInfo extends L2GameServerPacket
 	public CastleSiegeInfo(Castle castle, Player player)
 	{
 		this((Residence) castle, player);
-		CastleSiegeEvent siegeEvent = castle.getSiegeEvent();
+		CastleSiegeEvent siegeEvent = castle.getSiegeEvent(CastleSiegeEvent.class);
 		long siegeTimeMillis = castle.getSiegeDate().getTimeInMillis();
 		if(siegeTimeMillis == 0)
 		{

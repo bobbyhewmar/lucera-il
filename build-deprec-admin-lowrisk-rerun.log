@@ -1,0 +1,533 @@
+﻿Buildfile: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\Full-build.xml
+
+init:
+
+compile-commons:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 81 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+
+commons-jar:
+      [jar] Building jar: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\commons.jar
+
+init:
+
+compile-commons:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 81 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+
+commons-jar:
+      [jar] Building jar: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\commons.jar
+
+compile-gameserver:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 1571 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:584: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 	public void addSpawn(SimpleSpawner spawn)
+    [javac] 	                     ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:592: warning: [deprecation] SpawnInfo in InstantZone has been deprecated
+    [javac] 	public void fillSpawns(List<InstantZone.SpawnInfo> si)
+    [javac] 	                                       ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:599: warning: [deprecation] SpawnInfo in InstantZone has been deprecated
+    [javac] 		for(InstantZone.SpawnInfo s : si)
+    [javac] 		               ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:601: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 			SimpleSpawner c;
+    [javac] 			^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:608: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 						c = new SimpleSpawner(s.getNpcId());
+    [javac] 						        ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:628: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 					c = new SimpleSpawner(s.getNpcId());
+    [javac] 					        ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:647: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 					c = new SimpleSpawner(s.getNpcId());
+    [javac] 					        ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:830: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 		SimpleSpawner sp = new SimpleSpawner(NpcHolder.getInstance().getTemplate(npcId));
+    [javac] 		^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\Reflection.java:830: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 		SimpleSpawner sp = new SimpleSpawner(NpcHolder.getInstance().getTemplate(npcId));
+    [javac] 		                       ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\DimensionalRift.java:120: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 				for(SimpleSpawner s : riftRoom.getSpawns())
+    [javac] 				    ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\DimensionalRift.java:122: warning: [deprecation] SimpleSpawner in l2.gameserver.model has been deprecated
+    [javac] 					SimpleSpawner sp = s.clone();
+    [javac] 					^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\oly\Competition.java:431: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			broadcastPacket(tie ? Msg.THE_GAME_ENDED_IN_A_TIE : new SystemMessage(1497).addString(winn.getName()), true, true);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\entity\oly\Competition.java:637: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			broadcastPacket(Msg.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_ENDS_THE_GAME, true, false);
+    [javac] 			                ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\InstantZoneParser.java:101: warning: [deprecation] SpawnInfo in InstantZone has been deprecated
+    [javac] 			ArrayList<InstantZone.SpawnInfo> spawns = new ArrayList<>();
+    [javac] 			                     ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\InstantZoneParser.java:296: warning: [deprecation] SpawnInfo in InstantZone has been deprecated
+    [javac] 						InstantZone.SpawnInfo spawnDat = new InstantZone.SpawnInfo(spawnType, mobId, count, respawn, respawnRnd, coords, territory);
+    [javac] 						           ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\InstantZoneParser.java:296: warning: [deprecation] SpawnInfo in InstantZone has been deprecated
+    [javac] 						InstantZone.SpawnInfo spawnDat = new InstantZone.SpawnInfo(spawnType, mobId, count, respawn, respawnRnd, coords, territory);
+    [javac] 						                                                ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\ResidenceParser.java:71: warning: [unchecked] unchecked call to getConstructor(Class<?>...) as a member of the raw type Class
+    [javac] 			Constructor constructor = clazz.getConstructor(StatsSet.class);
+    [javac] 			                                              ^
+    [javac]   where T is a type-variable:
+    [javac]     T extends Object declared in class Class
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\RestartPointParser.java:117: warning: [unchecked] unchecked call to ImmutablePair(L,R) as a member of the raw type ImmutablePair
+    [javac] 				restartArea.add(new ImmutablePair(territory, restarts));
+    [javac] 				                ^
+    [javac]   where L,R are type-variables:
+    [javac]     L extends Object declared in class ImmutablePair
+    [javac]     R extends Object declared in class ImmutablePair
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\RestartPointParser.java:117: warning: [unchecked] unchecked method invocation: method add in class ArrayList is applied to given types
+    [javac] 				restartArea.add(new ImmutablePair(territory, restarts));
+    [javac] 				               ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\RestartPointParser.java:117: warning: [unchecked] unchecked conversion
+    [javac] 				restartArea.add(new ImmutablePair(territory, restarts));
+    [javac] 				                ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\SkillAcquireParser.java:80: warning: [unchecked] unchecked call to put(int,V) as a member of the raw type TIntObjectHashMap
+    [javac] 				map.put(classId, learns);
+    [javac] 				       ^
+    [javac]   where V is a type-variable:
+    [javac]     V extends Object declared in class TIntObjectHashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\SkillAcquireParser.java:82: warning: [unchecked] unchecked method invocation: method addAllNormalSkillLearns in class SkillAcquireHolder is applied to given types
+    [javac] 			getHolder().addAllNormalSkillLearns(map);
+    [javac] 			                                   ^
+    [javac]   required: TIntObjectHashMap<List<SkillLearn>>
+    [javac]   found:    TIntObjectHashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\SkillAcquireParser.java:82: warning: [unchecked] unchecked conversion
+    [javac] 			getHolder().addAllNormalSkillLearns(map);
+    [javac] 			                                    ^
+    [javac]   required: TIntObjectHashMap<List<SkillLearn>>
+    [javac]   found:    TIntObjectHashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\SpawnParser.java:186: warning: [unchecked] unchecked conversion
+    [javac] 										aiParams = new MultiValueSet();
+    [javac] 										           ^
+    [javac]   required: MultiValueSet<String>
+    [javac]   found:    MultiValueSet
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:61: warning: [unchecked] unchecked call to ImmutablePair(L,R) as a member of the raw type ImmutablePair
+    [javac] 				groupOptions.add(new ImmutablePair(id, chance));
+    [javac] 				                 ^
+    [javac]   where L,R are type-variables:
+    [javac]     L extends Object declared in class ImmutablePair
+    [javac]     R extends Object declared in class ImmutablePair
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:61: warning: [unchecked] unchecked method invocation: method add in class ArrayList is applied to given types
+    [javac] 				groupOptions.add(new ImmutablePair(id, chance));
+    [javac] 				                ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:61: warning: [unchecked] unchecked conversion
+    [javac] 				groupOptions.add(new ImmutablePair(id, chance));
+    [javac] 				                 ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:64: warning: [unchecked] unchecked call to ImmutablePair(L,R) as a member of the raw type ImmutablePair
+    [javac] 			variation.add(new ImmutablePair(groupOptions, groupChance));
+    [javac] 			              ^
+    [javac]   where L,R are type-variables:
+    [javac]     L extends Object declared in class ImmutablePair
+    [javac]     R extends Object declared in class ImmutablePair
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:64: warning: [unchecked] unchecked method invocation: method add in class ArrayList is applied to given types
+    [javac] 			variation.add(new ImmutablePair(groupOptions, groupChance));
+    [javac] 			             ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:64: warning: [unchecked] unchecked conversion
+    [javac] 			variation.add(new ImmutablePair(groupOptions, groupChance));
+    [javac] 			              ^
+    [javac]   required: E
+    [javac]   found:    ImmutablePair
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in class ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:117: warning: [unchecked] unchecked call to ImmutablePair(L,R) as a member of the raw type ImmutablePair
+    [javac] 			getHolder().add((Pair<VariationChanceData, VariationChanceData>) new ImmutablePair(warriorData, mageData));
+    [javac] 			                                                                 ^
+    [javac]   where L,R are type-variables:
+    [javac]     L extends Object declared in class ImmutablePair
+    [javac]     R extends Object declared in class ImmutablePair
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationChanceParser.java:117: warning: [unchecked] unchecked cast
+    [javac] 			getHolder().add((Pair<VariationChanceData, VariationChanceData>) new ImmutablePair(warriorData, mageData));
+    [javac] 			                                                                 ^
+    [javac]   required: Pair<VariationChanceData,VariationChanceData>
+    [javac]   found:    ImmutablePair
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\data\xml\parser\VariationGroupParser.java:19: warning: [unchecked] unchecked conversion
+    [javac] 	private final HashMap<Integer, VariationGroupData> _byMineralId = new HashMap();
+    [javac] 	                                                                  ^
+    [javac]   required: HashMap<Integer,VariationGroupData>
+    [javac]   found:    HashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:117: warning: [unchecked] unchecked conversion
+    [javac] 					Map<String, Object> tmp = new HashMap();
+    [javac] 					                          ^
+    [javac]   required: Map<String,Object>
+    [javac]   found:    HashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:147: warning: [unchecked] unchecked conversion
+    [javac] 		List<Map<String, Object>> ret = new ArrayList();
+    [javac] 		                                ^
+    [javac]   required: List<Map<String,Object>>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:161: warning: [unchecked] unchecked conversion
+    [javac] 				Map<String, Object> tmp = new HashMap();
+    [javac] 				                          ^
+    [javac]   required: Map<String,Object>
+    [javac]   found:    HashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:186: warning: [unchecked] unchecked conversion
+    [javac] 		List<Object> ret = new ArrayList();
+    [javac] 		                   ^
+    [javac]   required: List<Object>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:209: warning: [unchecked] unchecked conversion
+    [javac] 						Map<String, Object> tmp = new HashMap();
+    [javac] 						                          ^
+    [javac]   required: Map<String,Object>
+    [javac]   found:    HashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\database\mysql.java:312: warning: [unchecked] unchecked conversion
+    [javac] 			List<Integer[]> al = new ArrayList();
+    [javac] 			                     ^
+    [javac]   required: List<Integer[]>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:27: warning: [unchecked] unchecked conversion
+    [javac] 				List<Location> targetRecorder = new ArrayList(n.getPath().size() + 2);
+    [javac] 				                                ^
+    [javac]   required: List<Location>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:66: warning: [unchecked] unchecked conversion
+    [javac] 			List<List<Location>> result = new ArrayList(size);
+    [javac] 			                              ^
+    [javac]   required: List<List<Location>>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:111: warning: [unchecked] unchecked conversion
+    [javac] 			List<Location> result = new ArrayList((int) steps + 1);
+    [javac] 			                        ^
+    [javac]   required: List<Location>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:237: warning: [unchecked] unchecked conversion
+    [javac] 			List<Location> straightGeoLine = new ArrayList((int) steps + 1);
+    [javac] 			                                 ^
+    [javac]   required: List<Location>
+    [javac]   found:    ArrayList
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:283: warning: [unchecked] unchecked conversion
+    [javac] 				return !geoPathLine.isEmpty() ? geoPathLine : null;
+    [javac] 				                                ^
+    [javac]   required: List<Location>
+    [javac]   found:    List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:305: warning: [unchecked] unchecked conversion
+    [javac] 					return geoPathLine.isEmpty() ? null : geoPathLine;
+    [javac] 					                                      ^
+    [javac]   required: List<Location>
+    [javac]   found:    List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:343: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 							geoPathLines.add(geoPathLine);
+    [javac] 							                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:343: warning: [unchecked] unchecked conversion
+    [javac] 							geoPathLines.add(geoPathLine);
+    [javac] 							                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:359: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 								geoPathLines.add(geoFoundPathLines);
+    [javac] 								                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:359: warning: [unchecked] unchecked conversion
+    [javac] 								geoPathLines.add(geoFoundPathLines);
+    [javac] 								                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:375: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 						geoPathLines.add(geoFoundPathLines);
+    [javac] 						                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:375: warning: [unchecked] unchecked conversion
+    [javac] 						geoPathLines.add(geoFoundPathLines);
+    [javac] 						                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:388: warning: [unchecked] unchecked conversion
+    [javac] 									List<Location> lastGeoFoundPathLine = (List) geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
+    [javac] 									                                      ^
+    [javac]   required: List<Location>
+    [javac]   found:    List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:392: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 										geoFoundPathLines.add(lastGeoFoundPathLine);
+    [javac] 										                     ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:398: warning: [unchecked] unchecked method invocation: method addAll in interface List is applied to given types
+    [javac] 									geoPathLines.addAll(geoFoundPathLines);
+    [javac] 									                   ^
+    [javac]   required: Collection<? extends E>
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:398: warning: [unchecked] unchecked conversion
+    [javac] 									geoPathLines.addAll(geoFoundPathLines);
+    [javac] 									                    ^
+    [javac]   required: Collection<? extends E>
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:407: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 								geoPathLines.add(geoFoundPathLines);
+    [javac] 								                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:407: warning: [unchecked] unchecked conversion
+    [javac] 								geoPathLines.add(geoFoundPathLines);
+    [javac] 								                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:425: warning: [unchecked] unchecked method invocation: method applyGeoIndent in class GeoMove is applied to given types
+    [javac] 							geoPathLine = applyGeoIndent(geoPathLine, indent >> 4);
+    [javac] 							                            ^
+    [javac]   required: List<Location>,int
+    [javac]   found:    List,int
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:425: warning: [unchecked] unchecked conversion
+    [javac] 							geoPathLine = applyGeoIndent(geoPathLine, indent >> 4);
+    [javac] 							                             ^
+    [javac]   required: List<Location>
+    [javac]   found:    List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:432: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 								geoPathLines.add(geoPathLine);
+    [javac] 								                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:432: warning: [unchecked] unchecked conversion
+    [javac] 								geoPathLines.add(geoPathLine);
+    [javac] 								                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:446: warning: [unchecked] unchecked conversion
+    [javac] 									List<Location> lastGeoFoundPathLine = (List) geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
+    [javac] 									                                      ^
+    [javac]   required: List<Location>
+    [javac]   found:    List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:450: warning: [unchecked] unchecked call to add(E) as a member of the raw type List
+    [javac] 										geoFoundPathLines.add(lastGeoFoundPathLine);
+    [javac] 										                     ^
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:456: warning: [unchecked] unchecked method invocation: method addAll in interface List is applied to given types
+    [javac] 									geoPathLines.addAll(geoFoundPathLines);
+    [javac] 									                   ^
+    [javac]   required: Collection<? extends E>
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:456: warning: [unchecked] unchecked conversion
+    [javac] 									geoPathLines.addAll(geoFoundPathLines);
+    [javac] 									                    ^
+    [javac]   required: Collection<? extends E>
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:471: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 								geoPathLines.add(geoPathLine);
+    [javac] 								                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:471: warning: [unchecked] unchecked conversion
+    [javac] 								geoPathLines.add(geoPathLine);
+    [javac] 								                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:491: warning: [unchecked] unchecked method invocation: method add in interface List is applied to given types
+    [javac] 					geoPathLines.add(geoPathLine);
+    [javac] 					                ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\GeoMove.java:491: warning: [unchecked] unchecked conversion
+    [javac] 					geoPathLines.add(geoPathLine);
+    [javac] 					                 ^
+    [javac]   required: E
+    [javac]   found:    List
+    [javac]   where E is a type-variable:
+    [javac]     E extends Object declared in interface List
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\geodata\PathFindBuffers.java:22: warning: [unchecked] unchecked conversion
+    [javac] 	private static final TIntObjectHashMap<PathFindBuffer[]> buffers = new TIntObjectHashMap();
+    [javac] 	                                                                   ^
+    [javac]   required: TIntObjectHashMap<PathFindBuffer[]>
+    [javac]   found:    TIntObjectHashMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminAdmin.java:71: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 						activeChar.sendPacket(Msg.MESSAGE_ACCEPTANCE_MODE);
+    [javac] 						                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminAdmin.java:80: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 					activeChar.sendPacket(Msg.MESSAGE_REFUSAL_MODE);
+    [javac] 					                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminAnnouncements.java:107: warning: [deprecation] ExShowScreenMessage(String,int,ScreenMessageAlign,boolean) in ExShowScreenMessage has been deprecated
+    [javac] 				ExShowScreenMessage sm = new ExShowScreenMessage(text, time, ExShowScreenMessage.ScreenMessageAlign.TOP_CENTER, text.length() < 64);
+    [javac] 				                         ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminCancel.java:75: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminDelete.java:38: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 				                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminDisconnect.java:38: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 						activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 						                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminDisconnect.java:65: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				player.sendPacket(Msg.YOU_HAVE_BEEN_DISCONNECTED_FROM_THE_SERVER_PLEASE_LOGIN_AGAIN);
+    [javac] 				                  ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminDoorControl.java:30: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 				                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminDoorControl.java:41: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 				                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:486: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 						activeChar.sendPacket(Msg.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
+    [javac] 						                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:502: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 					activeChar.sendPacket(Msg.SELECT_TARGET);
+    [javac] 					                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:516: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 					player.sendPacket(Msg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
+    [javac] 					                  ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:777: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:803: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.SELECT_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:849: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.SELECT_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:964: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:1004: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.SELECT_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminEditChar.java:1009: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\base\PlayerClass.java:154: warning: [unchecked] unchecked call to EnumMap(Class<K>) as a member of the raw type EnumMap
+    [javac] 		subclassSetMap = new EnumMap(PlayerClass.class);
+    [javac] 		                 ^
+    [javac]   where K is a type-variable:
+    [javac]     K extends Enum<K> declared in class EnumMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\model\base\PlayerClass.java:154: warning: [unchecked] unchecked conversion
+    [javac] 		subclassSetMap = new EnumMap(PlayerClass.class);
+    [javac] 		                 ^
+    [javac]   required: EnumMap<PlayerClass,Set<PlayerClass>>
+    [javac]   found:    EnumMap
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminKill.java:82: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminKill.java:91: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.SELECT_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminKill.java:96: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminMenu.java:85: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 				                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminMenu.java:120: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminMonsterRace.java:52: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 			activeChar.sendPacket(Msg.THEYRE_OFF);
+    [javac] 			                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminOlympiad.java:71: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				Announcements.getInstance().announceToAll(Msg.THE_OLYMPIAD_GAME_HAS_STARTED);
+    [javac] 				                                          ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminOlympiad.java:76: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 				Announcements.getInstance().announceToAll(Msg.THE_OLYMPIAD_GAME_HAS_ENDED);
+    [javac] 				                                          ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminPledge.java:40: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 						activeChar.sendPacket(Msg.INVALID_TARGET);
+    [javac] 						                      ^
+    [javac] D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\java\l2\gameserver\handler\admincommands\impl\AdminPledge.java:45: warning: [deprecation] Msg in l2.gameserver.cache has been deprecated
+    [javac] 						activeChar.sendPacket(Msg.YOU_ARE_NOT_QUALIFIED_TO_CREATE_A_CLAN);
+    [javac] 						                      ^
+    [javac] Note: Some input files additionally use or override a deprecated API.
+    [javac] Note: Some input files additionally use or override a deprecated API that is marked for removal.
+    [javac] Note: Some input files additionally use unchecked or unsafe operations.
+    [javac] 100 warnings
+
+gameserver-jar:
+      [jar] Building jar: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\gameserver.jar
+
+init:
+
+compile-commons:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 81 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+
+commons-jar:
+      [jar] Building jar: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\commons.jar
+
+compile-scripts:
+     [copy] Copying 2 files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\dist\libs
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 713 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Note: Some input files use or override a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+
+init:
+
+compile-commons:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 81 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+
+commons-jar:
+      [jar] Building jar: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\commons.jar
+
+compile-authserver:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [mkdir] Created dir: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+    [javac] Compiling 54 source files to D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+
+BUILD SUCCESSFUL
+Total time: 20 minutes 52 seconds

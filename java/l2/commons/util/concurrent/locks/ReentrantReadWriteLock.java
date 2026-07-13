@@ -108,7 +108,7 @@ public class ReentrantReadWriteLock
 		if(compareAndSetState(c, c + SHARED_UNIT))
 		{
 			HoldCounter rh = cachedHoldCounter;
-			if(rh == null || rh.tid != current.getId())
+			if(rh == null || rh.tid != current.threadId())
 				cachedHoldCounter = rh = readHolds.get();
 			rh.count++;
 			return true;
@@ -120,7 +120,7 @@ public class ReentrantReadWriteLock
 	{
 		Thread current = Thread.currentThread();
 		HoldCounter rh = cachedHoldCounter;
-		if(rh == null || rh.tid != current.getId())
+		if(rh == null || rh.tid != current.threadId())
 			rh = readHolds.get();
 		for(;;)
 		{
@@ -161,7 +161,7 @@ public class ReentrantReadWriteLock
 	{
 		HoldCounter rh = cachedHoldCounter;
 		Thread current = Thread.currentThread();
-		if(rh == null || rh.tid != current.getId())
+		if(rh == null || rh.tid != current.threadId())
 			rh = readHolds.get();
 		if(rh.tryDecrement() <= 0)
 			throw new IllegalMonitorStateException();
@@ -177,7 +177,7 @@ public class ReentrantReadWriteLock
 	static final class HoldCounter
 	{
 		// Use id, not reference, to avoid garbage retention
-		final long tid = Thread.currentThread().getId();
+		final long tid = Thread.currentThread().threadId();
 		int count;
 		
 		int tryDecrement()

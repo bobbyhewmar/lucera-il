@@ -14,7 +14,6 @@ import l2.gameserver.ai.CharacterAI;
 import l2.gameserver.ai.CtrlEvent;
 import l2.gameserver.ai.CtrlIntention;
 import l2.gameserver.ai.NextAction;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.geodata.GeoMove;
 import l2.gameserver.instancemanager.DimensionalRiftManager;
@@ -112,7 +111,7 @@ public abstract class Creature extends GameObject
 	protected long _attackEndTime;
 	protected long _attackReuseEndTime;
 	protected Map<TriggerType, Set<TriggerInfo>> _triggers;
-	protected IntObjectMap<TimeStamp> _skillReuses = new CHashIntObjectMap();
+	protected IntObjectMap<TimeStamp> _skillReuses = new CHashIntObjectMap<>();
 	protected volatile EffectList _effectList;
 	protected volatile CharStatsChangeRecorder<? extends Creature> _statsRecorder;
 	protected AtomicBoolean isDead = new AtomicBoolean();
@@ -243,7 +242,7 @@ public abstract class Creature extends GameObject
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 			if(isPlayer() && message)
 			{
-				sendPacket(Msg.CASTING_HAS_BEEN_INTERRUPTED);
+				sendPacket(SystemMsg.YOUR_CASTING_HAS_BEEN_INTERRUPTED);
 			}
 		}
 	}
@@ -488,7 +487,7 @@ public abstract class Creature extends GameObject
 		{
 			if(_currentMp < mpConsume2)
 			{
-				sendPacket(Msg.NOT_ENOUGH_MP);
+				sendPacket(SystemMsg.NOT_ENOUGH_MP);
 				return;
 			}
 			if(skill.isMagic())
@@ -542,7 +541,7 @@ public abstract class Creature extends GameObject
 		}
 		if(skill.getSoulsConsume() > getConsumedSouls())
 		{
-			sendPacket(Msg.THERE_IS_NOT_ENOUGHT_SOUL);
+			sendPacket(SystemMsg.THERE_IS_NOT_ENOUGHT_SOUL);
 			return;
 		}
 		if(skill.getEnergyConsume() > getAgathionEnergy())
@@ -1282,7 +1281,7 @@ public abstract class Creature extends GameObject
 		{
 			if(skill.getSkillType() == Skill.SkillType.PET_SUMMON)
 			{
-				sendPacket(Msg.SUMMON_A_PET);
+				sendPacket(SystemMsg.SUMMON_A_PET);
 			}
 			else if(!skill.isHandler())
 			{
@@ -1303,7 +1302,7 @@ public abstract class Creature extends GameObject
 		{
 			if(_currentMp < mpConsume1)
 			{
-				sendPacket(Msg.NOT_ENOUGH_MP);
+				sendPacket(SystemMsg.NOT_ENOUGH_MP);
 				onCastEndTime();
 				return;
 			}
@@ -2493,7 +2492,7 @@ public abstract class Creature extends GameObject
 			Player player = getPlayer();
 			if(player != null)
 			{
-				player.sendPacket(Msg.INVALID_TARGET);
+				player.sendPacket(SystemMsg.INVALID_TARGET);
 				player.sendActionFailed();
 			}
 			return;
@@ -2583,7 +2582,7 @@ public abstract class Creature extends GameObject
 			}
 			if(_currentMp < mpConsume2 && isPlayable())
 			{
-				sendPacket(Msg.NOT_ENOUGH_MP);
+				sendPacket(SystemMsg.NOT_ENOUGH_MP);
 				onCastEndTime();
 				return;
 			}
@@ -2659,7 +2658,7 @@ public abstract class Creature extends GameObject
 		{
 			if(sendMessage)
 			{
-				attacker.sendPacket(Msg.THE_ATTACK_HAS_BEEN_BLOCKED);
+				attacker.sendPacket(SystemMsg.THE_ATTACK_HAS_BEEN_BLOCKED);
 			}
 			return;
 		}
@@ -2739,7 +2738,7 @@ public abstract class Creature extends GameObject
 		}
 		if(isDamageBlocked() && attacker != null && attacker != this)
 		{
-			attacker.sendPacket(Msg.THE_ATTACK_HAS_BEEN_BLOCKED);
+			attacker.sendPacket(SystemMsg.THE_ATTACK_HAS_BEEN_BLOCKED);
 			return;
 		}
 		if(attacker != null && attacker.isPlayer() && Math.abs(attacker.getLevel() - getLevel()) > 10)

@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class AggroList
 {
 	private final NpcInstance npc;
-	private final TIntObjectHashMap<AggroInfo> hateList = new TIntObjectHashMap();
+	private final TIntObjectHashMap<AggroInfo> hateList = new TIntObjectHashMap<>();
 	private final ReadWriteLock lock = new ReentrantReadWriteLock();
 	private final Lock readLock = lock.readLock();
 	private final Lock writeLock = lock.writeLock();

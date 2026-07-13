@@ -3116,13 +3116,13 @@ public class SystemMessage extends L2GameServerPacket
 	
 	public SystemMessage addDoorName(int id)
 	{
-		args.add(new Arg(11, new Integer(id)));
+		args.add(new Arg(11, Integer.valueOf(id)));
 		return this;
 	}
 	
 	public SystemMessage addNpcName(int id)
 	{
-		args.add(new Arg(2, new Integer(1000000 + id)));
+		args.add(new Arg(2, Integer.valueOf(1000000 + id)));
 		return this;
 	}
 	
@@ -3244,4 +3244,3 @@ public class SystemMessage extends L2GameServerPacket
 	}
 	
 }
-

@@ -125,7 +125,7 @@ public class _350_EnhanceYourWeapon extends Quest implements ScriptFile
 		}
 		else
 		{
-			list = new ArrayList(player.getParty().getMemberCount());
+			list = new ArrayList<>(player.getParty().getMemberCount());
 			list.add(new PlayerResult(player));
 			for(Player m : player.getParty().getPartyMembers())
 			{

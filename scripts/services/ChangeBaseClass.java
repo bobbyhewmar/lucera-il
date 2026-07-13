@@ -42,7 +42,7 @@ public class ChangeBaseClass extends Functions
 		NpcHtmlMessage msg = new NpcHtmlMessage(5).setFile("scripts/services/changebase.htm");
 		msg.replace("%item_id%", String.valueOf(Config.SERVICES_CHANGE_BASE_ITEM));
 		msg.replace("%item_count%", String.valueOf(Config.SERVICES_CHANGE_BASE_PRICE));
-		ArrayList<SubClass> possible = new ArrayList();
+		ArrayList<SubClass> possible = new ArrayList<>();
 		if(player.getActiveClass().isBase())
 		{
 			possible.addAll(player.getSubClasses().values());

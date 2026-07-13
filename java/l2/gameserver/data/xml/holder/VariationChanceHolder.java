@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class VariationChanceHolder extends AbstractHolder
 {
 	private static final VariationChanceHolder _instance = new VariationChanceHolder();
-	private final HashMap<Integer, Pair<VariationChanceData, VariationChanceData>> _minerallChances = new HashMap();
+	private final HashMap<Integer, Pair<VariationChanceData, VariationChanceData>> _minerallChances = new HashMap<>();
 	
 	private VariationChanceHolder()
 	{

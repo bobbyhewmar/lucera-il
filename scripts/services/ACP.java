@@ -185,7 +185,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void apply(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof HPACPHelper))
 								continue;
@@ -197,7 +197,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void remove(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof HPACPHelper))
 								continue;
@@ -240,7 +240,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void apply(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof CPACPHelper))
 								continue;
@@ -252,7 +252,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void remove(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof CPACPHelper))
 								continue;
@@ -295,7 +295,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void apply(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof MPACPHelper))
 								continue;
@@ -307,7 +307,7 @@ public class ACP implements OnPlayerEnterListener, OnPlayerExitListener, ScriptF
 					@Override
 					public void remove(Player player)
 					{
-						for(Listener listener : player.getListeners().getListeners())
+						for(Listener<Creature> listener : player.getListeners().getListeners())
 						{
 							if(!(listener instanceof MPACPHelper))
 								continue;

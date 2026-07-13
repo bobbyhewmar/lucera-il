@@ -25,11 +25,8 @@ public class ManageFriends implements ScriptFile, ICommunityBoardHandler
 	{
 		StringBuilder friendList = new StringBuilder("");
 		Map<Integer, Friend> fl = player.getFriendList().getList();
-		Iterator var3 = fl.entrySet().iterator();
-		
-		while(var3.hasNext())
+		for(Entry<Integer, Friend> entry : fl.entrySet())
 		{
-			Entry<Integer, Friend> entry = (Entry) var3.next();
 			friendList.append("<a action=\"bypass _friendlist_1_").append(entry.getKey()).append("\">").append(entry.getValue().getName()).append("</a> (").append(entry.getValue().isOnline() ? "on" : "off").append(") &nbsp;");
 		}
 		
@@ -195,17 +192,11 @@ public class ManageFriends implements ScriptFile, ICommunityBoardHandler
 		}
 		else
 		{
-			ArrayList bl;
-			Iterator var13;
 			if(cmd.equals("frienddeleteall"))
 			{
-				bl = new ArrayList(1);
-				bl.addAll(player.getFriendList().getList().values());
-				var13 = bl.iterator();
-				
-				while(var13.hasNext())
+				ArrayList<Friend> bl = new ArrayList<>(player.getFriendList().getList().values());
+				for(Friend friend : bl)
 				{
-					Friend friend = (Friend) var13.next();
 					player.getFriendList().removeFriend(friend.getName());
 				}
 				
@@ -242,14 +233,10 @@ public class ManageFriends implements ScriptFile, ICommunityBoardHandler
 			}
 			else if(cmd.equals("friendblockdeleteall"))
 			{
-				bl = new ArrayList(1);
-				bl.addAll(player.getBlockList());
-				var13 = bl.iterator();
-				
-				while(var13.hasNext())
+				ArrayList<String> bl = new ArrayList<>(player.getBlockList());
+				for(String blockedName : bl)
 				{
-					name = (String) var13.next();
-					player.removeFromBlockList(name);
+					player.removeFromBlockList(blockedName);
 				}
 				
 				html = html.replace("%block_list%", "");

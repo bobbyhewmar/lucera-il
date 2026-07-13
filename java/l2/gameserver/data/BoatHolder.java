@@ -13,7 +13,7 @@ public final class BoatHolder extends AbstractHolder
 {
 	public static final CharTemplate TEMPLATE = new CharTemplate(CharTemplate.getEmptyStatsSet());
 	private static final BoatHolder _instance = new BoatHolder();
-	private final TIntObjectHashMap<Boat> _boats = new TIntObjectHashMap();
+	private final TIntObjectHashMap<Boat> _boats = new TIntObjectHashMap<>();
 	
 	public static BoatHolder getInstance()
 	{
@@ -36,9 +36,9 @@ public final class BoatHolder extends AbstractHolder
 	{
 		try
 		{
-			Class cl = Class.forName("l2.gameserver.model.entity.boat." + clazz);
-			Constructor constructor = cl.getConstructor(Integer.TYPE, CharTemplate.class);
-			Boat boat = (Boat) constructor.newInstance(IdFactory.getInstance().getNextId(), TEMPLATE);
+			Class<? extends Boat> boatClass = Class.forName("l2.gameserver.model.entity.boat." + clazz).asSubclass(Boat.class);
+			Constructor<? extends Boat> constructor = boatClass.getConstructor(Integer.TYPE, CharTemplate.class);
+			Boat boat = constructor.newInstance(IdFactory.getInstance().getNextId(), TEMPLATE);
 			boat.setName(name);
 			addBoat(boat);
 			return boat;

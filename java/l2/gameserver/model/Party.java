@@ -5,7 +5,6 @@ import l2.commons.threading.RunnableImpl;
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.instancemanager.ReflectionManager;
 import l2.gameserver.model.base.Experience;
 import l2.gameserver.model.entity.DimensionalRift;
@@ -15,6 +14,7 @@ import l2.gameserver.model.instances.MonsterInstance;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.network.l2.components.IStaticPacket;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.*;
 import l2.gameserver.taskmanager.LazyPrecisionTaskManager;
 import l2.gameserver.utils.ItemFunctions;
@@ -360,11 +360,11 @@ public class Party implements PlayerGroup
 		}
 		if(kick)
 		{
-			pplayer.add(Msg.YOU_HAVE_BEEN_EXPELLED_FROM_THE_PARTY);
+			pplayer.add(new SystemMessage(SystemMsg.YOU_HAVE_BEEN_EXPELLED_FROM_THE_PARTY));
 		}
 		else
 		{
-			pplayer.add(Msg.YOU_HAVE_WITHDRAWN_FROM_THE_PARTY);
+			pplayer.add(new SystemMessage(SystemMsg.YOU_HAVE_WITHDRAWN_FROM_THE_PARTY));
 		}
 		pplayer.add(PartySmallWindowDeleteAll.STATIC);
 		ArrayList<L2GameServerPacket> outsInfo = new ArrayList<>(3);
@@ -508,20 +508,20 @@ public class Party implements PlayerGroup
 	private void distributeItem0(Player player, ItemInstance item, NpcInstance fromNpc)
 	{
 		Player target = null;
-		List ret;
+		List<Player> ret;
 		switch(_itemDistribution)
 		{
 			case 1:
 			case 2:
 			{
-				ret = new ArrayList(_members.size());
+				ret = new ArrayList<>(_members.size());
 				for(Player member : _members)
 				{
 					if(!member.isInRangeZ(player, (long) Config.ALT_PARTY_DISTRIBUTION_RANGE) || member.isDead() || !member.getInventory().validateCapacity(item) || !member.getInventory().validateWeight(item))
 						continue;
 					ret.add(member);
 				}
-				target = ret.isEmpty() ? null : (Player) ret.get(Rnd.get(ret.size()));
+				target = ret.isEmpty() ? null : ret.get(Rnd.get(ret.size()));
 				break;
 			}
 			case 3:
@@ -539,7 +539,7 @@ public class Party implements PlayerGroup
 							_itemOrder = 0;
 						}
 						Player looterPlayer;
-						if((looterPlayer = looter < ret.size() ? (Player) ret.get(looter) : null) == null)
+						if((looterPlayer = looter < ret.size() ? ret.get(looter) : null) == null)
 							continue;
 						if(!looterPlayer.isDead() && looterPlayer.isInRangeZ(player, (long) Config.ALT_PARTY_DISTRIBUTION_RANGE) && ItemFunctions.canAddItem(looterPlayer, item))
 						{

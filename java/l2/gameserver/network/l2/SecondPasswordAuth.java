@@ -631,7 +631,7 @@ public class SecondPasswordAuth
 		
 		private static class SPAUIPINInputData
 		{
-			private final Stack<Integer> _pin = new Stack();
+			private final Stack<Integer> _pin = new Stack<>();
 			private final String _label;
 			private final int _inputFieldIdx;
 			

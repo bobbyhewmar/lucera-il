@@ -18,7 +18,7 @@ import java.util.concurrent.ScheduledFuture;
 
 public class SummonAI extends PlayableAI
 {
-	private HardReference<Playable> _runAwayTargetRef = HardReferences.emptyRef();
+	private HardReference<? extends Playable> _runAwayTargetRef = HardReferences.emptyRef();
 	
 	public SummonAI(Summon actor)
 	{
@@ -107,9 +107,9 @@ public class SummonAI extends PlayableAI
 		{
 			Attack(attacker, false, false);
 		}
-		if(attacker != null && attacker.isPlayable())
+		if(attacker instanceof Playable playableAttacker)
 		{
-			_runAwayTargetRef = (HardReference<Playable>) attacker.getRef();
+			_runAwayTargetRef = playableAttacker.getRef();
 		}
 		super.onEvtAttacked(attacker, damage);
 	}

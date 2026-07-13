@@ -37,6 +37,8 @@ public abstract class SysMsgContainer<T extends SysMsgContainer<T>> extends L2Ga
 		_message = message;
 		_arguments = new ArrayList<>(_message.size());
 	}
+
+	protected abstract T self();
 	
 	protected void writeElements()
 	{
@@ -169,7 +171,7 @@ public abstract class SysMsgContainer<T extends SysMsgContainer<T>> extends L2Ga
 	protected T add(IArgument arg)
 	{
 		_arguments.add(arg);
-		return (T) this;
+		return self();
 	}
 	
 	public enum Types

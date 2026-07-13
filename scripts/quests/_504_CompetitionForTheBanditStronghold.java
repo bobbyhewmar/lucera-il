@@ -56,7 +56,7 @@ public class _504_CompetitionForTheBanditStronghold extends Quest implements Scr
 		int cond = st.getCond();
 		Player player = st.getPlayer();
 		Clan clan = player.getClan();
-		ClanHall clanhall = ResidenceHolder.getInstance().getResidence(35);
+		ClanHall clanhall = ResidenceHolder.getInstance().getResidence(ClanHall.class, 35);
 		if(clanhall.getSiegeEvent().isRegistrationOver())
 		{
 			htmltext = null;

@@ -25,14 +25,15 @@ public abstract class AchievementCondition
 	{
 		try
 		{
-			for(Class clazz : AchievementCondition.class.getClasses())
+			for(Class<?> clazz : AchievementCondition.class.getClasses())
 			{
 				if(AchievementCondition.class.isAssignableFrom(clazz))
 				{
-					AchievementCondition.AchievementConditionName conditionName = (AchievementCondition.AchievementConditionName) clazz.getAnnotation(AchievementCondition.AchievementConditionName.class);
+					Class<? extends AchievementCondition> conditionClass = clazz.asSubclass(AchievementCondition.class);
+					AchievementCondition.AchievementConditionName conditionName = conditionClass.getAnnotation(AchievementCondition.AchievementConditionName.class);
 					if(conditionName != null && condName.equalsIgnoreCase(conditionName.value()))
 					{
-						Constructor<? extends AchievementCondition> ctor = clazz.getConstructor(String.class);
+						Constructor<? extends AchievementCondition> ctor = conditionClass.getConstructor(String.class);
 						if(ctor != null)
 						{
 							return ctor.newInstance(condValue);

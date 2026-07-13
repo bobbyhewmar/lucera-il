@@ -31,8 +31,8 @@ import java.util.Map;
 
 public final class NpcTemplate extends CharTemplate
 {
-	public static final Constructor<NpcInstance> DEFAULT_TYPE_CONSTRUCTOR = (Constructor<NpcInstance>) NpcInstance.class.getConstructors()[0];
-	public static final Constructor<CharacterAI> DEFAULT_AI_CONSTRUCTOR = (Constructor<CharacterAI>) CharacterAI.class.getConstructors()[0];
+	public static final Constructor<? extends NpcInstance> DEFAULT_TYPE_CONSTRUCTOR = resolveTypeConstructor(NpcInstance.class);
+	public static final Constructor<? extends CharacterAI> DEFAULT_AI_CONSTRUCTOR = resolveAIConstructor(CharacterAI.class);
 	private static final Logger _log = LoggerFactory.getLogger(NpcTemplate.class);
 	public final int npcId;
 	public final String name;
@@ -67,10 +67,10 @@ public final class NpcTemplate extends CharTemplate
 	private Skill[] _buffSkills = Skill.EMPTY_ARRAY;
 	private Skill[] _stunSkills = Skill.EMPTY_ARRAY;
 	private Skill[] _healSkills = Skill.EMPTY_ARRAY;
-	private Class<NpcInstance> _classType = NpcInstance.class;
-	private Constructor<NpcInstance> _constructorType = DEFAULT_TYPE_CONSTRUCTOR;
-	private Class<CharacterAI> _classAI = CharacterAI.class;
-	private Constructor<CharacterAI> _constructorAI = DEFAULT_AI_CONSTRUCTOR;
+	private Class<? extends NpcInstance> _classType = NpcInstance.class;
+	private Constructor<? extends NpcInstance> _constructorType = DEFAULT_TYPE_CONSTRUCTOR;
+	private Class<? extends CharacterAI> _classAI = CharacterAI.class;
+	private Constructor<? extends CharacterAI> _constructorAI = DEFAULT_AI_CONSTRUCTOR;
 	
 	public NpcTemplate(StatsSet set)
 	{
@@ -139,7 +139,7 @@ public final class NpcTemplate extends CharTemplate
 	
 	private void setType(String type)
 	{
-		Class classType;
+		Class<?> classType;
 		try
 		{
 			classType = Class.forName("l2.gameserver.model.instances." + type + "Instance");
@@ -154,8 +154,8 @@ public final class NpcTemplate extends CharTemplate
 		}
 		else
 		{
-			_classType = classType;
-			_constructorType = (Constructor<NpcInstance>) _classType.getConstructors()[0];
+			_classType = classType.asSubclass(NpcInstance.class);
+			_constructorType = resolveTypeConstructor(_classType);
 		}
 		if(_classType.isAnnotationPresent(Deprecated.class))
 		{
@@ -166,7 +166,7 @@ public final class NpcTemplate extends CharTemplate
 	
 	private void setAI(String ai)
 	{
-		Class classAI;
+		Class<?> classAI;
 		try
 		{
 			classAI = Class.forName("l2.gameserver.ai." + ai);
@@ -181,8 +181,8 @@ public final class NpcTemplate extends CharTemplate
 		}
 		else
 		{
-			_classAI = classAI;
-			_constructorAI = (Constructor<CharacterAI>) _classAI.getConstructors()[0];
+			_classAI = classAI.asSubclass(CharacterAI.class);
+			_constructorAI = resolveAIConstructor(_classAI);
 		}
 		if(_classAI.isAnnotationPresent(Deprecated.class))
 		{
@@ -213,7 +213,7 @@ public final class NpcTemplate extends CharTemplate
 	{
 		if(_teleportList.isEmpty())
 		{
-			_teleportList = new TIntObjectHashMap(1);
+			_teleportList = new TIntObjectHashMap<>(1);
 		}
 		_teleportList.put(id, list);
 	}
@@ -279,7 +279,7 @@ public final class NpcTemplate extends CharTemplate
 	{
 		if(_skills.isEmpty())
 		{
-			_skills = new TIntObjectHashMap();
+			_skills = new TIntObjectHashMap<>();
 		}
 		_skills.put(skill.getId(), skill);
 		if(skill.isNotUsedByAI() || skill.getTargetType() == Skill.SkillTargetType.TARGET_NONE || skill.getSkillType() == Skill.SkillType.NOTDONE || !skill.isActive())
@@ -477,6 +477,38 @@ public final class NpcTemplate extends CharTemplate
 	public final StatsSet getAIParams()
 	{
 		return _AIParams;
+	}
+
+	private static Constructor<? extends NpcInstance> resolveTypeConstructor(Class<? extends NpcInstance> type)
+	{
+		try
+		{
+			return type.getConstructor(int.class, NpcTemplate.class);
+		}
+		catch(NoSuchMethodException e)
+		{
+			throw new IllegalStateException("Missing compatible NPC constructor for " + type.getName(), e);
+		}
+	}
+
+	private static Constructor<? extends CharacterAI> resolveAIConstructor(Class<? extends CharacterAI> type)
+	{
+		for(Constructor<?> constructor : type.getConstructors())
+		{
+			Class<?>[] parameterTypes = constructor.getParameterTypes();
+			if(parameterTypes.length == 1 && parameterTypes[0].isAssignableFrom(NpcInstance.class))
+			{
+				try
+				{
+					return type.getConstructor(parameterTypes);
+				}
+				catch(NoSuchMethodException e)
+				{
+					throw new IllegalStateException("Missing compatible AI constructor for " + type.getName(), e);
+				}
+			}
+		}
+		throw new IllegalStateException("Missing compatible AI constructor for " + type.getName());
 	}
 	
 	public List<AbsorbInfo> getAbsorbInfo()

@@ -24,9 +24,9 @@ public class CrestCache
 	private final TIntIntHashMap _pledgeCrestId = new TIntIntHashMap();
 	private final TIntIntHashMap _pledgeCrestLargeId = new TIntIntHashMap();
 	private final TIntIntHashMap _allyCrestId = new TIntIntHashMap();
-	private final TIntObjectHashMap<byte[]> _pledgeCrest = new TIntObjectHashMap();
-	private final TIntObjectHashMap<byte[]> _pledgeCrestLarge = new TIntObjectHashMap();
-	private final TIntObjectHashMap<byte[]> _allyCrest = new TIntObjectHashMap();
+	private final TIntObjectHashMap<byte[]> _pledgeCrest = new TIntObjectHashMap<>();
+	private final TIntObjectHashMap<byte[]> _pledgeCrestLarge = new TIntObjectHashMap<>();
+	private final TIntObjectHashMap<byte[]> _allyCrest = new TIntObjectHashMap<>();
 	private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 	private final Lock readLock = lock.readLock();
 	private final Lock writeLock = lock.writeLock();

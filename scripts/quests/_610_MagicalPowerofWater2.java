@@ -1,6 +1,5 @@
 package quests;
 
-import l2.commons.listener.Listener;
 import l2.commons.util.Rnd;
 import l2.gameserver.instancemanager.ServerVariables;
 import l2.gameserver.listener.actor.OnDeathListener;
@@ -68,7 +67,7 @@ public class _610_MagicalPowerofWater2 extends Quest implements ScriptFile
 			{
 				st.takeItems(7238, 1);
 				SoulOfWaterAshutarSpawn = st.addSpawn(25316, 104825, -36926, -1136);
-				SoulOfWaterAshutarSpawn.addListener((Listener) new DeathListener());
+				SoulOfWaterAshutarSpawn.addListener(new DeathListener());
 				st.playSound("ItemSound.quest_middle");
 			}
 			else
@@ -152,7 +151,7 @@ public class _610_MagicalPowerofWater2 extends Quest implements ScriptFile
 				else if(cond == 2 && isQuest == null)
 				{
 					SoulOfWaterAshutarSpawn = st.addSpawn(25316, 104825, -36926, -1136);
-					SoulOfWaterAshutarSpawn.addListener((Listener) new DeathListener());
+					SoulOfWaterAshutarSpawn.addListener(new DeathListener());
 					htmltext = "totem_of_barka_q0610_0204.htm";
 				}
 			}

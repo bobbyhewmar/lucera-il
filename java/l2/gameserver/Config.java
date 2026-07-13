@@ -2289,7 +2289,7 @@ public class Config{
 			40,
 			30 });
 		String olyBuffsStr = olympSettings.getProperty("OlyBuffs", "99:30-1,31-2,3050-1;100:32-1,33-2");
-		OLY_BUFFS = new TIntObjectHashMap();
+		OLY_BUFFS = new TIntObjectHashMap<>();
 		StringTokenizer olyBuffTok = new StringTokenizer(olyBuffsStr, ";", false);
 		while (olyBuffTok.hasMoreTokens()) {
 			String olyBuff = olyBuffTok.nextToken();

@@ -5,7 +5,6 @@ import l2.commons.threading.RunnableImpl;
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.instancemanager.CursedWeaponsManager;
 import l2.gameserver.model.*;
 import l2.gameserver.model.base.Experience;
@@ -18,6 +17,7 @@ import l2.gameserver.model.quest.QuestState;
 import l2.gameserver.model.reward.RewardItem;
 import l2.gameserver.model.reward.RewardList;
 import l2.gameserver.model.reward.RewardType;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.SocialAction;
 import l2.gameserver.network.l2.s2c.SystemMessage;
 import l2.gameserver.stats.Stats;
@@ -374,7 +374,7 @@ public class MonsterInstance extends NpcInstance
 			}
 			else if(killer.getParty() != null)
 			{
-				players = new ArrayList(killer.getParty().getMemberCount());
+				players = new ArrayList<>(killer.getParty().getMemberCount());
 				for(Player pl : killer.getParty().getPartyMembers())
 				{
 					if(pl.isDead() || !isInRangeZ(pl, (long) Config.ALT_PARTY_DISTRIBUTION_RANGE) && !killer.isInRangeZ(pl, (long) Config.ALT_PARTY_DISTRIBUTION_RANGE))
@@ -497,7 +497,7 @@ public class MonsterInstance extends NpcInstance
 		{
 			return;
 		}
-		for(Map.Entry entry : getTemplate().getRewards().entrySet())
+		for(Map.Entry<RewardType, RewardList> entry : getTemplate().getRewards().entrySet())
 		{
 			rollRewards(entry, lastAttacker, topDamager);
 		}
@@ -815,7 +815,7 @@ public class MonsterInstance extends NpcInstance
 		if(xp > 0.0 && killer.getObjectId() == overhitAttackerId)
 		{
 			int overHitExp = calculateOverhitExp(xp);
-			killer.sendPacket(Msg.OVER_HIT, new SystemMessage(362).addNumber(overHitExp));
+			killer.sendPacket(SystemMsg.OVER_HIT, new SystemMessage(SystemMsg.ACQUIRED_S1_BONUS_EXPERIENCE_THROUGH_OVER_HIT).addNumber(overHitExp));
 			xp += (double) overHitExp;
 		}
 		return xp;

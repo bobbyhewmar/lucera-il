@@ -66,7 +66,7 @@ public final class StringHolder extends AbstractHolder
 	{
 		for(Language lang : Language.VALUES)
 		{
-			_strings.put(lang, new HashMap());
+			_strings.put(lang, new HashMap<>());
 			File f = new File(Config.DATAPACK_ROOT, "data/string/strings_" + lang.getShortName() + ".properties");
 			if(!f.exists())
 			{

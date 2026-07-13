@@ -2,11 +2,11 @@ package l2.gameserver.model.instances;
 
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.instancemanager.ServerVariables;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.MonsterRace;
 import l2.gameserver.model.items.ItemInstance;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.DeleteObject;
 import l2.gameserver.network.l2.s2c.L2GameServerPacket;
 import l2.gameserver.network.l2.s2c.MonRaceInfo;
@@ -195,12 +195,12 @@ public class RaceManagerInstance extends NpcInstance
 		}
 		if(command.startsWith("BuyTicket") && state != 0)
 		{
-			player.sendPacket(Msg.MONSTER_RACE_TICKETS_ARE_NO_LONGER_AVAILABLE);
+			player.sendPacket(SystemMsg.MONSTER_RACE_TICKETS_ARE_NO_LONGER_AVAILABLE);
 			command = "Chat 0";
 		}
 		if(command.startsWith("ShowOdds") && state == 0)
 		{
-			player.sendPacket(Msg.MONSTER_RACE_PAYOUT_INFORMATION_IS_NOT_AVAILABLE_WHILE_TICKETS_ARE_BEING_SOLD);
+			player.sendPacket(SystemMsg.MONSTER_RACE_PAYOUT_INFORMATION_IS_NOT_AVAILABLE_WHILE_TICKETS_ARE_BEING_SOLD);
 			command = "Chat 0";
 		}
 		if(command.startsWith("BuyTicket"))
@@ -351,7 +351,7 @@ public class RaceManagerInstance extends NpcInstance
 			}
 			if(player.getAdena() < (long) cost[player.getRace(1) - 1])
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				return;
 			}
 			int ticket = player.getRace(0);

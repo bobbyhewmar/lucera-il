@@ -35,7 +35,7 @@ public abstract class SagasSuperclass extends Quest
 	
 	static
 	{
-		Map<Integer, Pair<Class<?>, ClassId[]>> theQuests = new HashMap();
+		Map<Integer, Pair<Class<?>, ClassId[]>> theQuests = new HashMap<>();
 		theQuests.put(70, Pair.of(_070_SagaOfThePhoenixKnight.class, new ClassId[] {ClassId.phoenixKnight}));
 		theQuests.put(71, Pair.of(_071_SagaOfEvasTemplar.class, new ClassId[] {ClassId.evaTemplar}));
 		theQuests.put(72, Pair.of(_072_SagaOfTheSwordMuse.class, new ClassId[] {ClassId.swordMuse}));
@@ -80,7 +80,7 @@ public abstract class SagasSuperclass extends Quest
 	protected int[] X = {0, 1, 2};
 	protected int[] Y = {0, 1, 2};
 	protected int[] Z = {0, 1, 2};
-	protected IntObjectMap<List<QuestSpawnInfo>> _spawnInfos = new CHashIntObjectMap();
+	protected IntObjectMap<List<QuestSpawnInfo>> _spawnInfos = new CHashIntObjectMap<>();
 	protected TIntIntHashMap _kills = new TIntIntHashMap();
 	protected TIntIntHashMap _archons = new TIntIntHashMap();
 	protected int[] Archon_Minions = {21646, 21647, 21648, 21649, 21650, 21651};
@@ -97,7 +97,7 @@ public abstract class SagasSuperclass extends Quest
 		for(Map.Entry<Integer, Pair<Class<?>, ClassId[]>> e : Quests.entrySet())
 		{
 			int questId = e.getKey();
-			Class questClazz = e.getValue().getLeft();
+			Class<?> questClazz = e.getValue().getLeft();
 			ClassId[] questClassIds = e.getValue().getRight();
 			QuestState st = player.getQuestState(questClazz);
 			if(st == null)

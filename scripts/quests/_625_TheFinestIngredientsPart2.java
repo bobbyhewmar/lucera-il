@@ -1,6 +1,5 @@
 package quests;
 
-import l2.commons.listener.Listener;
 import l2.commons.threading.RunnableImpl;
 import l2.commons.util.Rnd;
 import l2.gameserver.ThreadPoolManager;
@@ -237,7 +236,7 @@ public class _625_TheFinestIngredientsPart2 extends Quest implements ScriptFile
 			_spawn.stopRespawn();
 			for(NpcInstance _npc : _spawn.getAllSpawned())
 			{
-				_npc.addListener((Listener) new DeathListener());
+				_npc.addListener(new DeathListener());
 			}
 		}
 		

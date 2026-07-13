@@ -12,7 +12,7 @@ import java.util.List;
 public final class HennaHolder extends AbstractHolder
 {
 	private static final HennaHolder _instance = new HennaHolder();
-	private final TIntObjectHashMap<Henna> _hennas = new TIntObjectHashMap();
+	private final TIntObjectHashMap<Henna> _hennas = new TIntObjectHashMap<>();
 	
 	public static HennaHolder getInstance()
 	{

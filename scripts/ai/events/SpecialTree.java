@@ -9,7 +9,7 @@ import l2.gameserver.tables.SkillTable;
 
 public class SpecialTree extends DefaultAI
 {
-	private static final RndSelector<Integer> SOUNDS = new RndSelector(5);
+	private static final RndSelector<Integer> SOUNDS = new RndSelector<>(5);
 	
 	static
 	{

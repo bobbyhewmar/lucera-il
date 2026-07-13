@@ -20,8 +20,8 @@ import java.util.Collection;
 public class SubUnit
 {
 	private static final Logger _log = LoggerFactory.getLogger(SubUnit.class);
-	private final IntObjectMap<Skill> _skills = new CTreeIntObjectMap();
-	private final IntObjectMap<UnitMember> _members = new CHashIntObjectMap();
+	private final IntObjectMap<Skill> _skills = new CTreeIntObjectMap<>();
+	private final IntObjectMap<UnitMember> _members = new CHashIntObjectMap<>();
 	private final int _type;
 	private final Clan _clan;
 	private int _leaderObjectId;

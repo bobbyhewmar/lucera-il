@@ -1,11 +1,11 @@
 package l2.gameserver.model;
 
 import l2.commons.collections.JoinedIterator;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.entity.Reflection;
 import l2.gameserver.model.instances.NpcFriendInstance;
 import l2.gameserver.model.matching.MatchingRoom;
 import l2.gameserver.network.l2.components.IStaticPacket;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExMPCCClose;
 import l2.gameserver.network.l2.s2c.ExMPCCOpen;
 import l2.gameserver.network.l2.s2c.ExMPCCPartyInfoUpdate;
@@ -40,7 +40,7 @@ public class CommandChannel implements PlayerGroup
 	{
 		if(creator.getClan() == null || !creator.isInParty() || !creator.getParty().isLeader(creator) || creator.getPledgeClass() < 5)
 		{
-			creator.sendPacket(Msg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
+			creator.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
 			return false;
 		}
 		boolean haveSkill = creator.getSkillLevel(391) > 0;
@@ -48,7 +48,7 @@ public class CommandChannel implements PlayerGroup
 		boolean bl = haveItem = creator.getInventory().getItemByItemId(8871) != null;
 		if(!haveSkill && !haveItem)
 		{
-			creator.sendPacket(Msg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
+			creator.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
 			return false;
 		}
 		return true;
@@ -101,7 +101,7 @@ public class CommandChannel implements PlayerGroup
 	
 	public void disbandChannel()
 	{
-		broadCast(Msg.THE_COMMAND_CHANNEL_HAS_BEEN_DISBANDED);
+		broadCast(SystemMsg.THE_COMMAND_CHANNEL_HAS_BEEN_DISBANDED);
 		for(Party party : _commandChannelParties)
 		{
 			party.setCommandChannel(null);

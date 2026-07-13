@@ -187,8 +187,8 @@ public class QuestSell extends Functions implements ScriptFile
 	private static String formatQuestSellInfo(Player player, int idx, Pair<Set<Quest>, List<Pair<Integer, Long>>> questSellInfo)
 	{
 		String questSellInfoText = StringHolder.getInstance().getNotNull(player, "scripts.services.QuestSell.questSellInfo");
-		Set quests = questSellInfo.getKey();
-		List price = questSellInfo.getValue();
+		Set<Quest> quests = questSellInfo.getKey();
+		List<Pair<Integer, Long>> price = questSellInfo.getValue();
 		questSellInfoText = questSellInfoText.replace("%quests_list%", String.join("<br1>", formatQuestList(player, quests)));
 		questSellInfoText = questSellInfoText.replace("%price_list%", String.join("<br1>", formatPriceList(player, price)));
 		questSellInfoText = questSellInfoText.replace("%bypass%", "-h scripts_services.QuestSell:buyQuestsListByIdx " + idx);
@@ -209,10 +209,10 @@ public class QuestSell extends Functions implements ScriptFile
 		return (page + 1) * 5 < length;
 	}
 	
-	private static String pagingHtml(Player player, int page, Object[] items, String method)
+	private static String pagingHtml(Player player, int page, int itemsCount, String method)
 	{
 		String bypassFmt = "-h scripts_services.QuestSell:" + method + " %d";
-		return pagingHtml(player, page > 0 ? String.format(bypassFmt, page - 1).trim() : null, page, hasNextPage(items.length, page) ? String.format(bypassFmt, page + 1).trim() : null);
+		return pagingHtml(player, page > 0 ? String.format(bypassFmt, page - 1).trim() : null, page, hasNextPage(itemsCount, page) ? String.format(bypassFmt, page + 1).trim() : null);
 	}
 	
 	private static boolean isMayTakeQuests(Player player, Collection<Quest> quests)
@@ -227,39 +227,39 @@ public class QuestSell extends Functions implements ScriptFile
 		return false;
 	}
 	
-	private static Pair<Set<Quest>, List<Pair<Integer, Long>>>[] filterAvailableQuests(Player player, Map<Set<Quest>, List<Pair<Integer, Long>>> questSellMap)
+	private static List<Pair<Set<Quest>, List<Pair<Integer, Long>>>> filterAvailableQuests(Player player, Map<Set<Quest>, List<Pair<Integer, Long>>> questSellMap)
 	{
-		ArrayList<Pair> result = new ArrayList<>();
+		ArrayList<Pair<Set<Quest>, List<Pair<Integer, Long>>>> result = new ArrayList<>();
 		for(Map.Entry<Set<Quest>, List<Pair<Integer, Long>>> e : questSellMap.entrySet())
 		{
 			if(!isMayTakeQuests(player, e.getKey()))
 				continue;
 			result.add(Pair.of(e.getKey(), e.getValue()));
 		}
-		return result.toArray(new Pair[result.size()]);
+		return result;
 	}
 	
-	private static Pair<Set<Quest>, List<Pair<Integer, Long>>>[] getAvailableQuests(Player player)
+	private static List<Pair<Set<Quest>, List<Pair<Integer, Long>>>> getAvailableQuests(Player player)
 	{
 		return filterAvailableQuests(player, parseQuestSellList(Config.QUEST_SELL_QUEST_PRICES));
 	}
 	
 	private static void doListAvailableQuestsForSell(Player player, NpcInstance npc, int page)
 	{
-		Pair<Set<Quest>, List<Pair<Integer, Long>>>[] questSell = getAvailableQuests(player);
+		List<Pair<Set<Quest>, List<Pair<Integer, Long>>>> questSell = getAvailableQuests(player);
 		StringBuilder questsHtmlBuilder = new StringBuilder();
 		NpcHtmlMessage html = new NpcHtmlMessage(player, npc);
 		html.setFile("mods/questsell/quests_sell_list.htm");
 		int qIdx = 5 * page;
 		
-		for(int qLastIdx = qIdx + 5;qIdx < qLastIdx && qIdx < questSell.length;++qIdx)
+		for(int qLastIdx = qIdx + 5;qIdx < qLastIdx && qIdx < questSell.size();++qIdx)
 		{
-			Pair<Set<Quest>, List<Pair<Integer, Long>>> qsItem = questSell[qIdx];
+			Pair<Set<Quest>, List<Pair<Integer, Long>>> qsItem = questSell.get(qIdx);
 			questsHtmlBuilder.append(formatQuestSellInfo(player, qIdx, qsItem));
 		}
 		
 		html.replace("%list%", questsHtmlBuilder.toString());
-		html.replace("%paging%", pagingHtml(player, page, questSell, "listAvailableQuestsForSell"));
+		html.replace("%paging%", pagingHtml(player, page, questSell.size(), "listAvailableQuestsForSell"));
 		player.sendPacket(html);
 	}
 	
@@ -318,9 +318,9 @@ public class QuestSell extends Functions implements ScriptFile
 			player.sendMessage(new CustomMessage("scripts.services.off", player));
 			return;
 		}
-		Pair<Set<Quest>, List<Pair<Integer, Long>>>[] questSell = getAvailableQuests(player);
+		List<Pair<Set<Quest>, List<Pair<Integer, Long>>>> questSell = getAvailableQuests(player);
 		int questsListIdx = Integer.parseInt(args[0]);
-		Pair<Set<Quest>, List<Pair<Integer, Long>>> item = questSell[questsListIdx];
+		Pair<Set<Quest>, List<Pair<Integer, Long>>> item = questSell.get(questsListIdx);
 		buyQuests(player, item.getLeft(), item.getRight());
 		listAvailableQuestsForSell();
 	}

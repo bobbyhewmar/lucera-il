@@ -83,7 +83,8 @@ public class MMOConnection<T extends MMOClient>
 		scheduleWriteInterest();
 	}
 	
-	public void sendPacket(SendablePacket<T>... args)
+	@SafeVarargs
+	public final void sendPacket(SendablePacket<T>... args)
 	{
 		if(args == null || args.length == 0)
 		{

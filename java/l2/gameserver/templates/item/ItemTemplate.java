@@ -684,7 +684,7 @@ public abstract class ItemTemplate extends StatTemplate
 	{
 		if(_enchantOptions.isEmpty())
 		{
-			_enchantOptions = new HashIntObjectMap();
+			_enchantOptions = new HashIntObjectMap<>();
 		}
 		_enchantOptions.put(level, options);
 	}

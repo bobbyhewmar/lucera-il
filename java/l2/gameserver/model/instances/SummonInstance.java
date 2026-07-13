@@ -3,7 +3,6 @@ package l2.gameserver.model.instances;
 import l2.commons.lang.reference.HardReference;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
@@ -21,6 +20,7 @@ import java.util.concurrent.Future;
 public class SummonInstance extends Summon
 {
 	public final int CYCLE = 5000;
+	private final HardReference<SummonInstance> _summonRef;
 	private final int _summonSkillId;
 	private final int _itemConsumeIdInTime;
 	private final int _itemConsumeCountInTime;
@@ -34,6 +34,7 @@ public class SummonInstance extends Summon
 	public SummonInstance(int objectId, NpcTemplate template, Player owner, int lifetime, int consumeid, int consumecount, int consumedelay, Skill skill)
 	{
 		super(objectId, template, owner);
+		_summonRef = typedRef(SummonInstance.class);
 		setName(template.name);
 		_lifetimeCountdown = _maxLifetime = lifetime;
 		_itemConsumeIdInTime = consumeid;
@@ -46,7 +47,7 @@ public class SummonInstance extends Summon
 	@Override
 	public HardReference<SummonInstance> getRef()
 	{
-		return (HardReference<SummonInstance>) super.getRef();
+		return _summonRef;
 	}
 	
 	@Override
@@ -238,7 +239,7 @@ public class SummonInstance extends Summon
 			_lifetimeCountdown = _lifetimeCountdown - usedtime;
 			if(_lifetimeCountdown <= 0)
 			{
-				owner.sendPacket(Msg.SERVITOR_DISAPPEASR_BECAUSE_THE_SUMMONING_TIME_IS_OVER);
+				owner.sendPacket(SystemMsg.SERVITOR_DISAPPEASR_BECAUSE_THE_SUMMONING_TIME_IS_OVER);
 				_disappearTask = null;
 				unSummon();
 				return;
@@ -253,7 +254,7 @@ public class SummonInstance extends Summon
 				}
 				else
 				{
-					owner.sendPacket(Msg.SINCE_YOU_DO_NOT_HAVE_ENOUGH_ITEMS_TO_MAINTAIN_THE_SERVITORS_STAY_THE_SERVITOR_WILL_DISAPPEAR);
+					owner.sendPacket(SystemMsg.SINCE_YOU_DO_NOT_HAVE_ENOUGH_ITEMS_TO_MAINTAIN_THE_SERVITORS_STAY_THE_SERVITOR_WILL_DISAPPEAR);
 					unSummon();
 				}
 			}

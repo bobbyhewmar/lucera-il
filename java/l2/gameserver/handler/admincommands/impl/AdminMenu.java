@@ -1,11 +1,11 @@
 package l2.gameserver.handler.admincommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.utils.AdminFunctions;
 import l2.gameserver.utils.Location;
@@ -82,7 +82,7 @@ public class AdminMenu implements IAdminCommandHandler
 			}
 			else
 			{
-				activeChar.sendPacket(Msg.INVALID_TARGET);
+				activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			}
 		}
 		else if(fullString.startsWith("admin_kick_menu") && (st = new StringTokenizer(fullString)).countTokens() > 1)
@@ -117,7 +117,7 @@ public class AdminMenu implements IAdminCommandHandler
 	{
 		if(target == null || !target.isPlayer())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;

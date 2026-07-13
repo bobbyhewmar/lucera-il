@@ -23,7 +23,7 @@ public class MessengerInstance extends NpcInstance
 	public void showChatWindow(Player player, int val, Object... arg)
 	{
 		ClanHall clanHall = getClanHall();
-		ClanHallSiegeEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallSiegeEvent siegeEvent = clanHall.getSiegeEvent(ClanHallSiegeEvent.class);
 		if(clanHall.getOwner() != null && clanHall.getOwner() == player.getClan())
 		{
 			showChatWindow(player, _ownerDialog);

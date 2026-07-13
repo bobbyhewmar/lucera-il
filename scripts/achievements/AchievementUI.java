@@ -88,11 +88,11 @@ public class AchievementUI extends Functions implements ScriptFile
 				}
 				List<Pair<AchievementInfo, Pair<Integer, Integer>>> achievementInfoLevelsIdxLimList = paginator.getItems();
 				boolean invColor = true;
-				for(Pair achievementInfoLevelsIdxLim : achievementInfoLevelsIdxLimList)
+				for(Pair<AchievementInfo, Pair<Integer, Integer>> achievementInfoLevelsIdxLim : achievementInfoLevelsIdxLimList)
 				{
-					AchievementInfo achievementInfo = (AchievementInfo) achievementInfoLevelsIdxLim.getLeft();
+					AchievementInfo achievementInfo = achievementInfoLevelsIdxLim.getLeft();
 					invColor = !invColor;
-					achievementsHtml.append(buildAchievementHtml(activeCategoryIdx, activePageIdx, activeAchId, activeAchLvl, player, achievementInfo, (Pair) achievementInfoLevelsIdxLim.getRight(), invColor));
+					achievementsHtml.append(buildAchievementHtml(activeCategoryIdx, activePageIdx, activeAchId, activeAchLvl, player, achievementInfo, achievementInfoLevelsIdxLim.getRight(), invColor));
 				}
 			}
 			htmlContent = htmlContent.replace("%achievements_list%", achievementsHtml.toString());
@@ -330,7 +330,7 @@ public class AchievementUI extends Functions implements ScriptFile
 		
 		public Paginator<ItemType> addItem(ItemType item, int length)
 		{
-			items.add((Pair) Pair.of(item, (Object) length));
+			items.add(Pair.of(item, Integer.valueOf(length)));
 			return this;
 		}
 		
@@ -355,7 +355,7 @@ public class AchievementUI extends Functions implements ScriptFile
 				int length = itemAndLength.getRight();
 				if(offset < end && offset + length > begin)
 				{
-					result.add((Pair) Pair.of((Object) itemAndLength.getLeft(), (Object) Pair.of((Object) Math.max(begin - offset, 0), (Object) Math.min(length, end - offset))));
+					result.add(Pair.of(itemAndLength.getLeft(), Pair.of(Integer.valueOf(Math.max(begin - offset, 0)), Integer.valueOf(Math.min(length, end - offset)))));
 				}
 				offset += length;
 			}

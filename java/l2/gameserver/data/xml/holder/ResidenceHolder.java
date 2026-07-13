@@ -7,8 +7,10 @@ import l2.gameserver.model.entity.residence.Residence;
 import org.napile.primitive.maps.IntObjectMap;
 import org.napile.primitive.maps.impl.TreeIntObjectMap;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +18,8 @@ import java.util.Map;
 public final class ResidenceHolder extends AbstractHolder
 {
 	private static final ResidenceHolder _instance = new ResidenceHolder();
-	private final IntObjectMap<Residence> _residences = new TreeIntObjectMap();
-	private final Map<Class, List<Residence>> _fastResidencesByType = new HashMap<>(4);
+	private final IntObjectMap<Residence> _residences = new TreeIntObjectMap<>();
+	private final Map<Class<? extends Residence>, List<Residence>> _fastResidencesByType = new HashMap<>(4);
 	
 	private ResidenceHolder()
 	{
@@ -33,24 +35,24 @@ public final class ResidenceHolder extends AbstractHolder
 		_residences.put(r.getId(), r);
 	}
 	
-	public <R extends Residence> R getResidence(int id)
+	public Residence getResidence(int id)
 	{
-		return (R) _residences.get(id);
+		return _residences.get(id);
 	}
 	
 	public <R extends Residence> R getResidence(Class<R> type, int id)
 	{
-		R r = getResidence(id);
-		if(r == null || r.getClass() != type)
+		Residence residence = getResidence(id);
+		if(residence == null || residence.getClass() != type)
 		{
 			return null;
 		}
-		return r;
+		return type.cast(residence);
 	}
 	
 	public <R extends Residence> List<R> getResidenceList(Class<R> t)
 	{
-		return (List<R>) _fastResidencesByType.get(t);
+		return typedResidencesView(_fastResidencesByType.get(t), t);
 	}
 	
 	public Collection<Residence> getResidences()
@@ -58,30 +60,45 @@ public final class ResidenceHolder extends AbstractHolder
 		return _residences.values();
 	}
 	
-	public <R extends Residence> R getResidenceByObject(Class<? extends Residence> type, GameObject object)
+	public Residence getResidenceByObject(GameObject object)
 	{
-		return (R) getResidenceByCoord(type, object.getX(), object.getY(), object.getZ(), object.getReflection());
+		return getResidenceByCoord(object.getX(), object.getY(), object.getZ(), object.getReflection());
+	}
+
+	public <R extends Residence> R getResidenceByObject(Class<R> type, GameObject object)
+	{
+		return getResidenceByCoord(type, object.getX(), object.getY(), object.getZ(), object.getReflection());
+	}
+
+	public Residence getResidenceByCoord(int x, int y, int z, Reflection ref)
+	{
+		for(Residence residence : getResidences())
+		{
+			if(!residence.checkIfInZone(x, y, z, ref))
+				continue;
+			return residence;
+		}
+		return null;
 	}
 	
 	public <R extends Residence> R getResidenceByCoord(Class<R> type, int x, int y, int z, Reflection ref)
 	{
-		Collection<Residence> residences = type == null ? getResidences() : (Collection<Residence>) getResidenceList(type);
-		for(Residence residence : residences)
+		for(R residence : getResidenceList(type))
 		{
 			if(!residence.checkIfInZone(x, y, z, ref))
 				continue;
-			return (R) residence;
+			return residence;
 		}
 		return null;
 	}
 	
 	public <R extends Residence> R findNearestResidence(Class<R> clazz, int x, int y, int z, Reflection ref, int offset)
 	{
-		Object residence = getResidenceByCoord(clazz, x, y, z, ref);
+		R residence = getResidenceByCoord(clazz, x, y, z, ref);
 		if(residence == null)
 		{
 			double closestDistance = offset;
-			for(Residence r : getResidenceList(clazz))
+			for(R r : getResidenceList(clazz))
 			{
 				double distance = r.getZone().findDistanceToZone(x, y, z, false);
 				if(closestDistance <= distance)
@@ -90,7 +107,7 @@ public final class ResidenceHolder extends AbstractHolder
 				residence = r;
 			}
 		}
-		return (R) residence;
+		return residence;
 	}
 	
 	public void callInit()
@@ -120,9 +137,56 @@ public final class ResidenceHolder extends AbstractHolder
 	{
 		buildFastLook();
 		info("total size: " + _residences.size());
-		for(Map.Entry<Class, List<Residence>> entry : _fastResidencesByType.entrySet())
+		for(Map.Entry<Class<? extends Residence>, List<Residence>> entry : _fastResidencesByType.entrySet())
 		{
 			info(" - load " + entry.getValue().size() + " " + entry.getKey().getSimpleName().toLowerCase() + "(s).");
+		}
+	}
+
+	private static <R extends Residence> List<R> typedResidencesView(List<Residence> residences, Class<R> type)
+	{
+		return residences == null || residences.isEmpty() ? Collections.emptyList() : new TypedResidencesView<>(residences, type);
+	}
+
+	private static final class TypedResidencesView<R extends Residence> extends AbstractList<R>
+	{
+		private final List<Residence> _delegate;
+		private final Class<R> _type;
+
+		private TypedResidencesView(List<Residence> delegate, Class<R> type)
+		{
+			_delegate = delegate;
+			_type = type;
+		}
+
+		@Override
+		public R get(int index)
+		{
+			return _type.cast(_delegate.get(index));
+		}
+
+		@Override
+		public int size()
+		{
+			return _delegate.size();
+		}
+
+		@Override
+		public void add(int index, R element)
+		{
+			_delegate.add(index, element);
+		}
+
+		@Override
+		public R set(int index, R element)
+		{
+			return _type.cast(_delegate.set(index, element));
+		}
+
+		@Override
+		public R remove(int index)
+		{
+			return _type.cast(_delegate.remove(index));
 		}
 	}
 	

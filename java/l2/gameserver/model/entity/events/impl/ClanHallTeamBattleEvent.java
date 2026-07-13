@@ -82,7 +82,7 @@ public class ClanHallTeamBattleEvent extends SiegeEvent<ClanHall, CTBSiegeClanOb
 			teleportPlayers("spectators");
 		}
 		team.despawnObject(this);
-		List<CTBTeamObject> teams = getObjects("tryout_part");
+		List<CTBTeamObject> teams = getObjects("tryout_part", CTBTeamObject.class);
 		boolean hasWinner = false;
 		CTBTeamObject winnerTeam = null;
 		for(CTBTeamObject t : teams)
@@ -148,11 +148,23 @@ public class ClanHallTeamBattleEvent extends SiegeEvent<ClanHall, CTBSiegeClanOb
 	{
 		List<SiegeClanObject> siegeClanObjectList = SiegeClanDAO.getInstance().load(getResidence(), "attackers");
 		addObjects("attackers", siegeClanObjectList);
-		List<CTBSiegeClanObject> objects = getObjects("attackers");
+		List<CTBSiegeClanObject> objects = getObjects("attackers", CTBSiegeClanObject.class);
 		for(CTBSiegeClanObject clan : objects)
 		{
 			clan.select(getResidence());
 		}
+	}
+	
+	@Override
+	protected Class<CTBSiegeClanObject> getSiegeClanType()
+	{
+		return CTBSiegeClanObject.class;
+	}
+
+	@Override
+	protected Class<ClanHall> getResidenceType()
+	{
+		return ClanHall.class;
 	}
 	
 	@Override

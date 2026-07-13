@@ -3,6 +3,7 @@ package l2.commons.versioning;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.text.StringCharacterIterator;
 import java.util.Locale;
@@ -47,27 +48,26 @@ public final class Locator
 	
 	public static String fromURI(String uri)
 	{
-		URL url = null;
+		URI fileUri = null;
 		try
 		{
-			url = new URL(uri);
+			fileUri = URI.create(uri);
 		}
-		catch(MalformedURLException e)
+		catch(IllegalArgumentException e)
 		{
 			
 		}
-		if(url == null || !"file".equals(url.getProtocol()))
+		if(fileUri == null || !"file".equals(fileUri.getScheme()))
 		{
 			throw new IllegalArgumentException("Can only handle valid file: URIs");
 		}
-		StringBuilder buf = new StringBuilder(url.getHost());
+		StringBuilder buf = new StringBuilder(fileUri.getHost() == null ? "" : fileUri.getHost());
 		if(buf.length() > 0)
 		{
 			buf.insert(0, File.separatorChar).insert(0, File.separatorChar);
 		}
-		int queryPos;
-		String file;
-		buf.append((queryPos = (file = url.getFile()).indexOf(63)) < 0 ? file : file.substring(0, queryPos));
+		String file = fileUri.getRawPath();
+		buf.append(file == null ? "" : file);
 		uri = buf.toString().replace('/', File.separatorChar);
 		if(File.pathSeparatorChar == ';' && uri.startsWith("\\") && uri.length() > 2 && Character.isLetter(uri.charAt(1)) && uri.lastIndexOf(58) > -1)
 		{

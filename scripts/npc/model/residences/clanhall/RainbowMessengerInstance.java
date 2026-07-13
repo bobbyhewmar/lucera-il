@@ -30,7 +30,7 @@ public class RainbowMessengerInstance extends NpcInstance
 			return;
 		}
 		ClanHall clanHall = getClanHall();
-		ClanHallMiniGameEvent miniGameEvent = clanHall.getSiegeEvent();
+		ClanHallMiniGameEvent miniGameEvent = clanHall.getSiegeEvent(ClanHallMiniGameEvent.class);
 		if(command.equalsIgnoreCase("register"))
 		{
 			if(miniGameEvent.isRegistrationOver())

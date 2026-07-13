@@ -1,8 +1,6 @@
 package achievements;
 
-import l2.commons.listener.Listener;
 import l2.gameserver.listener.CharListener;
-import l2.gameserver.listener.PlayerListener;
 import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.OnKillListener;
 import l2.gameserver.listener.actor.player.OnGainExpSpListener;
@@ -26,7 +24,7 @@ import java.util.List;
 public class AchievementMetricListeners
 {
 	private static final AchievementMetricListeners INSTANCE = new AchievementMetricListeners();
-	private final List<? extends Listener<?>> _listenersInstances = Arrays.asList(new AchievementOnPlayerEnter(), new AchievementOnKill(), new AchievementOnDeath(), new AchievementOnPvPPkKill(), new AchievementOnGainExpSp(), new AchievementOnOlyCompetitionCompleted(), new AchievementOnQuestStateChange());
+	private final List<CharListener> _listenersInstances = Arrays.asList(new AchievementOnPlayerEnter(), new AchievementOnKill(), new AchievementOnDeath(), new AchievementOnPvPPkKill(), new AchievementOnGainExpSp(), new AchievementOnOlyCompetitionCompleted(), new AchievementOnQuestStateChange());
 	
 	private AchievementMetricListeners()
 	{
@@ -59,33 +57,16 @@ public class AchievementMetricListeners
 	
 	public void init()
 	{
-		for(Listener listener : _listenersInstances)
+		for(CharListener listener : _listenersInstances)
 		{
-			if(listener instanceof PlayerListener)
-			{
-				CharListenerList.addGlobal(listener);
-				continue;
-			}
-			if(listener instanceof CharListener)
-			{
-				CharListenerList.addGlobal(listener);
-				continue;
-			}
-			throw new IllegalStateException("Unknown listener " + listener.getClass());
+			CharListenerList.addGlobal(listener);
 		}
 	}
 	
 	public void done()
 	{
-		for(Listener listener : _listenersInstances)
+		for(CharListener listener : _listenersInstances)
 		{
-			if(listener instanceof PlayerListener)
-			{
-				CharListenerList.removeGlobal(listener);
-				continue;
-			}
-			if(!(listener instanceof CharListener))
-				continue;
 			CharListenerList.removeGlobal(listener);
 		}
 	}
@@ -157,7 +138,7 @@ public class AchievementMetricListeners
 				{
 					RaidBossInstance raidBoss = (RaidBossInstance) victim;
 					Location raidBossLoc = raidBoss.getLoc();
-					ArrayList<Creature> raidParticipants = new ArrayList(raidBoss.getAggroList().getCharMap().keySet());
+					ArrayList<Creature> raidParticipants = new ArrayList<>(raidBoss.getAggroList().getCharMap().keySet());
 					LinkedHashSet<Player> raidPlayerParticipants = new LinkedHashSet<>();
 					for(Creature creature : raidParticipants)
 					{

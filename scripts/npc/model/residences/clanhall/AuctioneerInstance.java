@@ -124,12 +124,12 @@ public class AuctioneerInstance extends NpcInstance
 			if(tokenizer.hasMoreTokens())
 			{
 				int id = Integer.parseInt(tokenizer.nextToken());
-				clanHall = ResidenceHolder.getInstance().getResidence(id);
+				clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
 				fileName = "residence2/clanhall/auction_clanhall_info_main.htm";
 			}
 			else
 			{
-				ClanHall clanHall2 = player.getClan() == null ? null : (clanHall = player.getClan().getHasHideout() > 0 ? (ClanHall) ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout()) : null);
+				ClanHall clanHall2 = player.getClan() == null ? null : (clanHall = player.getClan().getHasHideout() > 0 ? ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout()) : null);
 				if(clanHall != null && clanHall.getSiegeEvent().getClass() == ClanHallAuctionEvent.class)
 				{
 					fileName = clanHall.getSiegeEvent().isInProgress() ? "residence2/clanhall/auction_clanhall_info_owner_sell.htm" : "residence2/clanhall/auction_clanhall_info_owner.htm";
@@ -152,7 +152,7 @@ public class AuctioneerInstance extends NpcInstance
 					fileName = "residence2/clanhall/auction_clanhall_info_bidded.htm";
 				}
 			}
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			List attackers = auctionEvent.getObjects("attackers");
 			NpcHtmlMessage msg = new NpcHtmlMessage(player, this);
 			msg.setFile(fileName);
@@ -182,8 +182,8 @@ public class AuctioneerInstance extends NpcInstance
 		{
 			int id = Integer.parseInt(tokenizer.nextToken());
 			int page = Integer.parseInt(tokenizer.nextToken());
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(id);
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			List attackers = auctionEvent.getObjects("attackers");
 			if(!auctionEvent.isInProgress())
 			{
@@ -239,8 +239,8 @@ public class AuctioneerInstance extends NpcInstance
 				return;
 			}
 			int id = Integer.parseInt(tokenizer.nextToken());
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(id);
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			if(!auctionEvent.isInProgress())
 			{
 				return;
@@ -281,7 +281,7 @@ public class AuctioneerInstance extends NpcInstance
 			}
 			ClanHall clanHall;
 			ClanHallAuctionEvent auctionEvent;
-			if(!(auctionEvent = (clanHall = ResidenceHolder.getInstance().getResidence(id)).getSiegeEvent()).isInProgress())
+			if(!(auctionEvent = (clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id)).getSiegeEvent(ClanHallAuctionEvent.class)).isInProgress())
 			{
 				return;
 			}
@@ -315,8 +315,8 @@ public class AuctioneerInstance extends NpcInstance
 			}
 			int id = Integer.parseInt(tokenizer.nextToken());
 			long bid = Long.parseLong(tokenizer.nextToken());
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(id);
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			if(!auctionEvent.isInProgress())
 			{
 				return;
@@ -368,8 +368,8 @@ public class AuctioneerInstance extends NpcInstance
 				return;
 			}
 			int id = Integer.parseInt(tokenizer.nextToken());
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(id);
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			if(!auctionEvent.isInProgress())
 			{
 				return;
@@ -396,8 +396,8 @@ public class AuctioneerInstance extends NpcInstance
 				return;
 			}
 			int id = Integer.parseInt(tokenizer.nextToken());
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(id);
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, id);
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
 			if(!auctionEvent.isInProgress())
 			{
 				return;
@@ -421,7 +421,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || clanHall.getSiegeEvent().isInProgress())
 			{
 				return;
@@ -447,7 +447,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || clanHall.getSiegeEvent().isInProgress())
 			{
 				showChatWindow(player, 0);
@@ -473,7 +473,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || clanHall.getSiegeEvent().isInProgress())
 			{
 				showChatWindow(player, 0);
@@ -527,7 +527,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || clanHall.getSiegeEvent().isInProgress())
 			{
 				showChatWindow(player, 0);
@@ -572,7 +572,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || !clanHall.getSiegeEvent().isInProgress())
 			{
 				showChatWindow(player, 0);
@@ -591,7 +591,7 @@ public class AuctioneerInstance extends NpcInstance
 				showChatWindow(player, 0);
 				return;
 			}
-			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(player.getClan().getHasHideout());
+			ClanHall clanHall = ResidenceHolder.getInstance().getResidence(ClanHall.class, player.getClan().getHasHideout());
 			if(clanHall.getSiegeEvent().getClass() != ClanHallAuctionEvent.class || !clanHall.getSiegeEvent().isInProgress())
 			{
 				showChatWindow(player, 0);
@@ -605,8 +605,8 @@ public class AuctioneerInstance extends NpcInstance
 			clanHall.setAuctionMinBid(0);
 			clanHall.setJdbcState(JdbcEntityState.UPDATED);
 			clanHall.update();
-			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent();
-			List<AuctionSiegeClanObject> siegeClans = auctionEvent.removeObjects("attackers");
+			ClanHallAuctionEvent auctionEvent = clanHall.getSiegeEvent(ClanHallAuctionEvent.class);
+			List<AuctionSiegeClanObject> siegeClans = auctionEvent.removeObjects("attackers", AuctionSiegeClanObject.class);
 			SiegeClanDAO.getInstance().delete(clanHall);
 			for(AuctionSiegeClanObject siegeClan : siegeClans)
 			{

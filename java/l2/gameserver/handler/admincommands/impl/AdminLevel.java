@@ -1,12 +1,12 @@
 package l2.gameserver.handler.admincommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.base.Experience;
 import l2.gameserver.model.instances.PetInstance;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.tables.PetDataTable;
 
 public class AdminLevel implements IAdminCommandHandler
@@ -15,7 +15,7 @@ public class AdminLevel implements IAdminCommandHandler
 	{
 		if(target == null || !target.isPlayer() && !target.isPet())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		if(level < 1 || level > Experience.getMaxLevel())
@@ -47,7 +47,7 @@ public class AdminLevel implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer() && !target.isPet())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		switch(command)

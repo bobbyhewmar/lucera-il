@@ -45,7 +45,7 @@ public class AlfredVonHellmann extends SiegeGuardFighter
 		{
 			return;
 		}
-		SpawnExObject spawnExObject = siegeEvent.getFirstObject("boss");
+		SpawnExObject spawnExObject = siegeEvent.getFirstObject("boss", SpawnExObject.class);
 		NpcInstance lidiaNpc = spawnExObject.getFirstSpawned();
 		if(lidiaNpc.getCurrentHpRatio() == 1.0)
 		{

@@ -191,7 +191,7 @@ public class ManageMemo implements ScriptFile, ICommunityBoardHandler
 					html = html.replace("%memo_id%", "0");
 					html = html.replace("%TREE%", "&nbsp;>&nbsp;Создание записки");
 					player.sendPacket(new ShowBoard(html, "1001", player));
-					List<String> args = new ArrayList();
+					List<String> args = new ArrayList<>();
 					args.add("0");
 					args.add("0");
 					args.add("0");
@@ -307,7 +307,7 @@ public class ManageMemo implements ScriptFile, ICommunityBoardHandler
 							html = html.replace("%memo_id%", String.valueOf(memoId));
 							html = html.replace("%TREE%", "&nbsp;>&nbsp;<a action=\"bypass _mmread_" + memoId + "_" + page + "\">Записка: " + rset.getString("title") + "</a>&nbsp;>&nbsp;Редактирование");
 							player.sendPacket(new ShowBoard(html, "1001", player));
-							List<String> args = new ArrayList();
+							List<String> args = new ArrayList<>();
 							args.add("0");
 							args.add("0");
 							args.add(String.valueOf(memoId));

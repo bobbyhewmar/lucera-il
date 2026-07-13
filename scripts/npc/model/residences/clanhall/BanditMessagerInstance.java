@@ -31,7 +31,7 @@ public class BanditMessagerInstance extends NpcInstance
 	public void onBypassFeedback(Player player, String command)
 	{
 		ClanHall clanHall = getClanHall();
-		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent(ClanHallTeamBattleEvent.class);
 		Clan clan = player.getClan();
 		if(command.equalsIgnoreCase("registrationMenu"))
 		{
@@ -184,10 +184,10 @@ public class BanditMessagerInstance extends NpcInstance
 		{
 			NpcHtmlMessage msg = new NpcHtmlMessage(player, this);
 			msg.setFile("residence2/clanhall/azit_messenger003.htm");
-			List siegeClans = siegeEvent.getObjects("attackers");
+			List<CTBSiegeClanObject> siegeClans = siegeEvent.getObjects("attackers", CTBSiegeClanObject.class);
 			for(int i = 0;i < 5;++i)
 			{
-				CTBSiegeClanObject siegeClan = (CTBSiegeClanObject) CollectionUtils.safeGet(siegeClans, i);
+				CTBSiegeClanObject siegeClan = CollectionUtils.safeGet(siegeClans, i);
 				if(siegeClan != null)
 				{
 					msg.replace("%clan_" + i + "%", siegeClan.getClan().getName());
@@ -210,7 +210,7 @@ public class BanditMessagerInstance extends NpcInstance
 	{
 		Clan clan = player.getClan();
 		ClanHall clanHall = getClanHall();
-		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent(ClanHallTeamBattleEvent.class);
 		List siegeClans = siegeEvent.getObjects("attackers");
 		SiegeClanObject siegeClan = siegeEvent.getSiegeClan("attackers", clan);
 		if(siegeEvent.isRegistrationOver())
@@ -254,7 +254,7 @@ public class BanditMessagerInstance extends NpcInstance
 	{
 		Clan clan = player.getClan();
 		ClanHall clanHall = getClanHall();
-		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallTeamBattleEvent siegeEvent = clanHall.getSiegeEvent(ClanHallTeamBattleEvent.class);
 		CTBSiegeClanObject siegeClan = new CTBSiegeClanObject("attackers", clan, 0);
 		siegeClan.getPlayers().add(player.getObjectId());
 		siegeEvent.addObject("attackers", siegeClan);

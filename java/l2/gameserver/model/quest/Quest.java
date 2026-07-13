@@ -22,10 +22,10 @@ import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.components.CustomMessage;
 import l2.gameserver.network.l2.s2c.ExQuestNpcLogList;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
-import l2.gameserver.scripts.Functions;
 import l2.gameserver.templates.item.ItemTemplate;
 import l2.gameserver.templates.npc.NpcTemplate;
 import l2.gameserver.utils.Location;
+import l2.gameserver.utils.NpcUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -404,7 +404,7 @@ public class Quest
 		addKillId(killIds);
 		if(_npcLogList.isEmpty())
 		{
-			_npcLogList = new TIntObjectHashMap(5);
+			_npcLogList = new TIntObjectHashMap<>(5);
 		}
 		ArrayList<QuestNpcLogInfo> vars;
 		if((vars = (ArrayList<QuestNpcLogInfo>) _npcLogList.get(cond)) == null)
@@ -884,7 +884,7 @@ public class Quest
 	
 	public NpcInstance addSpawn(int npcId, Location loc, int randomOffset, int despawnDelay)
 	{
-		NpcInstance result = Functions.spawn(randomOffset > 50 ? Location.findPointToStay(loc, 0, randomOffset, ReflectionManager.DEFAULT.getGeoIndex()) : loc, npcId);
+		NpcInstance result = NpcUtils.spawnSingle(npcId, randomOffset > 50 ? Location.findPointToStay(loc, 0, randomOffset, ReflectionManager.DEFAULT.getGeoIndex()) : loc);
 		if(despawnDelay > 0 && result != null)
 		{
 			ThreadPoolManager.getInstance().schedule(new DeSpawnScheduleTimerTask(result), despawnDelay);

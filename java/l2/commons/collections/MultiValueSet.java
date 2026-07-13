@@ -297,7 +297,7 @@ public class MultiValueSet<T> extends HashMap<T, Object>
 		Object val = get(name);
 		if(val != null && enumClass.isInstance(val))
 		{
-			return (E) val;
+			return enumClass.cast(val);
 		}
 		if(val instanceof String)
 		{
@@ -311,7 +311,7 @@ public class MultiValueSet<T> extends HashMap<T, Object>
 		Object val = get(name);
 		if(val != null && enumClass.isInstance(val))
 		{
-			return (E) val;
+			return enumClass.cast(val);
 		}
 		if(val instanceof String)
 		{

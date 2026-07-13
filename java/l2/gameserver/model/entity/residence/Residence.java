@@ -13,6 +13,7 @@ import l2.gameserver.model.Skill;
 import l2.gameserver.model.Zone;
 import l2.gameserver.model.entity.Reflection;
 import l2.gameserver.model.entity.events.EventType;
+import l2.gameserver.model.entity.events.GlobalEvent;
 import l2.gameserver.model.entity.events.impl.SiegeEvent;
 import l2.gameserver.model.pledge.Clan;
 import l2.gameserver.network.l2.components.SystemMsg;
@@ -82,12 +83,18 @@ public abstract class Residence implements JdbcEntity
 	
 	protected void initEvent()
 	{
-		_siegeEvent = EventHolder.getInstance().getEvent(EventType.SIEGE_EVENT, _id);
+		GlobalEvent event = EventHolder.getInstance().getEvent(EventType.SIEGE_EVENT, _id);
+		_siegeEvent = event instanceof SiegeEvent<?, ?> siegeEvent ? siegeEvent : null;
 	}
 	
-	public <E extends SiegeEvent> E getSiegeEvent()
+	public SiegeEvent<?, ?> getSiegeEvent()
 	{
-		return (E) _siegeEvent;
+		return _siegeEvent;
+	}
+
+	public <E extends SiegeEvent<?, ?>> E getSiegeEvent(Class<E> type)
+	{
+		return type.cast(_siegeEvent);
 	}
 	
 	public int getId()

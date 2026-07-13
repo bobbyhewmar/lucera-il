@@ -47,7 +47,7 @@ public class ClanCommunity extends Functions implements ScriptFile, ICommunityBo
 		Clan[] var4 = clans;
 		int var5 = clans.length;
 		
-		ArrayList<Clan> clanList = new ArrayList();
+		ArrayList<Clan> clanList = new ArrayList<>();
 		for(int var6 = 0;var6 < var5;++var6)
 		{
 			Clan clan = var4[var6];
@@ -59,7 +59,7 @@ public class ClanCommunity extends Functions implements ScriptFile, ICommunityBo
 		
 		if(!search.isEmpty())
 		{
-			ArrayList<Clan> searchList = new ArrayList();
+			ArrayList<Clan> searchList = new ArrayList<>();
 			Iterator var9 = clanList.iterator();
 			
 			while(true)
@@ -343,7 +343,7 @@ public class ClanCommunity extends Functions implements ScriptFile, ICommunityBo
 							DbUtils.closeQuietly(con, statement, rset);
 						}
 						
-						List<String> args = new ArrayList();
+						List<String> args = new ArrayList<>();
 						args.add("0");
 						args.add("0");
 						args.add("0");
@@ -427,7 +427,7 @@ public class ClanCommunity extends Functions implements ScriptFile, ICommunityBo
 						}
 						
 						html = html.replace("%flag%", String.valueOf(type));
-						List<String> args = new ArrayList();
+						List<String> args = new ArrayList<>();
 						args.add("0");
 						args.add("0");
 						args.add("0");
@@ -719,21 +719,12 @@ public class ClanCommunity extends Functions implements ScriptFile, ICommunityBo
 		}
 	}
 	
-	private static class ClansComparator<T> implements Comparator<T>
+	private static class ClansComparator implements Comparator<Clan>
 	{
 		@Override
-		public int compare(Object o1, Object o2)
+		public int compare(Clan p1, Clan p2)
 		{
-			if(o1 instanceof Clan && o2 instanceof Clan)
-			{
-				Clan p1 = (Clan) o1;
-				Clan p2 = (Clan) o2;
-				return p1.getName().compareTo(p2.getName());
-			}
-			else
-			{
-				return 0;
-			}
+			return p1.getName().compareTo(p2.getName());
 		}
 	}
 	

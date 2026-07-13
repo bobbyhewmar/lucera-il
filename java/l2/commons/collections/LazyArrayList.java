@@ -55,13 +55,31 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 	{
 		try
 		{
-			return (LazyArrayList) POOL.borrowObject();
+			return castLazyArrayList(POOL.borrowObject());
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return new LazyArrayList();
+			return new LazyArrayList<>();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <E> LazyArrayList<E> castLazyArrayList(Object obj)
+	{
+		return (LazyArrayList<E>) obj;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <E> E castElement(Object value)
+	{
+		return (E) value;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> T[] newArray(Class<?> componentType, int length)
+	{
+		return (T[]) Array.newInstance(componentType, length);
 	}
 	
 	public static <E> void recycle(LazyArrayList<E> obj)
@@ -90,7 +108,7 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 		E e = null;
 		if(index >= 0 && index < size)
 		{
-			e = (E) elementData[index];
+			e = castElement(elementData[index]);
 			elementData[index] = element;
 		}
 		
@@ -180,7 +198,7 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 		if(index >= 0 && index < size)
 		{
 			--size;
-			e = (E) elementData[index];
+			e = castElement(elementData[index]);
 			elementData[index] = elementData[size];
 			elementData[size] = null;
 			trim();
@@ -299,7 +317,7 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 	@Override
 	public E get(int index)
 	{
-		return size > 0 && index >= 0 && index < size ? (E) elementData[index] : null;
+		return size > 0 && index >= 0 && index < size ? castElement(elementData[index]) : null;
 	}
 	
 	@Override
@@ -459,7 +477,7 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 	@Override
 	public <T> T[] toArray(T[] a)
 	{
-		T[] r = a.length >= size ? a : (T[]) Array.newInstance(a.getClass().getComponentType(), size);
+		T[] r = a.length >= size ? a : newArray(a.getClass().getComponentType(), size);
 		if(size > 0)
 		{
 			System.arraycopy(elementData, 0, r, 0, size);
@@ -476,19 +494,19 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 	@Override
 	public Iterator<E> iterator()
 	{
-		return new LazyArrayList.LazyItr();
+		return new LazyItr();
 	}
 	
 	@Override
 	public ListIterator<E> listIterator()
 	{
-		return new LazyArrayList.LazyListItr(0);
+		return new LazyListItr(0);
 	}
 	
 	@Override
 	public ListIterator<E> listIterator(int index)
 	{
-		return new LazyArrayList.LazyListItr(index);
+		return new LazyListItr(index);
 	}
 	
 	@Override
@@ -532,7 +550,7 @@ public class LazyArrayList<E> implements List<E>, RandomAccess, Cloneable, Seria
 		@Override
 		public Object makeObject() throws Exception
 		{
-			return new LazyArrayList();
+			return new LazyArrayList<>();
 		}
 		
 		@Override

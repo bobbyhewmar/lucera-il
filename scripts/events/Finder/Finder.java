@@ -1,6 +1,5 @@
 package events.Finder;
 
-import l2.commons.listener.Listener;
 import l2.commons.util.Rnd;
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
@@ -253,7 +252,7 @@ public class Finder extends Functions implements ScriptFile, OnDeathListener
 		{
 			deSpawnNPCs(_em_spawns);
 		}
-		_em_spawns = new ArrayList();
+		_em_spawns = new ArrayList<>();
 		SpawnNPCs(40018, EventManagerLocs, _em_spawns);
 		if(_event_tasks != null)
 		{
@@ -323,7 +322,7 @@ public class Finder extends Functions implements ScriptFile, OnDeathListener
 		sp2.setRespawnDelay(0);
 		sp2.stopRespawn();
 		_raider = sp2.doSpawn(true);
-		_raider.addListener((Listener) this);
+		_raider.addListener(this);
 		if(_captureTask != null)
 		{
 			_captureTask.cancel(true);

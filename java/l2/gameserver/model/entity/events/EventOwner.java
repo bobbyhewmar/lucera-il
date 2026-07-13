@@ -12,13 +12,9 @@ public abstract class EventOwner implements Serializable
 	{
 		for(GlobalEvent e : _events)
 		{
-			if(e.getClass() == eventClass)
-			{
-				return (E) e;
-			}
-			if(!eventClass.isAssignableFrom(e.getClass()))
+			if(!eventClass.isInstance(e))
 				continue;
-			return (E) e;
+			return eventClass.cast(e);
 		}
 		return null;
 	}

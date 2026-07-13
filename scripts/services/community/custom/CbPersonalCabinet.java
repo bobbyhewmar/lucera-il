@@ -55,7 +55,7 @@ public class CbPersonalCabinet implements ScriptFile, ICommunityBoardHandler
 			{
 				int charId = rset.getInt("obj_Id");
 				String charName = rset.getString("char_name");
-				result.add((Pair<Integer, String>) new ImmutablePair(charId, charName));
+				result.add(new ImmutablePair<>(charId, charName));
 			}
 		}
 		catch(Exception e)

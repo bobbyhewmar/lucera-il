@@ -244,12 +244,12 @@ public class TopPvPPKService extends Functions implements ScriptFile
 			while((lastUpdateAndRecords = _lastUpdateAndRecords.get()).getLeft() + _updateInterval < System.currentTimeMillis())
 			{
 				Collection<TopRecord> newTopRecords = fetchTopRecords();
-				Pair newLastUpdateAndRecords = Pair.of((Object) System.currentTimeMillis(), newTopRecords);
+				Pair<Long, Collection<TopRecord>> newLastUpdateAndRecords = Pair.of(System.currentTimeMillis(), newTopRecords);
 				if(!_lastUpdateAndRecords.compareAndSet(lastUpdateAndRecords, newLastUpdateAndRecords))
 					continue;
-				return Collections.unmodifiableCollection((Collection) newLastUpdateAndRecords.getRight());
+				return Collections.unmodifiableCollection(newLastUpdateAndRecords.getRight());
 			}
-			return Collections.unmodifiableCollection((Collection) lastUpdateAndRecords.getRight());
+			return Collections.unmodifiableCollection(lastUpdateAndRecords.getRight());
 		}
 	}
 	

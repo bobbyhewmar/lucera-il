@@ -671,7 +671,7 @@ public class Reflection
 	{
 		if(!doors.isEmpty())
 		{
-			_doors = new HashIntObjectMap(doors.size());
+			_doors = new HashIntObjectMap<>(doors.size());
 		}
 		for(DoorTemplate template : doors.values())
 		{
@@ -721,7 +721,7 @@ public class Reflection
 	{
 		if(!doors.isEmpty())
 		{
-			_doors = new HashIntObjectMap(doors.size());
+			_doors = new HashIntObjectMap<>(doors.size());
 		}
 		for(InstantZone.DoorInfo info : doors.values())
 		{

@@ -61,8 +61,8 @@ public class PartyVsPartyDuelEvent extends DuelEvent
 				case RED:
 				case BLUE:
 				{
-					List<DuelSnapshotObject> winners = getObjects(_winner.name());
-					List<DuelSnapshotObject> lossers = getObjects(_winner.revert().name());
+					List<DuelSnapshotObject> winners = getObjects(_winner.name(), DuelSnapshotObject.class);
+					List<DuelSnapshotObject> lossers = getObjects(_winner.revert().name(), DuelSnapshotObject.class);
 					DuelSnapshotObject winner = CollectionUtils.safeGet(winners, 0);
 					if(winner != null)
 					{
@@ -210,7 +210,7 @@ public class PartyVsPartyDuelEvent extends DuelEvent
 		}
 		player.sendChanges();
 		boolean allDead = true;
-		List<DuelSnapshotObject> objs = getObjects(team.name());
+		List<DuelSnapshotObject> objs = getObjects(team.name(), DuelSnapshotObject.class);
 		for(DuelSnapshotObject obj : objs)
 		{
 			if(obj.getPlayer() == player)

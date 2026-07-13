@@ -23,10 +23,22 @@ public final class ArrayUtils
 	
 	public static <T> T[] add(T[] array, T element)
 	{
-		Class type = array != null ? array.getClass().getComponentType() : element != null ? element.getClass() : Object.class;
-		T[] newArray = (T[]) copyArrayGrow(array, type);
+		Class<? extends T> type = resolveComponentType(array, element);
+		T[] newArray = copyArrayGrow(array, type);
 		newArray[newArray.length - 1] = element;
 		return newArray;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> Class<? extends T> resolveComponentType(T[] array, T element)
+	{
+		return (Class<? extends T>) (array != null ? array.getClass().getComponentType() : element != null ? element.getClass() : Object.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> T[] newArray(Class<?> componentType, int length)
+	{
+		return (T[]) Array.newInstance(componentType, length);
 	}
 	
 	private static <T> T[] copyArrayGrow(T[] array, Class<? extends T> type)
@@ -34,11 +46,11 @@ public final class ArrayUtils
 		if(array != null)
 		{
 			int arrayLength = Array.getLength(array);
-			Object[] newArray = (Object[]) Array.newInstance(array.getClass().getComponentType(), arrayLength + 1);
+			T[] newArray = newArray(array.getClass().getComponentType(), arrayLength + 1);
 			System.arraycopy(array, 0, newArray, 0, arrayLength);
-			return (T[]) newArray;
+			return newArray;
 		}
-		return (T[]) Array.newInstance(type, 1);
+		return newArray(type, 1);
 	}
 	
 	public static <T> boolean contains(T[] array, T value)
@@ -83,13 +95,13 @@ public final class ArrayUtils
 			return array;
 		}
 		int length = array.length;
-		Object[] newArray = (Object[]) Array.newInstance(array.getClass().getComponentType(), length - 1);
+		T[] newArray = newArray(array.getClass().getComponentType(), length - 1);
 		System.arraycopy(array, 0, newArray, 0, index);
 		if(index < length - 1)
 		{
 			System.arraycopy(array, index + 1, newArray, index, length - index - 1);
 		}
-		return (T[]) newArray;
+		return newArray;
 	}
 	
 	private static <T extends Comparable<T>> void eqBrute(T[] a, int lo, int hi)

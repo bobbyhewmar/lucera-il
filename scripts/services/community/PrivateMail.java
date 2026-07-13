@@ -58,7 +58,7 @@ public class PrivateMail extends Functions implements ScriptFile, ICommunityBoar
 	
 	private static List<MailData> getMailList(Player player, int type, String search, boolean byTitle)
 	{
-		List<MailData> list = new ArrayList();
+		List<MailData> list = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet rset = null;

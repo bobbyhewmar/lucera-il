@@ -23,8 +23,8 @@ import java.util.TreeMap;
 public final class SkillAcquireHolder extends AbstractHolder
 {
 	private static final SkillAcquireHolder _instance = new SkillAcquireHolder();
-	private final TIntObjectHashMap<List<SkillLearn>> _normalSkillTree = new TIntObjectHashMap();
-	private final TIntObjectHashMap<List<SkillLearn>> _fishingSkillTree = new TIntObjectHashMap();
+	private final TIntObjectHashMap<List<SkillLearn>> _normalSkillTree = new TIntObjectHashMap<>();
+	private final TIntObjectHashMap<List<SkillLearn>> _fishingSkillTree = new TIntObjectHashMap<>();
 	private final List<SkillLearn> _pledgeSkillTree = new ArrayList<>();
 	
 	public static SkillAcquireHolder getInstance()
@@ -71,7 +71,7 @@ public final class SkillAcquireHolder extends AbstractHolder
 		{
 			case NORMAL:
 			{
-				Collection skills = _normalSkillTree.get(classId.getId());
+				Collection<SkillLearn> skills = _normalSkillTree.get(classId.getId());
 				if(skills == null)
 				{
 					info("skill tree for class " + classId + " is not defined !");
@@ -81,7 +81,7 @@ public final class SkillAcquireHolder extends AbstractHolder
 			}
 			case FISHING:
 			{
-				Collection skills = _fishingSkillTree.get(player.getRace().ordinal());
+				Collection<SkillLearn> skills = _fishingSkillTree.get(player.getRace().ordinal());
 				if(skills == null)
 				{
 					info("skill tree for race " + player.getRace().ordinal() + " is not defined !");
@@ -384,11 +384,11 @@ public final class SkillAcquireHolder extends AbstractHolder
 	private int sizeTroveMap(TIntObjectHashMap<List<SkillLearn>> a)
 	{
 		int i = 0;
-		TIntObjectIterator iterator = a.iterator();
+		TIntObjectIterator<List<SkillLearn>> iterator = a.iterator();
 		while(iterator.hasNext())
 		{
 			iterator.advance();
-			i += ((List) iterator.value()).size();
+			i += iterator.value().size();
 		}
 		return i;
 	}

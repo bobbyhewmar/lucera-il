@@ -14,7 +14,7 @@ import java.util.List;
 public class InstantZoneHolder extends AbstractHolder
 {
 	private static final InstantZoneHolder _instance = new InstantZoneHolder();
-	private final IntObjectMap<InstantZone> _zones = new HashIntObjectMap();
+	private final IntObjectMap<InstantZone> _zones = new HashIntObjectMap<>();
 	
 	public static InstantZoneHolder getInstance()
 	{

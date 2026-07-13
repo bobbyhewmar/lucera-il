@@ -4,7 +4,6 @@ import l2.commons.lang.reference.HardReference;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
@@ -558,7 +557,7 @@ public class PlayableAI extends CharacterAI
 		}
 		else
 		{
-			actor.sendPacket(Msg.YOUR_TARGET_IS_OUT_OF_RANGE);
+			actor.sendPacket(SystemMsg.YOUR_TARGET_IS_OUT_OF_RANGE);
 			setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 			actor.sendActionFailed();
 		}

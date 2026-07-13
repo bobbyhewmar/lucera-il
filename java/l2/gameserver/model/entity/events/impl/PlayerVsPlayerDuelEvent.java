@@ -94,8 +94,8 @@ public class PlayerVsPlayerDuelEvent extends DuelEvent
 				case RED:
 				case BLUE:
 				{
-					List<DuelSnapshotObject> winners = getObjects(_winner.name());
-					List<DuelSnapshotObject> lossers = getObjects(_winner.revert().name());
+					List<DuelSnapshotObject> winners = getObjects(_winner.name(), DuelSnapshotObject.class);
+					List<DuelSnapshotObject> lossers = getObjects(_winner.revert().name(), DuelSnapshotObject.class);
 					sendPacket(new SystemMessage2(SystemMsg.C1_HAS_WON_THE_DUEL).addName(winners.get(0).getPlayer()));
 					for(DuelSnapshotObject d : lossers)
 					{
@@ -122,7 +122,7 @@ public class PlayerVsPlayerDuelEvent extends DuelEvent
 		}
 		player.stopAttackStanceTask();
 		boolean allDead = true;
-		List<DuelSnapshotObject> objs = getObjects(team.name());
+		List<DuelSnapshotObject> objs = getObjects(team.name(), DuelSnapshotObject.class);
 		for(DuelSnapshotObject obj : objs)
 		{
 			if(obj.getPlayer() == player)

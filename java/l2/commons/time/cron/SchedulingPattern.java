@@ -29,17 +29,17 @@ public class SchedulingPattern implements NextTime
 	private static final SchedulingPattern.ValueParser MONTH_VALUE_PARSER = new SchedulingPattern.MonthValueParser();
 	private static final SchedulingPattern.ValueParser DAY_OF_WEEK_VALUE_PARSER = new SchedulingPattern.DayOfWeekValueParser();
 	private final String asString;
-	protected List<SchedulingPattern.ValueMatcher> minuteMatchers = new ArrayList();
-	protected List<SchedulingPattern.ValueMatcher> hourMatchers = new ArrayList();
-	protected List<SchedulingPattern.ValueMatcher> dayOfMonthMatchers = new ArrayList();
-	protected List<SchedulingPattern.ValueMatcher> monthMatchers = new ArrayList();
-	protected List<SchedulingPattern.ValueMatcher> dayOfWeekMatchers = new ArrayList();
+	protected List<SchedulingPattern.ValueMatcher> minuteMatchers = new ArrayList<>();
+	protected List<SchedulingPattern.ValueMatcher> hourMatchers = new ArrayList<>();
+	protected List<SchedulingPattern.ValueMatcher> dayOfMonthMatchers = new ArrayList<>();
+	protected List<SchedulingPattern.ValueMatcher> monthMatchers = new ArrayList<>();
+	protected List<SchedulingPattern.ValueMatcher> dayOfWeekMatchers = new ArrayList<>();
 	protected int matcherSize;
-	protected Map<Integer, Integer> hourAdder = new TreeMap();
-	protected Map<Integer, Integer> hourAdderRnd = new TreeMap();
-	protected Map<Integer, Integer> dayOfYearAdder = new TreeMap();
-	protected Map<Integer, Integer> minuteAdderRnd = new TreeMap();
-	protected Map<Integer, Integer> weekOfYearAdder = new TreeMap();
+	protected Map<Integer, Integer> hourAdder = new TreeMap<>();
+	protected Map<Integer, Integer> hourAdderRnd = new TreeMap<>();
+	protected Map<Integer, Integer> dayOfYearAdder = new TreeMap<>();
+	protected Map<Integer, Integer> minuteAdderRnd = new TreeMap<>();
+	protected Map<Integer, Integer> weekOfYearAdder = new TreeMap<>();
 	
 	public SchedulingPattern(String pattern) throws SchedulingPattern.InvalidPatternException
 	{
@@ -233,14 +233,14 @@ public class SchedulingPattern implements NextTime
 		}
 		else
 		{
-			List<Integer> values = new ArrayList();
+			List<Integer> values = new ArrayList<>();
 			StringTokenizer st = new StringTokenizer(str, ",");
 			
 			while(st.hasMoreTokens())
 			{
 				String element = st.nextToken();
 				
-				List local;
+				List<Integer> local;
 				try
 				{
 					local = parseListElement(element, parser);
@@ -250,11 +250,11 @@ public class SchedulingPattern implements NextTime
 					throw new Exception("invalid field \"" + str + "\", invalid element \"" + element + "\", " + e.getMessage());
 				}
 				
-				Iterator i = local.iterator();
+				Iterator<Integer> i = local.iterator();
 				
 				while(i.hasNext())
 				{
-					Integer value = (Integer) i.next();
+					Integer value = i.next();
 					if(!values.contains(value))
 					{
 						values.add(value);
@@ -317,7 +317,7 @@ public class SchedulingPattern implements NextTime
 				}
 				else
 				{
-					List<Integer> values2 = new ArrayList();
+					List<Integer> values2 = new ArrayList<>();
 					
 					for(int i = 0;i < values.size();i += div)
 					{
@@ -342,11 +342,11 @@ public class SchedulingPattern implements NextTime
 		{
 			int min = parser.getMinValue();
 			size = parser.getMaxValue();
-			List<Integer> values = new ArrayList();
+			List<Integer> values = new ArrayList<>();
 			
 			for(v1 = min;v1 <= size;++v1)
 			{
-				values.add(new Integer(v1));
+				values.add(Integer.valueOf(v1));
 			}
 			
 			return values;
@@ -370,8 +370,8 @@ public class SchedulingPattern implements NextTime
 				
 				if(size == 1)
 				{
-					List<Integer> values = new ArrayList();
-					values.add(new Integer(v1));
+					List<Integer> values = new ArrayList<>();
+					values.add(Integer.valueOf(v1));
 					return values;
 				}
 				else
@@ -388,13 +388,13 @@ public class SchedulingPattern implements NextTime
 						throw new Exception("invalid value \"" + v2Str + "\", " + e.getMessage());
 					}
 					
-					List<Integer> values = new ArrayList();
+					List<Integer> values = new ArrayList<>();
 					int min;
 					if(v1 < v2)
 					{
 						for(min = v1;min <= v2;++min)
 						{
-							values.add(new Integer(min));
+							values.add(Integer.valueOf(min));
 						}
 					}
 					else if(v1 > v2)
@@ -405,17 +405,17 @@ public class SchedulingPattern implements NextTime
 						int i;
 						for(i = v1;i <= max;++i)
 						{
-							values.add(new Integer(i));
+							values.add(Integer.valueOf(i));
 						}
 						
 						for(i = min;i <= v2;++i)
 						{
-							values.add(new Integer(i));
+							values.add(Integer.valueOf(i));
 						}
 					}
 					else
 					{
-						values.add(new Integer(v1));
+						values.add(Integer.valueOf(v1));
 					}
 					
 					return values;

@@ -63,13 +63,16 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameServer
 {
 	public static final int AUTH_SERVER_PROTOCOL = 2;
 	private static final Logger _log = LoggerFactory.getLogger(GameServer.class);
 	public static GameServer _instance;
-	private final SelectorThread<GameClient>[] _selectorThreads;
+	private final List<SelectorThread<GameClient>> _selectorThreads;
 	private final GameServerListenerList _listeners;
 	private final Version version;
 	private final long _serverStartTimeMillis;
@@ -165,12 +168,13 @@ public class GameServer
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
 		GamePacketHandler gph = new GamePacketHandler();
 		InetAddress serverAddr = Config.GAMESERVER_HOSTNAME.equalsIgnoreCase("*") ? null : InetAddress.getByName(Config.GAMESERVER_HOSTNAME);
-		_selectorThreads = new SelectorThread[Config.PORTS_GAME.length];
+		_selectorThreads = new ArrayList<>(Config.PORTS_GAME.length);
 		for(int i = 0;i < Config.PORTS_GAME.length;++i)
 		{
-			_selectorThreads[i] = new SelectorThread(Config.SELECTOR_CONFIG, gph, gph, gph, null);
-			_selectorThreads[i].openServerSocket(serverAddr, Config.PORTS_GAME[i]);
-			_selectorThreads[i].start();
+			SelectorThread<GameClient> selectorThread = new SelectorThread<>(Config.SELECTOR_CONFIG, gph, gph, gph, null);
+			_selectorThreads.add(selectorThread);
+			selectorThread.openServerSocket(serverAddr, Config.PORTS_GAME[i]);
+			selectorThread.start();
 		}
 		AuthServerCommunication.getInstance().start();
 		if(Config.SERVICES_OFFLINE_TRADE_RESTORE_AFTER_RESTART)
@@ -236,9 +240,9 @@ public class GameServer
 		new GameServer();
 	}
 	
-	public SelectorThread<GameClient>[] getSelectorThreads()
+	public List<SelectorThread<GameClient>> getSelectorThreads()
 	{
-		return _selectorThreads;
+		return Collections.unmodifiableList(_selectorThreads);
 	}
 	
 	public long getServerStartTime()

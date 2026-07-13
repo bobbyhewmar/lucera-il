@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ExOlympiadSpelledInfo extends L2GameServerPacket
 {
-	private final ArrayList<Effect> _effects = new ArrayList();
+	private final ArrayList<Effect> _effects = new ArrayList<>();
 	private int char_obj_id;
 	
 	public void addEffect(int skillId, int level, int duration)

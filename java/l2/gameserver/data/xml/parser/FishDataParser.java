@@ -65,7 +65,7 @@ public class FishDataParser extends AbstractFileParser<FishDataHolder>
 			}
 			if("lure".equals(e.getName()))
 			{
-				map = new MultiValueSet();
+				map = new MultiValueSet<>();
 				attributeIterator = e.attributeIterator();
 				while(attributeIterator.hasNext())
 				{

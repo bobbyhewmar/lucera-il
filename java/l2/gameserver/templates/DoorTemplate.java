@@ -13,7 +13,7 @@ import java.lang.reflect.Constructor;
 
 public class DoorTemplate extends CharTemplate
 {
-	public static final Constructor<DoorAI> DEFAULT_AI_CONSTRUCTOR = (Constructor<DoorAI>) CharacterAI.class.getConstructors()[0];
+	public static final Constructor<? extends DoorAI> DEFAULT_AI_CONSTRUCTOR = resolveAIConstructor(DoorAI.class);
 	private static final Logger _log = LoggerFactory.getLogger(DoorTemplate.class);
 	private final int _id;
 	private final String _name;
@@ -30,8 +30,8 @@ public class DoorTemplate extends CharTemplate
 	private final int _closeTime;
 	private final int _masterDoor;
 	private final StatsSet _aiParams;
-	private Class<DoorAI> _classAI = DoorAI.class;
-	private Constructor<DoorAI> _constructorAI = DEFAULT_AI_CONSTRUCTOR;
+	private Class<? extends DoorAI> _classAI = DoorAI.class;
+	private Constructor<? extends DoorAI> _constructorAI = DEFAULT_AI_CONSTRUCTOR;
 	
 	public DoorTemplate(StatsSet set)
 	{
@@ -56,7 +56,7 @@ public class DoorTemplate extends CharTemplate
 	
 	private void setAI(String ai)
 	{
-		Class classAI;
+		Class<?> classAI;
 		try
 		{
 			classAI = Class.forName("l2.gameserver.ai." + ai);
@@ -71,8 +71,8 @@ public class DoorTemplate extends CharTemplate
 		}
 		else
 		{
-			_classAI = classAI;
-			_constructorAI = (Constructor<DoorAI>) _classAI.getConstructors()[0];
+			_classAI = classAI.asSubclass(DoorAI.class);
+			_constructorAI = resolveAIConstructor(_classAI);
 		}
 		if(_classAI.isAnnotationPresent(Deprecated.class))
 		{
@@ -168,6 +168,27 @@ public class DoorTemplate extends CharTemplate
 	{
 		return _aiParams;
 	}
+
+	private static Constructor<? extends DoorAI> resolveAIConstructor(Class<? extends DoorAI> type)
+	{
+		for(Constructor<?> constructor : type.getConstructors())
+		{
+			Class<?>[] parameterTypes = constructor.getParameterTypes();
+			if(parameterTypes.length == 1 && parameterTypes[0].isAssignableFrom(DoorInstance.class))
+			{
+				try
+				{
+					return type.getConstructor(parameterTypes);
+				}
+				catch(NoSuchMethodException e)
+				{
+					throw new IllegalStateException("Missing compatible door AI constructor for " + type.getName(), e);
+				}
+			}
+		}
+		throw new IllegalStateException("Missing compatible door AI constructor for " + type.getName());
+	}
+	
 	
 	public enum DoorType
 	{

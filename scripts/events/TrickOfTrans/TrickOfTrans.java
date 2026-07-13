@@ -35,8 +35,8 @@ public class TrickOfTrans extends Functions implements ScriptFile, OnDeathListen
 	private static final int WHITE_PSTC_R = 9175;
 	private static final int GREEN_PSTC_R = 9176;
 	private static final int A_CHEST_KEY = 9205;
-	private static final ArrayList<SimpleSpawner> _em_spawns = new ArrayList();
-	private static final ArrayList<SimpleSpawner> _ch_spawns = new ArrayList();
+	private static final ArrayList<SimpleSpawner> _em_spawns = new ArrayList<>();
+	private static final ArrayList<SimpleSpawner> _ch_spawns = new ArrayList<>();
 	private static final int PhilosophersStoneOre = 9168;
 	private static final int PhilosophersStoneOreMax = 17;
 	private static final int PhilosophersStoneConversionFormula = 9169;

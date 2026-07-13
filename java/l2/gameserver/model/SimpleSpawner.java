@@ -31,7 +31,7 @@ public class SimpleSpawner extends Spawner
 			throw new NullPointerException();
 		}
 		_npcTemplate = mobTemplate;
-		_spawned = new ArrayList(1);
+		_spawned = new ArrayList<>(1);
 	}
 	
 	public SimpleSpawner(int npcId)
@@ -42,7 +42,7 @@ public class SimpleSpawner extends Spawner
 			throw new NullPointerException("Not find npc: " + npcId);
 		}
 		_npcTemplate = mobTemplate;
-		_spawned = new ArrayList(1);
+		_spawned = new ArrayList<>(1);
 	}
 	
 	public int getAmount()

@@ -88,11 +88,11 @@ public class AdminTeleportBookmark extends ScriptAdminCommand
 	{
 		ArrayList<Pair<String, Location>> result = new ArrayList<>();
 		MultiValueSet<String> userVars = player.getVars();
-		for(Map.Entry e : userVars.entrySet())
+		for(Map.Entry<String, Object> e : userVars.entrySet())
 		{
-			if(e == null || e.getKey() == null || !((String) e.getKey()).startsWith(BOOKBARKS_VAR_PREFIX))
+			if(e == null || e.getKey() == null || !e.getKey().startsWith(BOOKBARKS_VAR_PREFIX))
 				continue;
-			result.add((Pair) Pair.of((Object) ((String) e.getKey()).substring(BOOKBARKS_VAR_PREFIX.length()), (Object) Location.parseLoc(e.getValue().toString())));
+			result.add(Pair.of(e.getKey().substring(BOOKBARKS_VAR_PREFIX.length()), Location.parseLoc(e.getValue().toString())));
 		}
 		Collections.sort(result, BOOKMARKS_SORT_COMPARATOR);
 		return result;

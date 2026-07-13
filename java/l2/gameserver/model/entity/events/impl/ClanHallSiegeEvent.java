@@ -11,6 +11,7 @@ import l2.gameserver.model.pledge.Clan;
 import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.PlaySound;
 import l2.gameserver.network.l2.s2c.SystemMessage2;
+import l2.gameserver.tables.ClanTable;
 
 public class ClanHallSiegeEvent extends SiegeEvent<ClanHall, SiegeClanObject>
 {
@@ -19,6 +20,25 @@ public class ClanHallSiegeEvent extends SiegeEvent<ClanHall, SiegeClanObject>
 	public ClanHallSiegeEvent(MultiValueSet<String> set)
 	{
 		super(set);
+	}
+	
+	@Override
+	protected Class<SiegeClanObject> getSiegeClanType()
+	{
+		return SiegeClanObject.class;
+	}
+
+	@Override
+	protected Class<ClanHall> getResidenceType()
+	{
+		return ClanHall.class;
+	}
+	
+	@Override
+	public SiegeClanObject newSiegeClan(String type, int clanId, long param, long date)
+	{
+		Clan clan = ClanTable.getInstance().getClan(clanId);
+		return clan == null ? null : new SiegeClanObject(type, clan, param, date);
 	}
 	
 	@Override

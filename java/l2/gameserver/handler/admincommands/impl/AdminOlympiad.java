@@ -2,13 +2,14 @@ package l2.gameserver.handler.admincommands.impl;
 
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
 import l2.gameserver.model.entity.oly.HeroController;
 import l2.gameserver.model.entity.oly.NoblesController;
 import l2.gameserver.model.entity.oly.OlyController;
+import l2.gameserver.network.l2.components.SystemMsg;
+import l2.gameserver.network.l2.s2c.SystemMessage;
 
 public class AdminOlympiad implements IAdminCommandHandler
 {
@@ -68,12 +69,12 @@ public class AdminOlympiad implements IAdminCommandHandler
 			}
 			case admin_oly_start:
 			{
-				Announcements.getInstance().announceToAll(Msg.THE_OLYMPIAD_GAME_HAS_STARTED);
+				Announcements.getInstance().announceToAll(new SystemMessage(SystemMsg.THE_OLYMPIAD_GAME_HAS_STARTED));
 				break;
 			}
 			case admin_oly_stop:
 			{
-				Announcements.getInstance().announceToAll(Msg.THE_OLYMPIAD_GAME_HAS_ENDED);
+				Announcements.getInstance().announceToAll(new SystemMessage(SystemMsg.THE_OLYMPIAD_GAME_HAS_ENDED));
 				try
 				{
 					OlyController.getInstance().save();

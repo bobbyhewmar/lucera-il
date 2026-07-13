@@ -2,7 +2,6 @@ package l2.gameserver.handler.admincommands.impl;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Effect;
@@ -11,6 +10,7 @@ import l2.gameserver.model.GameObjectsStorage;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
 import l2.gameserver.model.base.InvisibleType;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.Earthquake;
 import l2.gameserver.network.l2.s2c.SocialAction;
 import l2.gameserver.skills.AbnormalEffect;
@@ -166,7 +166,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				if(target == null || !target.isCreature())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				if(((Creature) target).isBlocked())
@@ -184,7 +184,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				if(target == null || !target.isCreature())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				if(!((Creature) target).isBlocked())
@@ -209,7 +209,7 @@ public class AdminEffects implements IAdminCommandHandler
 				}
 				if(!target.isCreature())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				String oldName = target.getName();
@@ -223,7 +223,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				if(target == null || !target.isPlayer())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				handleInvul(activeChar, (Player) target);

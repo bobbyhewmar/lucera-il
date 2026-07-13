@@ -1,7 +1,6 @@
 package bosses;
 
 import handler.items.SimpleItemHandler;
-import l2.commons.listener.Listener;
 import l2.commons.threading.RunnableImpl;
 import l2.commons.time.cron.SchedulingPattern;
 import l2.commons.util.Rnd;
@@ -488,7 +487,7 @@ public class FrintezzaManager implements ScriptFile, IAdminCommandHandler
 		List<NpcInstance> allSpawned = getAllSpawned(spawners);
 		for(NpcInstance spawnedNpc : allSpawned)
 		{
-			spawnedNpc.addListener((Listener) listener);
+			spawnedNpc.addListener(listener);
 		}
 	}
 	
@@ -497,7 +496,7 @@ public class FrintezzaManager implements ScriptFile, IAdminCommandHandler
 		List<NpcInstance> allSpawned = getAllSpawned(spawners);
 		for(NpcInstance spawnedNpc : allSpawned)
 		{
-			spawnedNpc.removeListener((Listener) listener);
+			spawnedNpc.removeListener(listener);
 		}
 	}
 	
@@ -1095,7 +1094,7 @@ public class FrintezzaManager implements ScriptFile, IAdminCommandHandler
 						weakScarlet.deleteMe();
 						weakScarlet = null;
 						strongScarlet = spawn(loc);
-						strongScarlet.addListener((Listener) _deathListener);
+						strongScarlet.addListener(_deathListener);
 						block(strongScarlet, true);
 						showSocialActionMovie(strongScarlet, 450, _angle, 12, 500, 14000, 2);
 						ThreadPoolManager.getInstance().schedule(new ThirdMorph(9), 5000);
@@ -1473,7 +1472,7 @@ public class FrintezzaManager implements ScriptFile, IAdminCommandHandler
 					{
 						weakScarlet = spawn(scarletSpawnWeak);
 						block(weakScarlet, true);
-						weakScarlet.addListener((Listener) _currentHpListener);
+						weakScarlet.addListener(_currentHpListener);
 						weakScarlet.broadcastPacket(new MagicSkillUse(weakScarlet, weakScarlet, 5016, 1, 3000, 0));
 						_frintessaZone.broadcastPacket(new Earthquake(weakScarlet.getLoc(), 50, 6), false);
 						showSocialActionMovie(weakScarlet, 1000, 160, 20, 6000, 6000, 0);

@@ -57,7 +57,7 @@ public class Kama56Boss extends Fighter
 			_lastMinionsTargetRef = HardReferences.emptyRef();
 			return;
 		}
-		LazyArrayList alive = new LazyArrayList();
+		LazyArrayList<Player> alive = LazyArrayList.newInstance();
 		for(Player p : pl)
 		{
 			if(p.isAlikeDead())
@@ -69,7 +69,7 @@ public class Kama56Boss extends Fighter
 			_lastMinionsTargetRef = HardReferences.emptyRef();
 			return;
 		}
-		Player target = (Player) alive.get(Rnd.get(alive.size()));
+		Player target = alive.get(Rnd.get(alive.size()));
 		_lastMinionsTargetRef = target.getRef();
 		Functions.npcSayCustomMessage(actor, "Kama56Boss.attack", (Object[]) new Object[] {target.getName()});
 		for(MinionInstance m : ml.getAliveMinions())

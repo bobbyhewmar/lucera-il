@@ -56,7 +56,7 @@ public class Buffer extends Functions implements ScriptFile
 	private static final String LIST_DELIMITERS = ";,";
 	private static final String BUFF_PROFILE_REC_VAR = "BuffProfRec";
 	private static final String BUFF_PROFILE_VAR_PREFIX = "BuffProf-";
-	private static final CIntObjectMap<BuffTemplate> BUFF_TEMPLATES = new CHashIntObjectMap();
+	private static final CIntObjectMap<BuffTemplate> BUFF_TEMPLATES = new CHashIntObjectMap<>();
 	private static final int CANCEL_MENU_ID = -2;
 	private static final long CANCEL_ADENA_PRICE = 100;
 	private static final int RESTORE_CP_MP_HP_MENU_ID = -3;
@@ -322,7 +322,7 @@ public class Buffer extends Functions implements ScriptFile
 	
 	private static void loadBuffTemplates()
 	{
-		CHashIntObjectMap templates = new CHashIntObjectMap();
+		CHashIntObjectMap<BuffTemplate> templates = new CHashIntObjectMap<>();
 		try
 		{
 			Document document = READER.read(BUFF_TEMPLATES_FILE);

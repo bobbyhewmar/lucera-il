@@ -27,7 +27,7 @@ public class CharacterPostFriendDAO
 	
 	public IntObjectMap<String> select(Player player)
 	{
-		CHashIntObjectMap set = new CHashIntObjectMap();
+		CHashIntObjectMap<String> set = new CHashIntObjectMap<>();
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet rset = null;

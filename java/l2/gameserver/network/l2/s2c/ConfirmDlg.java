@@ -12,6 +12,12 @@ public class ConfirmDlg extends SysMsgContainer<ConfirmDlg>
 		super(msg);
 		_time = time;
 	}
+
+	@Override
+	protected ConfirmDlg self()
+	{
+		return this;
+	}
 	
 	@Override
 	protected final void writeImpl()

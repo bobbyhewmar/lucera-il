@@ -7,7 +7,7 @@ import l2.gameserver.templates.CubicTemplate;
 public final class CubicHolder extends AbstractHolder
 {
 	private static final CubicHolder _instance = new CubicHolder();
-	private final TIntObjectHashMap<CubicTemplate> _cubics = new TIntObjectHashMap(10);
+	private final TIntObjectHashMap<CubicTemplate> _cubics = new TIntObjectHashMap<>(10);
 	
 	private CubicHolder()
 	{

@@ -6,11 +6,17 @@ import gnu.trove.TIntObjectHashMap;
 public class TroveUtils
 {
 	public static final TIntArrayList EMPTY_INT_ARRAY_LIST = new TIntArrayListEmpty();
-	private static final TIntObjectHashMap EMPTY_INT_OBJECT_MAP = new TIntObjectHashMapEmpty();
+	private static final TIntObjectHashMap<Object> EMPTY_INT_OBJECT_MAP = new TIntObjectHashMapEmpty<>();
 	
 	public static <V> TIntObjectHashMap<V> emptyIntObjectMap()
 	{
-		return EMPTY_INT_OBJECT_MAP;
+		return castEmptyIntObjectMap();
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <V> TIntObjectHashMap<V> castEmptyIntObjectMap()
+	{
+		return (TIntObjectHashMap<V>) EMPTY_INT_OBJECT_MAP;
 	}
 	
 	private static class TIntArrayListEmpty extends TIntArrayList

@@ -21,7 +21,7 @@ public class _375_WhisperOfDreams2 extends Quest implements ScriptFile
 	private final int CAVE_HOWLER = 20624;
 	private final int KARIK = 20629;
 	private final int[] REWARDS = {5348, 5352, 5350};
-	private final List<Pair<Integer, Pair<Integer, Integer>>> DROPLIST = Arrays.asList(new Pair[] {Pair.of((Object) CAVE_HOWLER, (Object) Pair.of((Object) CH_SKULL, (Object) 100)), Pair.of((Object) KARIK, (Object) Pair.of((Object) K_HORN, (Object) 100))});
+	private final List<Pair<Integer, Pair<Integer, Integer>>> DROPLIST = Arrays.asList(Pair.of(CAVE_HOWLER, Pair.of(CH_SKULL, 100)), Pair.of(KARIK, Pair.of(K_HORN, 100)));
 	private final String _default = "noquest";
 	
 	public _375_WhisperOfDreams2()
@@ -31,7 +31,7 @@ public class _375_WhisperOfDreams2 extends Quest implements ScriptFile
 		for(Pair<Integer, Pair<Integer, Integer>> e : DROPLIST)
 		{
 			addKillId(e.getLeft());
-			addQuestItem((Integer) ((Pair) e.getRight()).getKey());
+			addQuestItem(e.getRight().getKey());
 		}
 	}
 	
@@ -78,7 +78,7 @@ public class _375_WhisperOfDreams2 extends Quest implements ScriptFile
 			boolean enoughItems = true;
 			for(Pair<Integer, Pair<Integer, Integer>> e : DROPLIST)
 			{
-				if(st.getQuestItemsCount(((Integer) ((Pair) e.getRight()).getKey()).intValue()) >= (long) ((Integer) ((Pair) e.getRight()).getValue()).intValue())
+				if(st.getQuestItemsCount(e.getRight().getKey()) >= (long) e.getRight().getValue())
 					continue;
 				enoughItems = false;
 				break;
@@ -110,10 +110,10 @@ public class _375_WhisperOfDreams2 extends Quest implements ScriptFile
 		{
 			if(npcid != e.getLeft())
 				continue;
-			itemTypeId = (Integer) ((Pair) e.getRight()).getKey();
-			requiredItemCount = (Integer) ((Pair) e.getRight()).getValue();
+			itemTypeId = e.getRight().getKey();
+			requiredItemCount = e.getRight().getValue();
 		}
-		Player partyMember = (Player) Rnd.get((List) st.getPartyMembers(2, Config.ALT_PARTY_DISTRIBUTION_RANGE, npc));
+		Player partyMember = Rnd.get(st.getPartyMembers(2, Config.ALT_PARTY_DISTRIBUTION_RANGE, npc));
 		QuestState partyMemberQuestState = partyMember.getQuestState(this);
 		if(partyMemberQuestState == null)
 		{

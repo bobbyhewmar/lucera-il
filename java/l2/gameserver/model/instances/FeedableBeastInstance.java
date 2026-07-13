@@ -41,7 +41,7 @@ public class FeedableBeastInstance extends MonsterInstance
 		CRYSTAL_SPICE = 1;
 		SKILL_GOLDEN_SPICE = 2188;
 		SKILL_CRYSTAL_SPICE = 2189;
-		growthCapableMobs = new TIntObjectHashMap();
+		growthCapableMobs = new TIntObjectHashMap<>();
 		tamedBeasts = new TIntArrayList();
 		feedableBeasts = new TIntArrayList();
 		growthCapableMobs.put(21451, new growthInfo(0, new int[][] {{21452, 21453, 21454, 21455}, {21456, 21457, 21458, 21459}}, 100));
@@ -116,7 +116,7 @@ public class FeedableBeastInstance extends MonsterInstance
 			feedableBeasts.add(i);
 		}
 		
-		feedInfo = new ConcurrentHashMap();
+		feedInfo = new ConcurrentHashMap<>();
 	}
 	
 	public FeedableBeastInstance(int objectId, NpcTemplate template)

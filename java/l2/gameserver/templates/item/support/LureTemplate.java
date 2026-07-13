@@ -2,6 +2,7 @@ package l2.gameserver.templates.item.support;
 
 import l2.commons.collections.MultiValueSet;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class LureTemplate
@@ -20,7 +21,27 @@ public class LureTemplate
 		_revisionNumber = set.getDouble("revision_number");
 		_rateBonus = set.getDouble("rate_bonus");
 		_lureType = set.getEnum("type", LureType.class);
-		_chances = (Map) set.get("chances");
+		_chances = readChances(set.get("chances"));
+	}
+
+	private static Map<FishGroup, Integer> readChances(Object value)
+	{
+		if(!(value instanceof Map<?, ?> chanceMap))
+		{
+			throw new IllegalArgumentException("Map<FishGroup, Integer> value required, but found: " + value + "!");
+		}
+
+		Map<FishGroup, Integer> chances = new HashMap<>(chanceMap.size());
+		for(Map.Entry<?, ?> entry : chanceMap.entrySet())
+		{
+			Object chanceValue = entry.getValue();
+			if(!(chanceValue instanceof Number number))
+			{
+				throw new IllegalArgumentException("Integer chance value required, but found: " + chanceValue + "!");
+			}
+			chances.put(FishGroup.class.cast(entry.getKey()), number.intValue());
+		}
+		return chances;
 	}
 	
 	public int getItemId()

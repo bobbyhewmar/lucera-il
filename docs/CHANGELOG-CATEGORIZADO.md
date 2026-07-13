@@ -12,3 +12,6 @@ IMPLEMENTACOES
 
 INFRAESTRUTURA
 - [INFRA] Stack Docker local com MariaDB 11.4, AuthServer, GameServer e bootstrap automatico do banco.
+
+DOCUMENTACAO
+- [DOC] Roadmap arquitetural por fases e master prompt de evolucao do projeto.

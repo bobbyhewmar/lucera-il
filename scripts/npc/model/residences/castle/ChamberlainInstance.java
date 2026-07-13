@@ -385,7 +385,7 @@ public class ChamberlainInstance extends ResidenceManager
 				player.sendPacket(html);
 				return;
 			}
-			List<CastleDamageZoneObject> objects = castle.getSiegeEvent().getObjects(val);
+			List<CastleDamageZoneObject> objects = castle.getSiegeEvent().getObjects(val, CastleDamageZoneObject.class);
 			long price = 0;
 			for(CastleDamageZoneObject o : objects)
 			{
@@ -451,7 +451,7 @@ public class ChamberlainInstance extends ResidenceManager
 			int type = Integer.parseInt(st.nextToken());
 			int level = Integer.parseInt(st.nextToken());
 			long price = getDoorCost(type, level);
-			List<DoorObject> doorObjects = castle.getSiegeEvent().getObjects("doors");
+			List<DoorObject> doorObjects = castle.getSiegeEvent().getObjects("doors", DoorObject.class);
 			DoorObject targetDoorObject = null;
 			for(DoorObject o : doorObjects)
 			{

@@ -20,7 +20,7 @@ public abstract class SteppingRunnableQueueManager implements Runnable
 {
 	private static final Logger _log = LoggerFactory.getLogger(SteppingRunnableQueueManager.class);
 	protected final long tickPerStepInMillis;
-	private final List<SteppingScheduledFuture<?>> queue = new CopyOnWriteArrayList();
+	private final List<SteppingScheduledFuture<?>> queue = new CopyOnWriteArrayList<>();
 	private final AtomicBoolean isRunning = new AtomicBoolean();
 	
 	public SteppingRunnableQueueManager(long tickPerStepInMillis)
@@ -42,7 +42,7 @@ public abstract class SteppingRunnableQueueManager implements Runnable
 	{
 		long initialStepping = getStepping(initial);
 		long stepping = getStepping(delay);
-		SteppingScheduledFuture sr = new SteppingScheduledFuture(r, initialStepping, stepping, isPeriodic);
+		SteppingScheduledFuture<?> sr = new SteppingScheduledFuture<>(r, initialStepping, stepping, isPeriodic);
 		queue.add(sr);
 		return sr;
 	}
@@ -88,8 +88,8 @@ public abstract class SteppingRunnableQueueManager implements Runnable
 	
 	public void purge()
 	{
-		LazyArrayList purge = LazyArrayList.newInstance();
-		for(SteppingScheduledFuture sr : queue)
+		LazyArrayList<SteppingScheduledFuture<?>> purge = LazyArrayList.newInstance();
+		for(SteppingScheduledFuture<?> sr : queue)
 		{
 			if(!sr.isDone())
 				continue;
@@ -105,7 +105,7 @@ public abstract class SteppingRunnableQueueManager implements Runnable
 		TreeMap<String, MutableLong> stats = new TreeMap<>();
 		int total = 0;
 		int done = 0;
-		for(SteppingScheduledFuture sr : queue)
+		for(SteppingScheduledFuture<?> sr : queue)
 		{
 			if(sr.isDone())
 			{
@@ -122,9 +122,9 @@ public abstract class SteppingRunnableQueueManager implements Runnable
 			}
 			count.increment();
 		}
-		for(Map.Entry e : stats.entrySet())
+		for(Map.Entry<String, MutableLong> e : stats.entrySet())
 		{
-			list.append("\t").append((String) e.getKey()).append(" : ").append(((MutableLong) e.getValue()).longValue()).append("\n");
+			list.append("\t").append(e.getKey()).append(" : ").append(e.getValue().longValue()).append("\n");
 		}
 		list.append("Scheduled: ....... ").append(total).append("\n");
 		list.append("Done/Cancelled: .. ").append(done).append("\n");

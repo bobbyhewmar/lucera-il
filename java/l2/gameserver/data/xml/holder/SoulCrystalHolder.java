@@ -7,7 +7,7 @@ import l2.gameserver.templates.SoulCrystal;
 public final class SoulCrystalHolder extends AbstractHolder
 {
 	private static final SoulCrystalHolder _instance = new SoulCrystalHolder();
-	private final TIntObjectHashMap<SoulCrystal> _crystals = new TIntObjectHashMap();
+	private final TIntObjectHashMap<SoulCrystal> _crystals = new TIntObjectHashMap<>();
 	
 	public static SoulCrystalHolder getInstance()
 	{

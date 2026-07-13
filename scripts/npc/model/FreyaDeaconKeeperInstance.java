@@ -1,6 +1,5 @@
 package npc.model;
 
-import l2.commons.listener.Listener;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
 import l2.gameserver.instancemanager.SpawnManager;
@@ -177,7 +176,7 @@ public final class FreyaDeaconKeeperInstance extends NpcInstance
 			spawner.stopRespawn();
 			if(!sirr.isMonster())
 				continue;
-			sirr.addListener((Listener) _listner);
+			sirr.addListener(_listner);
 		}
 	}
 	
@@ -189,7 +188,7 @@ public final class FreyaDeaconKeeperInstance extends NpcInstance
 			{
 				if(!sirr.isMonster())
 					continue;
-				sirr.removeListener((Listener) _listner);
+				sirr.removeListener(_listner);
 			}
 			spawner.deleteAll();
 		}

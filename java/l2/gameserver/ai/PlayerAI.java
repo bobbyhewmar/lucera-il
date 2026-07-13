@@ -1,7 +1,6 @@
 package l2.gameserver.ai;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
@@ -43,7 +42,7 @@ public class PlayerAI extends PlayableAI
 		}
 		if(actor.isSitting())
 		{
-			actor.sendPacket(Msg.YOU_CANNOT_MOVE_WHILE_SITTING);
+			actor.sendPacket(SystemMsg.YOU_CANNOT_MOVE_WHILE_SITTING);
 			clientActionFailed();
 			return;
 		}
@@ -61,7 +60,7 @@ public class PlayerAI extends PlayableAI
 		}
 		if(actor.isSitting())
 		{
-			actor.sendPacket(Msg.YOU_CANNOT_MOVE_WHILE_SITTING);
+			actor.sendPacket(SystemMsg.YOU_CANNOT_MOVE_WHILE_SITTING);
 			clientActionFailed();
 			return;
 		}
@@ -135,7 +134,7 @@ public class PlayerAI extends PlayableAI
 		}
 		if(actor.isSitting())
 		{
-			actor.sendPacket(Msg.YOU_CANNOT_MOVE_WHILE_SITTING);
+			actor.sendPacket(SystemMsg.YOU_CANNOT_MOVE_WHILE_SITTING);
 			clientActionFailed();
 			return;
 		}
@@ -156,7 +155,7 @@ public class PlayerAI extends PlayableAI
 			}
 			if(skill.getSkillType() == Skill.SkillType.SUMMON && actor.getPrivateStoreType() != 0)
 			{
-				actor.sendPacket(Msg.YOU_CANNOT_SUMMON_DURING_A_TRADE_OR_WHILE_USING_THE_PRIVATE_SHOPS);
+				actor.sendPacket(SystemMsg.YOU_CANNOT_SUMMON_DURING_A_TRADE_OR_WHILE_USING_A_PRIVATE_STORE);
 				clientActionFailed();
 				return;
 			}
@@ -164,11 +163,11 @@ public class PlayerAI extends PlayableAI
 			{
 				if(skill.getSkillType() == Skill.SkillType.TRANSFORMATION)
 				{
-					actor.sendPacket(Msg.YOU_CANNOT_TRANSFORM_WHILE_SITTING);
+					actor.sendPacket(SystemMsg.YOU_CANNOT_TRANSFORM_WHILE_SITTING);
 				}
 				else
 				{
-					actor.sendPacket(Msg.YOU_CANNOT_MOVE_WHILE_SITTING);
+					actor.sendPacket(SystemMsg.YOU_CANNOT_MOVE_WHILE_SITTING);
 				}
 				clientActionFailed();
 				return;

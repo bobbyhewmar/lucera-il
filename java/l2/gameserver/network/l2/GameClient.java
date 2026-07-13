@@ -8,7 +8,6 @@ import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.GameServer;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.dao.CharacterDAO;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.instancemanager.BypassManager;
@@ -18,6 +17,7 @@ import l2.gameserver.model.Player;
 import l2.gameserver.network.authcomm.AuthServerCommunication;
 import l2.gameserver.network.authcomm.SessionKey;
 import l2.gameserver.network.authcomm.gs2as.PlayerLogout;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.L2GameServerPacket;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.RequestNetPing;
@@ -195,7 +195,7 @@ public final class GameClient extends MMOClient<MMOConnection<GameClient>>
 				oldPlayer.kick();
 				return null;
 			}
-			oldPlayer.sendPacket(Msg.ANOTHER_PERSON_HAS_LOGGED_IN_WITH_THE_SAME_ACCOUNT);
+			oldPlayer.sendPacket(SystemMsg.ANOTHER_PERSON_HAS_LOGGED_IN_WITH_THE_SAME_ACCOUNT);
 			GameClient oldClient = oldPlayer.getNetConnection();
 			if(oldClient != null)
 			{

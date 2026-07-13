@@ -61,7 +61,7 @@ public class PawnShop extends Functions implements ScriptFile
 			return o2.getCurrencyItemId() - o1.getCurrencyItemId();
 		}
 	};
-	private static CopyOnWriteArrayList<PawnShopItem> PAWN_SHOP_ITEMS = new CopyOnWriteArrayList();
+	private static CopyOnWriteArrayList<PawnShopItem> PAWN_SHOP_ITEMS = new CopyOnWriteArrayList<>();
 	
 	private static void loadItems()
 	{
@@ -97,7 +97,7 @@ public class PawnShop extends Functions implements ScriptFile
 		{
 			LAST_ID.compareAndSet(lastId, maxId);
 		}
-		PAWN_SHOP_ITEMS = new CopyOnWriteArrayList(items);
+		PAWN_SHOP_ITEMS = new CopyOnWriteArrayList<>(items);
 	}
 	
 	public static void showStartPage(Player player, NpcInstance npc)

@@ -15,6 +15,7 @@ import l2.gameserver.utils.Location;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Antharas extends DefaultAI
 {
@@ -125,7 +126,7 @@ public class Antharas extends DefaultAI
 		{
 			return chooseTaskAndTargets(Rnd.chance(50) ? s_antharas_ordinary_attack : s_antharas_ordinary_attack2, target, distance);
 		}
-		HashMap d_skill = new HashMap();
+		Map<Skill, Integer> d_skill = new HashMap<>();
 		switch(_hpStage)
 		{
 			case 1:

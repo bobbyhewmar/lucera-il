@@ -7,13 +7,19 @@ public abstract class SendablePacket<T extends MMOClient> extends l2.commons.net
 	@Override
 	protected ByteBuffer getByteBuffer()
 	{
-		return ((SelectorThread) Thread.currentThread()).getWriteBuffer();
+		return getCurrentSelectorThread().getWriteBuffer();
 	}
 	
 	@Override
 	public T getClient()
 	{
-		return (T) ((SelectorThread) Thread.currentThread()).getWriteClient();
+		return getCurrentSelectorThread().getWriteClient();
+	}
+
+	@SuppressWarnings("unchecked")
+	private SelectorThread<T> getCurrentSelectorThread()
+	{
+		return (SelectorThread<T>) Thread.currentThread();
 	}
 	
 	@Override

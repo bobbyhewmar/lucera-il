@@ -8,6 +8,7 @@ import l2.gameserver.model.base.Race;
 import l2.gameserver.tables.SkillTable;
 import l2.gameserver.utils.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ZoneTemplate
@@ -71,8 +72,8 @@ public class ZoneTemplate
 		_eventId = set.getInteger("eventId", 0);
 		_isEnabled = set.getBool("enabled", true);
 		_isDefault = set.getBool("default", true);
-		_restartPoints = (List) set.get("restart_points");
-		_PKrestartPoints = (List) set.get("PKrestart_points");
+		_restartPoints = getLocationList(set, "restart_points");
+		_PKrestartPoints = getLocationList(set, "PKrestart_points");
 		_restartTime = set.getLong("restart_time", 0);
 		s = (String) set.get("blocked_actions");
 		_blockedActions = s != null ? s.split("[\\s,;]+") : null;
@@ -219,5 +220,24 @@ public class ZoneTemplate
 	public MultiValueSet<String> getParams()
 	{
 		return _params.clone();
+	}
+	
+	private static List<Location> getLocationList(StatsSet set, String key)
+	{
+		Object value = set.get(key);
+		if(value == null)
+		{
+			return null;
+		}
+		if(!(value instanceof List<?> values))
+		{
+			throw new IllegalArgumentException("List<Location> value required, but found: " + value + "!");
+		}
+		ArrayList<Location> result = new ArrayList<>(values.size());
+		for(Object entry : values)
+		{
+			result.add(Location.class.cast(entry));
+		}
+		return result;
 	}
 }

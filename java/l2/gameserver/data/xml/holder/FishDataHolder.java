@@ -17,8 +17,8 @@ public class FishDataHolder extends AbstractHolder
 {
 	private static final FishDataHolder _instance = new FishDataHolder();
 	private final List<FishTemplate> _fishes = new ArrayList<>();
-	private final IntObjectMap<LureTemplate> _lures = new HashIntObjectMap();
-	private final IntObjectMap<Map<LureType, Map<FishGroup, Integer>>> _distributionsForZones = new HashIntObjectMap();
+	private final IntObjectMap<LureTemplate> _lures = new HashIntObjectMap<>();
+	private final IntObjectMap<Map<LureType, Map<FishGroup, Integer>>> _distributionsForZones = new HashIntObjectMap<>();
 	
 	public static FishDataHolder getInstance()
 	{
@@ -37,7 +37,7 @@ public class FishDataHolder extends AbstractHolder
 	
 	public void addDistribution(int id, LureType lureType, Map<FishGroup, Integer> map)
 	{
-		HashMap<LureType, Map<FishGroup, Integer>> byLureType = (HashMap<LureType, Map<FishGroup, Integer>>) _distributionsForZones.get(id);
+		Map<LureType, Map<FishGroup, Integer>> byLureType = _distributionsForZones.get(id);
 		if(byLureType == null)
 		{
 			byLureType = new HashMap<>();

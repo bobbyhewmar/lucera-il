@@ -68,6 +68,12 @@ public class SystemMessage2 extends SysMsgContainer<SystemMessage2>
 	{
 		return removeItems(item.getItemId(), item.getCount());
 	}
+
+	@Override
+	protected SystemMessage2 self()
+	{
+		return this;
+	}
 	
 	@Override
 	protected void writeImpl()

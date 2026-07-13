@@ -38,7 +38,7 @@ public class CastleDamageZoneDAO
 			statement = con.prepareStatement("SELECT zone FROM castle_damage_zones WHERE residence_id=?");
 			statement.setInt(1, r.getId());
 			rset = statement.executeQuery();
-			set = new ArrayList();
+			set = new ArrayList<>();
 			while(rset.next())
 			{
 				set.add(rset.getString("zone"));

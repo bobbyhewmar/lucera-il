@@ -56,7 +56,7 @@ public final class ItemInstance extends GameObject
 	public static final int FLAG_NO_DESTROY = 32;
 	private static final long serialVersionUID = 3162753878915133228L;
 	private static final ItemsDAO _itemsDAO = ItemsDAO.getInstance();
-	private final AtomicEnumBitFlag<ItemStateFlags> _stateFlags = new AtomicEnumBitFlag();
+	private final AtomicEnumBitFlag<ItemStateFlags> _stateFlags = new AtomicEnumBitFlag<>();
 	private ItemAttributes attrs = new ItemAttributes();
 	private int[] _enchantOptions = EMPTY_ENCHANT_OPTIONS;
 	private int _owner_id;

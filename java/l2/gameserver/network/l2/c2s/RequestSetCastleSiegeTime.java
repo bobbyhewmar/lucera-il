@@ -41,7 +41,7 @@ public class RequestSetCastleSiegeTime extends L2GameClientPacket
 			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_THE_AUTHORITY_TO_MODIFY_THE_SIEGE_TIME);
 			return;
 		}
-		CastleSiegeEvent siegeEvent = castle.getSiegeEvent();
+		CastleSiegeEvent siegeEvent = castle.getSiegeEvent(CastleSiegeEvent.class);
 		siegeEvent.setNextSiegeTime(_time);
 		player.sendPacket(new CastleSiegeInfo(castle, player));
 	}

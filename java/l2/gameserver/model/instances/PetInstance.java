@@ -4,7 +4,6 @@ import l2.commons.dbutils.DbUtils;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.idfactory.IdFactory;
 import l2.gameserver.model.Creature;
@@ -265,7 +264,7 @@ public class PetInstance extends Summon
 	{
 		super.onDeath(killer);
 		Player owner = getPlayer();
-		owner.sendPacket(Msg.THE_PET_HAS_BEEN_KILLED_IF_YOU_DO_NOT_RESURRECT_IT_WITHIN_24_HOURS_THE_PETS_BODY_WILL_DISAPPEAR_ALONG_WITH_ALL_THE_PETS_ITEMS);
+		owner.sendPacket(SystemMsg.THE_PET_HAS_BEEN_KILLED_IF_YOU_DO_NOT_RESURRECT_IT_WITHIN_24_HOURS_THE_PETS_BODY_WILL_DISAPPEAR_ALONG_WITH_ALL_THE_PETS_ITEMS);
 		startDecay(86400000);
 		stopFeed();
 		deathPenalty();
@@ -308,12 +307,12 @@ public class PetInstance extends Summon
 			}
 			if(!getInventory().validateWeight(item))
 			{
-				sendPacket(Msg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
+				sendPacket(SystemMsg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
 				return;
 			}
 			if(!getInventory().validateCapacity(item))
 			{
-				sendPacket(Msg.DUE_TO_THE_VOLUME_LIMIT_OF_THE_PETS_INVENTORY_NO_MORE_ITEMS_CAN_BE_PLACED_THERE);
+				sendPacket(SystemMsg.DUE_TO_THE_VOLUME_LIMIT_OF_THE_PETS_INVENTORY_NO_MORE_ITEMS_CAN_BE_PLACED_THERE);
 				return;
 			}
 			if(!item.getTemplate().getHandler().pickupItem(this, item))

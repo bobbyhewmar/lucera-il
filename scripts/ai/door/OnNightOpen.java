@@ -4,6 +4,7 @@ import l2.commons.lang.reference.HardReference;
 import l2.gameserver.GameTimeController;
 import l2.gameserver.ai.DoorAI;
 import l2.gameserver.listener.game.OnDayNightChangeListener;
+import l2.gameserver.model.Creature;
 import l2.gameserver.model.instances.DoorInstance;
 
 public class OnNightOpen extends DoorAI
@@ -22,11 +23,11 @@ public class OnNightOpen extends DoorAI
 	
 	private static class NightDoorOpenController implements OnDayNightChangeListener
 	{
-		private final HardReference<DoorInstance> _actRef;
+		private final HardReference<? extends Creature> _actRef;
 		
 		public NightDoorOpenController(DoorInstance actor)
 		{
-			_actRef = (HardReference<DoorInstance>) actor.getRef();
+			_actRef = actor.getRef();
 		}
 		
 		@Override
@@ -37,8 +38,8 @@ public class OnNightOpen extends DoorAI
 		@Override
 		public void onNight()
 		{
-			DoorInstance door = _actRef.get();
-			if(door != null)
+			Creature creature = _actRef.get();
+			if(creature instanceof DoorInstance door)
 			{
 				door.openMe();
 				_log.info("Zaken door is opened for 5 min.");

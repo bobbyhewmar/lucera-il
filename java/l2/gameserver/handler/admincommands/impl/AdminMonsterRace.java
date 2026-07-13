@@ -2,11 +2,11 @@ package l2.gameserver.handler.admincommands.impl;
 
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.MonsterRace;
 import l2.gameserver.model.instances.NpcInstance;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.DeleteObject;
 import l2.gameserver.network.l2.s2c.MonRaceInfo;
 import l2.gameserver.network.l2.s2c.PlaySound;
@@ -49,7 +49,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 		}
 		else if(state == 0)
 		{
-			activeChar.sendPacket(Msg.THEYRE_OFF);
+			activeChar.sendPacket(SystemMsg.THEYRE_OFF);
 			activeChar.broadcastPacket(new PlaySound("S_Race"));
 			activeChar.broadcastPacket(new PlaySound(PlaySound.Type.SOUND, "ItemSound2.race_start", 1, 121209259, new Location(12125, 182487, -3559)));
 			activeChar.broadcastPacket(new MonRaceInfo(codes[state][0], codes[++state][1], race.getMonsters(), race.getSpeeds()));

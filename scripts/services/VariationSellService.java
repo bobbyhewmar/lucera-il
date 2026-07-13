@@ -51,7 +51,7 @@ public class VariationSellService extends Functions implements ScriptFile
 				int variationOption1 = rset.getInt("variationOption1");
 				int variationOption2 = rset.getInt("variationOption2");
 				String consumeListText = rset.getString("consumeList").trim();
-				List consumeList = Functions.parseItemIdAmountList(consumeListText);
+				List<Pair<ItemTemplate, Long>> consumeList = Functions.parseItemIdAmountList(consumeListText);
 				result.put(menuId, new VariationSellServiceTemplate(menuId, variationOption1, variationOption2, consumeList));
 			}
 		}

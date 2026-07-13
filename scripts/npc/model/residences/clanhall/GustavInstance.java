@@ -59,7 +59,7 @@ public class GustavInstance extends SiegeGuardInstance implements _34SiegeGuard
 			{
 				return;
 			}
-			SpawnExObject obj = siegeEvent.getFirstObject("boss");
+			SpawnExObject obj = siegeEvent.getFirstObject("boss", SpawnExObject.class);
 			for(int i = 0;i < 3;++i)
 			{
 				NpcInstance npc = obj.getSpawns().get(i).getFirstSpawned();

@@ -122,8 +122,8 @@ public class CommandClassMaster extends Functions implements ScriptFile, OnGainE
 			int classLevelOrd;
 			String classLvlCfg = classLvlCfgTok.nextToken().trim();
 			int priceDelimIdx = classLvlCfg.indexOf("-");
-			List price = Collections.emptyList();
-			List reward = Collections.emptyList();
+			List<Pair<Integer, Long>> price = Collections.emptyList();
+			List<Pair<Integer, Long>> reward = Collections.emptyList();
 			if(priceDelimIdx < 0)
 			{
 				classLevelOrd = Integer.parseInt(classLvlCfg.trim());

@@ -15,6 +15,7 @@ import l2.gameserver.tables.SkillTable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Valakas extends DefaultAI
 {
@@ -145,7 +146,7 @@ public class Valakas extends DefaultAI
 		{
 			return chooseTaskAndTargets(Rnd.chance(50) ? s_tremple_left : s_tremple_right, target, distance);
 		}
-		HashMap d_skill = new HashMap();
+		Map<Skill, Integer> d_skill = new HashMap<>();
 		switch(_hpStage)
 		{
 			case 1:

@@ -23,9 +23,9 @@ public class CastleSiegeDefenderList extends L2GameServerPacket
 	{
 		_id = castle.getId();
 		_registrationValid = !castle.getSiegeEvent().isRegistrationOver() && castle.getOwner() != null ? 1 : 0;
-		List<SiegeClanObject> defenders = castle.getSiegeEvent().getObjects("defenders");
-		List<SiegeClanObject> defendersWaiting = castle.getSiegeEvent().getObjects("defenders_waiting");
-		List<SiegeClanObject> defendersRefused = castle.getSiegeEvent().getObjects("defenders_refused");
+		List<SiegeClanObject> defenders = castle.getSiegeEvent().getObjects("defenders", SiegeClanObject.class);
+		List<SiegeClanObject> defendersWaiting = castle.getSiegeEvent().getObjects("defenders_waiting", SiegeClanObject.class);
+		List<SiegeClanObject> defendersRefused = castle.getSiegeEvent().getObjects("defenders_refused", SiegeClanObject.class);
 		_defenderClans = new ArrayList<>(defenders.size() + defendersWaiting.size() + defendersRefused.size());
 		if(castle.getOwner() != null)
 		{

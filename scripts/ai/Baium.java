@@ -9,6 +9,7 @@ import l2.gameserver.model.Skill;
 import l2.gameserver.model.instances.NpcInstance;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Baium extends DefaultAI
 {
@@ -96,7 +97,7 @@ public class Baium extends DefaultAI
 		}
 		else if(!Rnd.chance(100 - s_thunderbolt - s_group_hold - s_energy_wave - s_earth_quake))
 		{
-			HashMap d_skill = new HashMap();
+			Map<Skill, Integer> d_skill = new HashMap<>();
 			double distance = actor.getDistance(target);
 			addDesiredSkill(d_skill, target, distance, energy_wave);
 			addDesiredSkill(d_skill, target, distance, earth_quake);

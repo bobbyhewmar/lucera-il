@@ -8,7 +8,7 @@ import org.napile.primitive.maps.impl.HashIntObjectMap;
 public final class OptionDataHolder extends AbstractHolder
 {
 	private static final OptionDataHolder _instance = new OptionDataHolder();
-	private final IntObjectMap<OptionDataTemplate> _templates = new HashIntObjectMap();
+	private final IntObjectMap<OptionDataTemplate> _templates = new HashIntObjectMap<>();
 	
 	public static OptionDataHolder getInstance()
 	{

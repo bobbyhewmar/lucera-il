@@ -32,7 +32,7 @@ public final class SpawnHolder extends AbstractHolder
 	
 	public List<SpawnTemplate> getSpawn(String name)
 	{
-		List template = _spawns.get(name);
+		List<SpawnTemplate> template = _spawns.get(name);
 		return template == null ? Collections.emptyList() : template;
 	}
 	

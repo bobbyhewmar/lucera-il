@@ -66,7 +66,7 @@ public class RequestDuelAnswerStart extends L2GameClientPacket
 			activeChar.sendActionFailed();
 			return;
 		}
-		DuelEvent duelEvent = EventHolder.getInstance().getEvent(EventType.PVP_EVENT, _duelType);
+		DuelEvent duelEvent = EventHolder.getInstance().getEvent(EventType.PVP_EVENT, _duelType, DuelEvent.class);
 		switch(_response)
 		{
 			case 0:

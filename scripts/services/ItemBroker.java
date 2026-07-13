@@ -477,7 +477,7 @@ public class ItemBroker extends Functions
 			show("Ошибка - такой тип предмета отсутствует.", player, npc, (Object[]) new Object[0]);
 			return;
 		}
-		NavigableMap allItems = tmpItems.get(template.getName());
+		NavigableMap<Long, Item> allItems = tmpItems.get(template.getName());
 		if(allItems == null)
 		{
 			show("Ошибка - предметов с таким названием не найдено.", player, npc, (Object[]) new Object[0]);
@@ -493,8 +493,7 @@ public class ItemBroker extends Functions
 			findPageNum(out, type, returnPage, search, "««");
 		}
 		out.append("&nbsp;&nbsp;");
-		Map<Long, Item> sortedItems;
-		Map map = sortedItems = type == 3 ? allItems.descendingMap() : allItems;
+		NavigableMap<Long, Item> sortedItems = type == 3 ? allItems.descendingMap() : allItems;
 		if(sortedItems == null)
 		{
 			show("Ошибка - ничего не найдено.", player, npc, (Object[]) new Object[0]);
@@ -760,9 +759,9 @@ public class ItemBroker extends Functions
 		{
 			info = new NpcInfo();
 			info.lastUpdate = System.currentTimeMillis();
-			info.bestBuyItems = new TreeMap();
-			info.bestSellItems = new TreeMap();
-			info.bestCraftItems = new TreeMap();
+			info.bestBuyItems = new TreeMap<>();
+			info.bestSellItems = new TreeMap<>();
+			info.bestCraftItems = new TreeMap<>();
 			int itemObjId = 0;
 			block5:
 			for(Player pl : World.getAroundPlayers(npc, 4000, 400))
@@ -772,7 +771,7 @@ public class ItemBroker extends Functions
 					continue;
 				TreeMap<String, TreeMap<Long, Item>> items;
 				Item newItem;
-				TreeMap oldItems;
+				TreeMap<Long, Item> oldItems;
 				ItemTemplate temp;
 				long key;
 				switch(type)
@@ -789,7 +788,7 @@ public class ItemBroker extends Functions
 							oldItems = items.get(temp.getName());
 							if(oldItems == null)
 							{
-								oldItems = new TreeMap();
+								oldItems = new TreeMap<>();
 								items.put(temp.getName(), oldItems);
 							}
 							newItem = new Item(item.getItemId(), type, item.getOwnersPrice(), item.getCount(), item.getEnchantLevel(), temp.getName(), pl.getStoredId(), pl.getName(), pl.getLoc(), item.getObjectId(), item);
@@ -812,7 +811,7 @@ public class ItemBroker extends Functions
 							oldItems = items.get(temp.getName());
 							if(oldItems == null)
 							{
-								oldItems = new TreeMap();
+								oldItems = new TreeMap<>();
 								items.put(temp.getName(), oldItems);
 							}
 							newItem = new Item(item.getItemId(), type, item.getOwnersPrice(), item.getCount(), item.getEnchantLevel(), temp.getName(), pl.getStoredId(), pl.getName(), pl.getLoc(), itemObjId++, item);
@@ -835,18 +834,18 @@ public class ItemBroker extends Functions
 							Recipe recipe = RecipeHolder.getInstance().getRecipeById(recipeId);
 							if(recipe == null)
 								continue;
-							for(Pair product : recipe.getProducts())
+							for(Pair<ItemTemplate, Long> product : recipe.getProducts())
 							{
-								ItemTemplate temp2 = (ItemTemplate) product.getKey();
+								ItemTemplate temp2 = product.getKey();
 								if(temp2 == null)
 									continue;
-								TreeMap oldItems2 = items.get(temp2.getName());
+								TreeMap<Long, Item> oldItems2 = items.get(temp2.getName());
 								if(oldItems2 == null)
 								{
-									oldItems2 = new TreeMap();
+									oldItems2 = new TreeMap<>();
 									items.put(temp2.getName(), oldItems2);
 								}
-								Item newItem2 = new Item(((ItemTemplate) product.getKey()).getItemId(), type, mitem.getCost(), (Long) product.getValue(), 0, temp2.getName(), pl.getStoredId(), pl.getName(), pl.getLoc(), itemObjId++, null);
+								Item newItem2 = new Item(product.getKey().getItemId(), type, mitem.getCost(), product.getValue(), 0, temp2.getName(), pl.getStoredId(), pl.getName(), pl.getLoc(), itemObjId++, null);
 								long key2;
 								for(key2 = newItem2.price * 100;key2 < newItem2.price * 100 + 100 && oldItems2.containsKey(key2);++key2)
 								{

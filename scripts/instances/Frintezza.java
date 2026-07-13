@@ -1,6 +1,5 @@
 package instances;
 
-import l2.commons.listener.Listener;
 import l2.commons.threading.RunnableImpl;
 import l2.commons.util.Rnd;
 import l2.gameserver.ThreadPoolManager;
@@ -75,7 +74,7 @@ public class Frintezza extends Reflection
 		getZone("[Frintezza]").addListener(_zoneListener);
 		for(NpcInstance n : getNpcs())
 		{
-			n.addListener((Listener) _deathListener);
+			n.addListener(_deathListener);
 		}
 		blockUnblockNpcs(true, blockANpcs);
 	}
@@ -466,7 +465,7 @@ public class Frintezza extends Reflection
 						weakScarlet.deleteMe();
 						weakScarlet = null;
 						strongScarlet = spawn(loc);
-						strongScarlet.addListener((Listener) _deathListener);
+						strongScarlet.addListener(_deathListener);
 						block(strongScarlet, true);
 						showSocialActionMovie(strongScarlet, 450, _angle, 12, 500, 14000, 2);
 						ThreadPoolManager.getInstance().schedule(new ThirdMorph(9), 5000);
@@ -836,7 +835,7 @@ public class Frintezza extends Reflection
 					{
 						weakScarlet = spawn(scarletSpawnWeak);
 						block(weakScarlet, true);
-						weakScarlet.addListener((Listener) _currentHpListener);
+						weakScarlet.addListener(_currentHpListener);
 						weakScarlet.broadcastPacket(new MagicSkillUse(weakScarlet, weakScarlet, 5016, 1, 3000, 0));
 						Earthquake eq = new Earthquake(weakScarlet.getLoc(), 50, 6);
 						for(Player pc : getPlayers())

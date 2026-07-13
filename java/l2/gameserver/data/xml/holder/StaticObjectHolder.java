@@ -9,8 +9,8 @@ import org.napile.primitive.maps.impl.HashIntObjectMap;
 public final class StaticObjectHolder extends AbstractHolder
 {
 	private static final StaticObjectHolder _instance = new StaticObjectHolder();
-	private final IntObjectMap<StaticObjectTemplate> _templates = new HashIntObjectMap();
-	private final IntObjectMap<StaticObjectInstance> _spawned = new HashIntObjectMap();
+	private final IntObjectMap<StaticObjectTemplate> _templates = new HashIntObjectMap<>();
+	private final IntObjectMap<StaticObjectInstance> _spawned = new HashIntObjectMap<>();
 	
 	public static StaticObjectHolder getInstance()
 	{

@@ -12,16 +12,23 @@ public class JoinedIterator<E> implements Iterator<E>
 	
 	public JoinedIterator(List<Iterator<E>> iterators)
 	{
-		this(iterators.toArray(new Iterator[iterators.size()]));
+		this(toIteratorArray(iterators));
 	}
 	
-	public JoinedIterator(Iterator... iterators)
+	@SafeVarargs
+	public JoinedIterator(Iterator<E>... iterators)
 	{
 		if(iterators == null)
 		{
 			throw new NullPointerException("Unexpected NULL iterators argument");
 		}
 		_iterators = iterators;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <E> Iterator<E>[] toIteratorArray(List<Iterator<E>> iterators)
+	{
+		return iterators.toArray(new Iterator[iterators.size()]);
 	}
 	
 	@Override

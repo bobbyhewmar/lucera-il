@@ -35,6 +35,7 @@ import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.PlaySound;
 import l2.gameserver.network.l2.s2c.SystemMessage2;
 import l2.gameserver.taskmanager.DelayedItemsManager;
+import l2.gameserver.tables.ClanTable;
 import l2.gameserver.templates.item.ItemTemplate;
 import l2.gameserver.templates.item.support.MerchantGuard;
 import l2.gameserver.utils.ItemFunctions;
@@ -98,10 +99,29 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 	}
 	
 	@Override
+	protected Class<SiegeClanObject> getSiegeClanType()
+	{
+		return SiegeClanObject.class;
+	}
+
+	@Override
+	protected Class<Castle> getResidenceType()
+	{
+		return Castle.class;
+	}
+	
+	@Override
+	public SiegeClanObject newSiegeClan(String type, int clanId, long param, long date)
+	{
+		Clan clan = ClanTable.getInstance().getClan(clanId);
+		return clan == null ? null : new SiegeClanObject(type, clan, param, date);
+	}
+	
+	@Override
 	public void initEvent()
 	{
 		super.initEvent();
-		List<DoorObject> doorObjects = getObjects("doors");
+		List<DoorObject> doorObjects = getObjects("doors", DoorObject.class);
 		addObjects("bought_zones", CastleDamageZoneDAO.getInstance().load(getResidence()));
 		for(DoorObject doorObject : doorObjects)
 		{
@@ -132,7 +152,7 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 			int allianceObjectId = newOwnerClan.getAllyId();
 			if(allianceObjectId > 0)
 			{
-				List<SiegeClanObject> attackers = getObjects("attackers");
+				List<SiegeClanObject> attackers = getObjects("attackers", SiegeClanObject.class);
 				boolean sameAlliance = true;
 				for(SiegeClanObject sc : attackers)
 				{
@@ -151,7 +171,7 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 		newOwnerSiegeClan.deleteFlag();
 		newOwnerSiegeClan.setType("defenders");
 		removeObject("attackers", newOwnerSiegeClan);
-		List<SiegeClanObject> defenders = removeObjects("defenders");
+		List<SiegeClanObject> defenders = removeObjects("defenders", SiegeClanObject.class);
 		for(SiegeClanObject siegeClan : defenders)
 		{
 			siegeClan.setType("attackers");
@@ -177,7 +197,7 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 			{
 				spawnAction("guards", false);
 			}
-			List<DoorObject> doorObjects = getObjects("doors");
+			List<DoorObject> doorObjects = getObjects("doors", DoorObject.class);
 			for(DoorObject doorObject : doorObjects)
 			{
 				doorObject.setWeak(true);
@@ -241,14 +261,14 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 	@Override
 	public void stopEvent(boolean step)
 	{
-		List<DoorObject> doorObjects = getObjects("doors");
+		List<DoorObject> doorObjects = getObjects("doors", DoorObject.class);
 		for(DoorObject doorObject : doorObjects)
 		{
 			doorObject.setWeak(false);
 		}
 		damageZoneAction(false);
 		updateParticles(false, "attackers", "defenders");
-		List<SiegeClanObject> attackers = removeObjects("attackers");
+		List<SiegeClanObject> attackers = removeObjects("attackers", SiegeClanObject.class);
 		for(SiegeClanObject siegeClan : attackers)
 		{
 			siegeClan.deleteFlag();
@@ -405,13 +425,13 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 	
 	private void initControlTowers()
 	{
-		List<SpawnExObject> objects = getObjects("guards");
+		List<SpawnExObject> objects = getObjects("guards", SpawnExObject.class);
 		ArrayList<Spawner> spawns = new ArrayList<>();
 		for(SpawnExObject o : objects)
 		{
 			spawns.addAll(o.getSpawns());
 		}
-		List<SiegeToggleNpcObject> ct = getObjects("control_towers");
+		List<SiegeToggleNpcObject> ct = getObjects("control_towers", SiegeToggleNpcObject.class);
 		for(Spawner spawn : spawns)
 		{
 			Location spawnLoc = spawn.getCurrentSpawnRange().getRandomLoc(ReflectionManager.DEFAULT.getGeoIndex());
@@ -560,7 +580,7 @@ public class CastleSiegeEvent extends SiegeEvent<Castle, SiegeClanObject>
 		}
 		else
 		{
-			List<SiegeToggleNpcObject> towers = getObjects("control_towers");
+			List<SiegeToggleNpcObject> towers = getObjects("control_towers", SiegeToggleNpcObject.class);
 			int deadTowerCnt = 0;
 			for(SiegeToggleNpcObject t : towers)
 			{

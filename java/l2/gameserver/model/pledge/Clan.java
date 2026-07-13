@@ -4,7 +4,6 @@ import l2.commons.collections.JoinedIterator;
 import l2.commons.dbutils.DbUtils;
 import l2.gameserver.Config;
 import l2.gameserver.cache.CrestCache;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.ResidenceHolder;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.database.mysql;
@@ -15,6 +14,7 @@ import l2.gameserver.model.entity.residence.ResidenceType;
 import l2.gameserver.model.items.ClanWarehouse;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.network.l2.components.IStaticPacket;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.L2GameServerPacket;
 import l2.gameserver.network.l2.s2c.PledgeReceiveSubPledgeCreated;
 import l2.gameserver.network.l2.s2c.PledgeShowInfoUpdate;
@@ -85,9 +85,9 @@ public class Clan implements Iterable<UnitMember>
 	private final ClanWarehouse _warehouse;
 	private final List<Clan> _atWarWith = new ArrayList<>();
 	private final List<Clan> _underAttackFrom = new ArrayList<>();
-	protected IntObjectMap<Skill> _skills = new CTreeIntObjectMap();
-	protected IntObjectMap<RankPrivs> _privs = new CTreeIntObjectMap();
-	protected IntObjectMap<SubUnit> _subUnits = new CTreeIntObjectMap();
+	protected IntObjectMap<Skill> _skills = new CTreeIntObjectMap<>();
+	protected IntObjectMap<RankPrivs> _privs = new CTreeIntObjectMap<>();
+	protected IntObjectMap<SubUnit> _subUnits = new CTreeIntObjectMap<>();
 	private int _allyId;
 	private int _level;
 	private int _hasCastle;
@@ -771,7 +771,7 @@ public class Clan implements Iterable<UnitMember>
 	{
 		if(_reputation >= 0 && rep < 0)
 		{
-			broadcastToOnlineMembers(Msg.SINCE_THE_CLAN_REPUTATION_SCORE_HAS_DROPPED_TO_0_OR_LOWER_YOUR_CLAN_SKILLS_WILL_BE_DE_ACTIVATED);
+			broadcastToOnlineMembers(SystemMsg.SINCE_THE_CLAN_REPUTATION_SCORE_HAS_DROPPED_TO_0_OR_LOWER_YOUR_CLAN_SKILLS_WILL_BE_DE_ACTIVATED);
 			for(UnitMember member : this)
 			{
 				if(!member.isOnline() || member.getPlayer() == null)
@@ -781,7 +781,7 @@ public class Clan implements Iterable<UnitMember>
 		}
 		else if(_reputation < 0 && rep >= 0)
 		{
-			broadcastToOnlineMembers(Msg.THE_CLAN_SKILL_WILL_BE_ACTIVATED_BECAUSE_THE_CLANS_REPUTATION_SCORE_HAS_REACHED_TO_0_OR_HIGHER);
+			broadcastToOnlineMembers(SystemMsg.THE_CLAN_SKILL_WILL_BE_ACTIVATED_BECAUSE_THE_CLANS_REPUTATION_SCORE_HAS_REACHED_TO_0_OR_HIGHER);
 			for(UnitMember member : this)
 			{
 				if(!member.isOnline() || member.getPlayer() == null)
@@ -1052,7 +1052,7 @@ public class Clan implements Iterable<UnitMember>
 		{
 			if(temp == -1)
 			{
-				player.sendPacket(Msg.YOUR_CLAN_HAS_ALREADY_ESTABLISHED_A_CLAN_ACADEMY);
+				player.sendPacket(SystemMsg.YOUR_CLAN_HAS_ALREADY_ESTABLISHED_A_CLAN_ACADEMY);
 			}
 			else
 			{
@@ -1071,7 +1071,7 @@ public class Clan implements Iterable<UnitMember>
 			{
 				if(getReputationScore() < 5000)
 				{
-					player.sendPacket(Msg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
+					player.sendPacket(SystemMsg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
 					return -128;
 				}
 				incReputation(-5000, false, "SubunitCreate");
@@ -1084,7 +1084,7 @@ public class Clan implements Iterable<UnitMember>
 			{
 				if(getReputationScore() < 10000)
 				{
-					player.sendPacket(Msg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
+					player.sendPacket(SystemMsg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
 					return -128;
 				}
 				incReputation(-10000, false, "SubunitCreate");

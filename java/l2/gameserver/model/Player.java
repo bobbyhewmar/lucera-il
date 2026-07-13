@@ -15,7 +15,6 @@ import l2.gameserver.ai.CtrlEvent;
 import l2.gameserver.ai.CtrlIntention;
 import l2.gameserver.ai.NextAction;
 import l2.gameserver.ai.PlayerAI;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.dao.AccountBonusDAO;
 import l2.gameserver.dao.CharacterDAO;
 import l2.gameserver.dao.CharacterGroupReuseDAO;
@@ -321,6 +320,7 @@ public class Player extends Playable implements PlayerGroup{
 	private boolean _isSitting;
 	private StaticObjectInstance _sittingObject;
 	private boolean _noble;
+	private final HardReference<Player> _playerRef;
 	private int _varka;
 	private int _ketra;
 	private int _ram;
@@ -395,6 +395,7 @@ public class Player extends Playable implements PlayerGroup{
 
 	public Player(int objectId, PlayerTemplate template, String accountName) {
 		super(objectId, template);
+		_playerRef = typedRef(Player.class);
 		_inventory = new PcInventory(this);
 		_warehouse = new PcWarehouse(this);
 		_refund = new PcRefund(this);
@@ -827,7 +828,7 @@ public class Player extends Playable implements PlayerGroup{
 
 	@Override
 	public HardReference<Player> getRef() {
-		return (HardReference<Player>) super.getRef();
+		return _playerRef;
 	}
 
 	public String getAccountName() {
@@ -1296,7 +1297,7 @@ public class Player extends Playable implements PlayerGroup{
 	public boolean isQuestContinuationPossible(boolean msg) {
 		if (getWeightPenalty() >= 3 || (double) getInventoryLimit() * 0.9 < (double) getInventory().getSize() || (double) Config.QUEST_INVENTORY_MAXIMUM * 0.9 < (double) getInventory().getQuestSize()) {
 			if (msg) {
-				sendPacket(Msg.PROGRESS_IN_A_QUEST_IS_POSSIBLE_ONLY_WHEN_YOUR_INVENTORYS_WEIGHT_AND_VOLUME_ARE_LESS_THAN_80_PERCENT_OF_CAPACITY);
+				sendPacket(SystemMsg.PROGRESS_IN_A_QUEST_IS_POSSIBLE_ONLY_WHEN_YOUR_INVENTORYS_WEIGHT_AND_VOLUME_ARE_LESS_THAN_80_PERCENT_OF_CAPACITY);
 			}
 			return false;
 		}
@@ -3285,7 +3286,7 @@ public class Player extends Playable implements PlayerGroup{
 
 	private void levelSet(int levels) {
 		if (levels > 0) {
-			sendPacket(Msg.YOU_HAVE_INCREASED_YOUR_LEVEL);
+			sendPacket(SystemMsg.YOUR_LEVEL_HAS_INCREASED);
 			broadcastPacket(new SocialAction(getObjectId(), 15));
 			setCurrentHpMp(getMaxHp(), getMaxMp());
 			setCurrentCp(getMaxCp());
@@ -4861,13 +4862,13 @@ public class Player extends Playable implements PlayerGroup{
 
 	public void addToBlockList(String charName) {
 		if (charName == null || charName.equalsIgnoreCase(getName()) || isInBlockList(charName)) {
-			sendPacket(Msg.YOU_HAVE_FAILED_TO_REGISTER_THE_USER_TO_YOUR_IGNORE_LIST);
+			sendPacket(SystemMsg.YOU_HAVE_FAILED_TO_REGISTER_THE_USER_TO_YOUR_IGNORE_LIST);
 			return;
 		}
 		Player block_target = World.getPlayer(charName);
 		if (block_target != null) {
 			if (block_target.isGM()) {
-				sendPacket(Msg.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_A_GM);
+				sendPacket(SystemMsg.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_A_GM);
 				return;
 			}
 			_blockList.put(block_target.getObjectId(), block_target.getName());
@@ -4877,11 +4878,11 @@ public class Player extends Playable implements PlayerGroup{
 		}
 		int charId = CharacterDAO.getInstance().getObjectIdByName(charName);
 		if (charId == 0) {
-			sendPacket(Msg.YOU_HAVE_FAILED_TO_REGISTER_THE_USER_TO_YOUR_IGNORE_LIST);
+			sendPacket(SystemMsg.YOU_HAVE_FAILED_TO_REGISTER_THE_USER_TO_YOUR_IGNORE_LIST);
 			return;
 		}
 		if (Config.gmlist.containsKey(charId) && Config.gmlist.get(Integer.valueOf(charId)).IsGM) {
-			sendPacket(Msg.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_A_GM);
+			sendPacket(SystemMsg.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_A_GM);
 			return;
 		}
 		_blockList.put(charId, charName);
@@ -4899,7 +4900,7 @@ public class Player extends Playable implements PlayerGroup{
 			break;
 		}
 		if (charId == 0) {
-			sendPacket(Msg.YOU_HAVE_FAILED_TO_DELETE_THE_CHARACTER_FROM_IGNORE_LIST);
+			sendPacket(SystemMsg.YOU_HAVE_FAILED_TO_DELETE_THE_CHARACTER_FROM_IGNORE_LIST);
 			return;
 		}
 		sendPacket(new SystemMessage(618).addString(_blockList.remove(charId)));
@@ -5485,15 +5486,15 @@ public class Player extends Playable implements PlayerGroup{
 		ReviveAnswerListener reviveAnswerListener = reviveAsk = _askDialog != null && _askDialog.getValue() instanceof ReviveAnswerListener ? (ReviveAnswerListener) _askDialog.getValue() : null;
 		if (reviveAsk != null) {
 			if (reviveAsk.isForPet() == pet && reviveAsk.getPower() >= percent) {
-				reviver.sendPacket(Msg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
+				reviver.sendPacket(SystemMsg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
 				return;
 			}
 			if (pet && !reviveAsk.isForPet()) {
-				reviver.sendPacket(Msg.SINCE_THE_MASTER_WAS_IN_THE_PROCESS_OF_BEING_RESURRECTED_THE_ATTEMPT_TO_RESURRECT_THE_PET_HAS_BEEN_CANCELLED);
+				reviver.sendPacket(SystemMsg.SINCE_THE_MASTER_WAS_IN_THE_PROCESS_OF_BEING_RESURRECTED_THE_ATTEMPT_TO_RESURRECT_THE_PET_HAS_BEEN_CANCELLED);
 				return;
 			}
 			if (pet && isDead()) {
-				reviver.sendPacket(Msg.WHILE_A_PET_IS_ATTEMPTING_TO_RESURRECT_IT_CANNOT_HELP_IN_RESURRECTING_ITS_MASTER);
+				reviver.sendPacket(SystemMsg.WHILE_A_PET_IS_ATTEMPTING_TO_RESURRECT_IT_CANNOT_HELP_IN_RESURRECTING_ITS_MASTER);
 				return;
 			}
 		}
@@ -6322,7 +6323,7 @@ public class Player extends Playable implements PlayerGroup{
 				sendPacket(sm);
 			}
 		} else if (max == i) {
-			sendPacket(Msg.SOUL_CANNOT_BE_ABSORBED_ANY_MORE);
+			sendPacket(SystemMsg.SOUL_CANNOT_BE_ABSORBED_ANY_MORE);
 			return;
 		}
 		_consumedSouls = i;

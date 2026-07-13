@@ -59,7 +59,7 @@ public class SupportMagic extends Functions implements ScriptFile
 	{
 		int listMaxLevel;
 		int listMinLevel = listMaxLevel = Integer.parseInt(newbieBuffsListNode.getAttributes().getNamedItem("max_level").getNodeValue());
-		ArrayList<Pair> buffsList = new ArrayList<>();
+		ArrayList<Pair<Integer, Skill>> buffsList = new ArrayList<>();
 		for(Node newbieBuffsListEntryNode = newbieBuffsListNode.getFirstChild();newbieBuffsListEntryNode != null;newbieBuffsListEntryNode = newbieBuffsListEntryNode.getNextSibling())
 		{
 			if(!"buff".equalsIgnoreCase(newbieBuffsListEntryNode.getNodeName()))
@@ -72,10 +72,10 @@ public class SupportMagic extends Functions implements ScriptFile
 			{
 				listMinLevel = minLevel;
 			}
-			Pair newbieBuffPair = Pair.of((Object) minLevel, (Object) SkillTable.getInstance().getInfo(skillId, skillLevel));
+			Pair<Integer, Skill> newbieBuffPair = Pair.of(minLevel, SkillTable.getInstance().getInfo(skillId, skillLevel));
 			buffsList.add(newbieBuffPair);
 		}
-		return new NewbieBuffsList(type, listMinLevel, listMaxLevel, buffsList.toArray(new Pair[buffsList.size()]));
+		return new NewbieBuffsList(type, listMinLevel, listMaxLevel, buffsList);
 	}
 	
 	private static List<NewbieBuffsList> parseNewbieBuffsDocument(Document newbieBuffsDoc)
@@ -123,7 +123,7 @@ public class SupportMagic extends Functions implements ScriptFile
 			int loadBuffsCnt = 0;
 			for(NewbieBuffsList nbl : result)
 			{
-				loadBuffsCnt += nbl.getBuffs().length;
+			loadBuffsCnt += nbl.getBuffs().size();
 			}
 			LOG.info("SupportMagic: Loaded " + loadBuffsCnt + " newbie buff(s).");
 			return result;
@@ -210,9 +210,9 @@ public class SupportMagic extends Functions implements ScriptFile
 		private final NewbieBuffsListType _type;
 		private final int _minLevel;
 		private final int _maxLevel;
-		private final Pair<Integer, Skill>[] _buffs;
+		private final List<Pair<Integer, Skill>> _buffs;
 		
-		private NewbieBuffsList(NewbieBuffsListType type, int minLevel, int maxLevel, Pair<Integer, Skill>[] buffs)
+		private NewbieBuffsList(NewbieBuffsListType type, int minLevel, int maxLevel, List<Pair<Integer, Skill>> buffs)
 		{
 			_type = type;
 			_minLevel = minLevel;
@@ -235,7 +235,7 @@ public class SupportMagic extends Functions implements ScriptFile
 			return _maxLevel;
 		}
 		
-		public Pair<Integer, Skill>[] getBuffs()
+		public List<Pair<Integer, Skill>> getBuffs()
 		{
 			return _buffs;
 		}

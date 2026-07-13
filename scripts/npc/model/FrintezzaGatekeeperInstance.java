@@ -41,7 +41,7 @@ public final class FrintezzaGatekeeperInstance extends NpcInstance
 								return;
 							}
 							CommandChannel cc = player.getParty().getCommandChannel();
-							List partyList = cc.getParties();
+							List<Party> partyList = cc.getParties();
 							if(partyList.size() < 4 || partyList.size() > 5)
 							{
 								player.sendMessage("Party room is too small or too big to enter.");

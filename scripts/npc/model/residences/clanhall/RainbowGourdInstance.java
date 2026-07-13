@@ -77,7 +77,7 @@ public class RainbowGourdInstance extends NpcInstance
 			if(attackers.get(i) == siegeClanObject)
 				continue;
 			String arenaName = "arena_" + i;
-			SpawnExObject spawnEx = miniGameEvent.getFirstObject(arenaName);
+			SpawnExObject spawnEx = miniGameEvent.getFirstObject(arenaName, SpawnExObject.class);
 			RainbowYetiInstance yetiInstance = (RainbowYetiInstance) spawnEx.getSpawns().get(0).getFirstSpawned();
 			yetiInstance.teleportFromArena();
 			miniGameEvent.spawnAction(arenaName, false);
@@ -101,7 +101,7 @@ public class RainbowGourdInstance extends NpcInstance
 		int index = attackers.indexOf(_winner);
 		String arenaName = "arena_" + index;
 		miniGameEvent.spawnAction(arenaName, false);
-		SpawnExObject spawnEx = miniGameEvent.getFirstObject(arenaName);
+		SpawnExObject spawnEx = miniGameEvent.getFirstObject(arenaName, SpawnExObject.class);
 		Spawner spawner = spawnEx.getSpawns().get(0);
 		Location loc = (Location) spawner.getCurrentSpawnRange();
 		miniGameEvent.removeBanishItems();

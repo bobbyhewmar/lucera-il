@@ -45,7 +45,7 @@ public class RequestDuelStart extends L2GameClientPacket
 			player.sendPacket(SystemMsg.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL);
 			return;
 		}
-		DuelEvent duelEvent = EventHolder.getInstance().getEvent(EventType.PVP_EVENT, _duelType);
+		DuelEvent duelEvent = EventHolder.getInstance().getEvent(EventType.PVP_EVENT, _duelType, DuelEvent.class);
 		if(duelEvent == null)
 		{
 			return;

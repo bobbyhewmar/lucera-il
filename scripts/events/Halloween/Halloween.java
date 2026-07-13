@@ -32,7 +32,7 @@ public class Halloween extends Functions implements ScriptFile
 	
 	static
 	{
-		_ghostSpawn = new ArrayList();
+		_ghostSpawn = new ArrayList<>();
 		SkooldieInstance = null;
 	}
 	

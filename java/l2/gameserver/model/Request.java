@@ -4,7 +4,7 @@ import l2.commons.collections.MultiValueSet;
 import l2.commons.lang.reference.HardReference;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -99,7 +99,7 @@ public class Request extends MultiValueSet<String>
 		Player player = getReciever();
 		if(player != null && player.getRequest() == this)
 		{
-			player.sendPacket(Msg.TIME_EXPIRED);
+			player.sendPacket(SystemMsg.TIME_EXPIRED);
 		}
 		cancel();
 	}

@@ -184,7 +184,7 @@
 		<delete dir="${build.classes}" />
 		<mkdir dir="${build.classes}" />
 		<javac srcdir="${src.authserver}" optimize="on" destdir="${build.classes}" debug="${debug}" release="${java.release}" includeantruntime="false" encoding="UTF-8" nowarn="off" classpath="${build.classpath}:${build}/commons.jar">
-			<compilerarg value="-Xlint:all,-serial" />
+			<compilerarg value="-Xlint:all,-serial,-path" />
 		</javac>
 	</target> 
 	

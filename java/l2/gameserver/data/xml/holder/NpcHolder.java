@@ -14,7 +14,7 @@ import java.util.Map;
 public final class NpcHolder extends AbstractHolder
 {
 	private static final NpcHolder _instance = new NpcHolder();
-	private final TIntObjectHashMap<NpcTemplate> _npcs = new TIntObjectHashMap(20000);
+	private final TIntObjectHashMap<NpcTemplate> _npcs = new TIntObjectHashMap<>(20000);
 	private TIntObjectHashMap<List<NpcTemplate>> _npcsByLevel;
 	private NpcTemplate[] _allTemplates;
 	private Map<String, NpcTemplate> _npcsNames;
@@ -61,7 +61,7 @@ public final class NpcHolder extends AbstractHolder
 	
 	private void buildFastLookupTable()
 	{
-		_npcsByLevel = new TIntObjectHashMap();
+		_npcsByLevel = new TIntObjectHashMap<>();
 		_npcsNames = new HashMap<>();
 		int highestId = 0;
 		for(int id : _npcs.keys())
@@ -71,14 +71,14 @@ public final class NpcHolder extends AbstractHolder
 			highestId = id;
 		}
 		_allTemplates = new NpcTemplate[highestId + 1];
-		TIntObjectIterator iterator = _npcs.iterator();
+		TIntObjectIterator<NpcTemplate> iterator = _npcs.iterator();
 		while(iterator.hasNext())
 		{
 			iterator.advance();
 			int npcId = iterator.key();
 			NpcTemplate npc;
-			_allTemplates[npcId] = npc = (NpcTemplate) iterator.value();
-			ArrayList<NpcTemplate> byLevel = (ArrayList<NpcTemplate>) _npcsByLevel.get(npc.level);
+			_allTemplates[npcId] = npc = iterator.value();
+			List<NpcTemplate> byLevel = _npcsByLevel.get(npc.level);
 			if(byLevel == null)
 			{
 				byLevel = new ArrayList<>();

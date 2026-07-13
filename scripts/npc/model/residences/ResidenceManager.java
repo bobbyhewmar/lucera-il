@@ -611,7 +611,7 @@ public abstract class ResidenceManager extends MerchantInstance
 	@Override
 	public List<L2GameServerPacket> addPacketList(Player forPlayer, Creature dropper)
 	{
-		List list = super.addPacketList(forPlayer, dropper);
+		List<L2GameServerPacket> list = super.addPacketList(forPlayer, dropper);
 		L2GameServerPacket p = decoPacket();
 		if(p != null)
 		{

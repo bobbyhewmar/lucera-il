@@ -1,7 +1,6 @@
 package l2.gameserver.model.instances;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.data.xml.holder.BuyListHolder;
 import l2.gameserver.data.xml.holder.MultiSellHolder;
@@ -10,6 +9,7 @@ import l2.gameserver.instancemanager.MapRegionManager;
 import l2.gameserver.instancemanager.ReflectionManager;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.residence.Castle;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.BuyList;
 import l2.gameserver.network.l2.s2c.ExGetPremiumItemList;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
@@ -163,7 +163,7 @@ public class MerchantInstance extends NpcInstance
 		{
 			if(player.getPremiumItemList().isEmpty())
 			{
-				player.sendPacket(Msg.THERE_ARE_NO_MORE_VITAMIN_ITEMS_TO_BE_FOUND);
+				player.sendPacket(SystemMsg.THERE_ARE_NO_MORE_VITAMIN_ITEMS_TO_BE_FOUND);
 				return;
 			}
 			player.sendPacket(new ExGetPremiumItemList(player));

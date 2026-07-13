@@ -40,7 +40,7 @@ public class RainbowYeti extends CharacterAI
 		}
 		Player player = character.getPlayer();
 		CMGSiegeClanObject siegeClan = null;
-		List<CMGSiegeClanObject> attackers = miniGameEvent.getObjects("attackers");
+		List<CMGSiegeClanObject> attackers = miniGameEvent.getObjects("attackers", CMGSiegeClanObject.class);
 		for(CMGSiegeClanObject o : attackers)
 		{
 			if(!o.isParticle(player))
@@ -110,7 +110,7 @@ public class RainbowYeti extends CharacterAI
 				{
 					return;
 				}
-				ZoneObject zone = miniGameEvent.getFirstObject("zone_" + warIndex);
+				ZoneObject zone = miniGameEvent.getFirstObject("zone_" + warIndex, ZoneObject.class);
 				if(zone == null)
 				{
 					return;
@@ -124,7 +124,7 @@ public class RainbowYeti extends CharacterAI
 	private RainbowGourdInstance getGourd(int index)
 	{
 		ClanHallMiniGameEvent miniGameEvent = getActor().getEvent(ClanHallMiniGameEvent.class);
-		SpawnExObject spawnEx = miniGameEvent.getFirstObject("arena_" + index);
+		SpawnExObject spawnEx = miniGameEvent.getFirstObject("arena_" + index, SpawnExObject.class);
 		return (RainbowGourdInstance) spawnEx.getSpawns().get(1).getFirstSpawned();
 	}
 	

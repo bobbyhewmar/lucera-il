@@ -77,6 +77,8 @@ public class NpcInstance extends Creature
 	public static final String TARGETABLE = "TargetEnabled";
 	public static final String SHOW_NAME = "showName";
 	private static final Logger _log = LoggerFactory.getLogger(NpcInstance.class);
+	private final HardReference<? extends Creature> _creatureRef;
+	private final HardReference<NpcInstance> _npcRef;
 	private final AggroList _aggroList;
 	protected int _spawnAnimation = 2;
 	protected boolean _hasRandomAnimation;
@@ -112,6 +114,8 @@ public class NpcInstance extends Creature
 	public NpcInstance(int objectId, NpcTemplate template)
 	{
 		super(objectId, template);
+		_creatureRef = super.getRef();
+		_npcRef = typedRef(NpcInstance.class);
 		if(template == null)
 		{
 			throw new NullPointerException("No template for Npc. Please check your datapack is setup correctly.");
@@ -192,7 +196,37 @@ public class NpcInstance extends Creature
 	@Override
 	public HardReference<NpcInstance> getRef()
 	{
-		return (HardReference<NpcInstance>) super.getRef();
+		return _npcRef;
+	}
+
+	protected final <T extends NpcInstance> HardReference<T> typedRef(Class<T> type)
+	{
+		return new TypedNpcReference<>(_creatureRef, type);
+	}
+
+	private static final class TypedNpcReference<T extends NpcInstance> implements HardReference<T>
+	{
+		private final HardReference<? extends Creature> _delegate;
+		private final Class<T> _type;
+
+		private TypedNpcReference(HardReference<? extends Creature> delegate, Class<T> type)
+		{
+			_delegate = delegate;
+			_type = type;
+		}
+
+		@Override
+		public T get()
+		{
+			Creature creature = _delegate.get();
+			return creature == null ? null : _type.cast(creature);
+		}
+
+		@Override
+		public void clear()
+		{
+			_delegate.clear();
+		}
 	}
 	
 	@Override
@@ -742,7 +776,7 @@ public class NpcInstance extends Creature
 		}
 		if(_nearestCastle == null)
 		{
-			_nearestCastle = ResidenceHolder.getInstance().getResidence(getTemplate().getCastleId());
+			_nearestCastle = ResidenceHolder.getInstance().getResidence(Castle.class, getTemplate().getCastleId());
 		}
 		return _nearestCastle;
 	}
@@ -1774,7 +1808,7 @@ public class NpcInstance extends Creature
 		}
 		if(_parameters == StatsSet.EMPTY)
 		{
-			_parameters = new MultiValueSet(set.size());
+			_parameters = new MultiValueSet<>(set.size());
 		}
 		_parameters.putAll(set);
 	}

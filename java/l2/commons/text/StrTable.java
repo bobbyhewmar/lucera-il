@@ -109,14 +109,14 @@ public class StrTable
 	
 	public StrTable set(int rowIndex, String colName, String val)
 	{
-		Map row;
+		Map<String, String> row;
 		if(rows.containsKey(rowIndex))
 		{
 			row = rows.get(rowIndex);
 		}
 		else
 		{
-			row = new HashMap();
+			row = new HashMap<>();
 			rows.put(rowIndex, row);
 		}
 		row.put(colName, val);
@@ -172,12 +172,12 @@ public class StrTable
 		repeat(result, "-", header.length() - 2).append(" ").append("\n");
 		result.append(header).append("\n");
 		result.append(line).append("\n");
-		for(Map row : rows.values())
+		for(Map<String, String> row : rows.values())
 		{
 			result.append("|");
 			for(String c : columns.keySet())
 			{
-				center(result, row.containsKey(c) ? (String) row.get(c) : "-", columns.get(c) + 2).append("|");
+				center(result, row.containsKey(c) ? row.get(c) : "-", columns.get(c) + 2).append("|");
 			}
 			result.append("\n");
 		}

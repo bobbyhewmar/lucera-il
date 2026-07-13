@@ -42,7 +42,7 @@ public class RegionCommunity implements ScriptFile, ICommunityBoardHandler
 	
 	private static List<Player> getSellersList(int townId, int type, String search, boolean byItem)
 	{
-		List<Player> list = new ArrayList();
+		List<Player> list = new ArrayList<>();
 		return list;
 	}
 	

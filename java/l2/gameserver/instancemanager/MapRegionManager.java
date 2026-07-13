@@ -58,7 +58,7 @@ public class MapRegionManager extends AbstractHolder
 		{
 			if(rd.getClass() != clazz || !rd.getTerritory().isInside(x, y, z))
 				continue;
-			return (T) rd;
+			return clazz.cast(rd);
 		}
 		return null;
 	}

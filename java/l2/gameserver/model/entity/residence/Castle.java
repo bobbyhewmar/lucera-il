@@ -43,7 +43,7 @@ public class Castle extends Residence
 	private static final String CASTLE_MANOR_DELETE_PROCURE_PERIOD = "DELETE FROM castle_manor_procure WHERE castle_id=? AND period=?;";
 	private static final String CASTLE_UPDATE_CROP = "UPDATE castle_manor_procure SET can_buy=? WHERE crop_id=? AND castle_id=? AND period=?";
 	private static final String CASTLE_UPDATE_SEED = "UPDATE castle_manor_production SET can_produce=? WHERE seed_id=? AND castle_id=? AND period=?";
-	private final IntObjectMap<MerchantGuard> _merchantGuards = new HashIntObjectMap();
+	private final IntObjectMap<MerchantGuard> _merchantGuards = new HashIntObjectMap<>();
 	private final NpcString _npcStringName;
 	private final Set<ItemInstance> _spawnMerchantTickets = new CopyOnWriteArraySet<>();
 	private List<CropProcure> _procure;

@@ -27,7 +27,7 @@ public class RainbowCoordinatorInstance extends NpcInstance
 			return;
 		}
 		ClanHall clanHall = getClanHall();
-		ClanHallMiniGameEvent miniGameEvent = clanHall.getSiegeEvent();
+		ClanHallMiniGameEvent miniGameEvent = clanHall.getSiegeEvent(ClanHallMiniGameEvent.class);
 		if(miniGameEvent == null)
 		{
 			return;
@@ -75,7 +75,7 @@ public class RainbowCoordinatorInstance extends NpcInstance
 				return;
 			}
 			int index = siegeClans.indexOf(siegeClan);
-			SpawnExObject spawnEx = miniGameEvent.getFirstObject("arena_" + index);
+			SpawnExObject spawnEx = miniGameEvent.getFirstObject("arena_" + index, SpawnExObject.class);
 			Location loc = (Location) spawnEx.getSpawns().get(0).getCurrentSpawnRange();
 			for(Player member : party.getPartyMembers())
 			{

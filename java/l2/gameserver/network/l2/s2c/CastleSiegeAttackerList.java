@@ -18,7 +18,7 @@ public class CastleSiegeAttackerList extends L2GameServerPacket
 	{
 		_id = residence.getId();
 		_registrationValid = !residence.getSiegeEvent().isRegistrationOver() ? 1 : 0;
-		_clans = residence.getSiegeEvent().getObjects("attackers");
+		_clans = residence.getSiegeEvent().getObjects("attackers", SiegeClanObject.class);
 	}
 	
 	@Override

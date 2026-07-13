@@ -28,7 +28,7 @@ public class CastleFlameTowerInstance extends SiegeToggleNpcInstance
 		}
 		for(String s : _zoneList)
 		{
-			List<CastleDamageZoneObject> objects = event.getObjects(s);
+			List<CastleDamageZoneObject> objects = event.getObjects(s, CastleDamageZoneObject.class);
 			for(CastleDamageZoneObject zone : objects)
 			{
 				zone.getZone().setActive(false);

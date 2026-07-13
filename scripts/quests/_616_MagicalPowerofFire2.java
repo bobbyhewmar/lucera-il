@@ -1,6 +1,5 @@
 package quests;
 
-import l2.commons.listener.Listener;
 import l2.commons.util.Rnd;
 import l2.gameserver.instancemanager.ServerVariables;
 import l2.gameserver.listener.actor.OnDeathListener;
@@ -68,7 +67,7 @@ public class _616_MagicalPowerofFire2 extends Quest implements ScriptFile
 			{
 				st.takeItems(7243, 1);
 				SoulOfFireNastronSpawn = st.addSpawn(25306, 142528, -82528, -6496);
-				SoulOfFireNastronSpawn.addListener((Listener) new DeathListener());
+				SoulOfFireNastronSpawn.addListener(new DeathListener());
 				st.playSound("ItemSound.quest_middle");
 			}
 			else
@@ -160,7 +159,7 @@ public class _616_MagicalPowerofFire2 extends Quest implements ScriptFile
 				if(isQuest == null)
 				{
 					SoulOfFireNastronSpawn = st.addSpawn(25306, 142528, -82528, -6496);
-					SoulOfFireNastronSpawn.addListener((Listener) new DeathListener());
+					SoulOfFireNastronSpawn.addListener(new DeathListener());
 					htmltext = "totem_of_ketra_q0616_0204.htm";
 					break;
 				}

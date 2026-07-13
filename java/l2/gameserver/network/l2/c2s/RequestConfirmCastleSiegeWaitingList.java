@@ -41,7 +41,7 @@ public class RequestConfirmCastleSiegeWaitingList extends L2GameClientPacket
 			player.sendActionFailed();
 			return;
 		}
-		CastleSiegeEvent siegeEvent = castle.getSiegeEvent();
+		CastleSiegeEvent siegeEvent = castle.getSiegeEvent(CastleSiegeEvent.class);
 		SiegeClanObject siegeClan = siegeEvent.getSiegeClan("defenders_waiting", _clanId);
 		if(siegeClan == null)
 		{

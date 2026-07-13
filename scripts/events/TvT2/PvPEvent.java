@@ -556,7 +556,7 @@ public class PvPEvent extends Functions implements ScriptFile
 		getInstance()._desireContainer = new ConcurrentSkipListSet<>();
 		for(Player player : players)
 		{
-			Scripts.getInstance().callScripts(player, "Util", "RequestCapcha", new Object[] {"events.TvT2.PvPEvent:addDesire", player.getStoredId(), new Integer(30)});
+			Scripts.getInstance().callScripts(player, "Util", "RequestCapcha", new Object[] {"events.TvT2.PvPEvent:addDesire", player.getStoredId(), Integer.valueOf(30)});
 		}
 	}
 	
@@ -645,7 +645,7 @@ public class PvPEvent extends Functions implements ScriptFile
 		}
 		_desireContainer.clear();
 		_desireContainer = null;
-		ArrayList<Player> participants = new ArrayList();
+		ArrayList<Player> participants = new ArrayList<>();
 		int max_part = config_MaxParticipants();
 		while(participants.size() < max_part && !players.isEmpty())
 		{
@@ -1880,13 +1880,13 @@ public class PvPEvent extends Functions implements ScriptFile
 				if(team_type == TeamType.BLUE)
 				{
 					player.setTeam(TeamType.BLUE);
-					_blue_team.put(player.getObjectId(), new ImmutablePair(new AtomicInteger(0), new AtomicInteger(0)));
+					_blue_team.put(player.getObjectId(), new ImmutablePair<>(new AtomicInteger(0), new AtomicInteger(0)));
 					team_type = TeamType.RED;
 				}
 				else
 				{
 					player.setTeam(TeamType.RED);
-					_red_team.put(player.getObjectId(), new ImmutablePair(new AtomicInteger(0), new AtomicInteger(0)));
+					_red_team.put(player.getObjectId(), new ImmutablePair<>(new AtomicInteger(0), new AtomicInteger(0)));
 					team_type = TeamType.BLUE;
 				}
 				updateTitle(player, 0);
@@ -2561,7 +2561,7 @@ public class PvPEvent extends Functions implements ScriptFile
 					getInstance()._desireContainer.clear();
 					getInstance()._desireContainer = null;
 				}
-				getInstance()._desireContainer = new ConcurrentSkipListSet();
+				getInstance()._desireContainer = new ConcurrentSkipListSet<>();
 			}
 			getInstance()._regState = _to_reg_state;
 			switch(_to_reg_state)

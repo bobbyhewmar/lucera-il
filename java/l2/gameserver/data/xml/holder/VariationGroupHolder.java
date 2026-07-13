@@ -39,12 +39,12 @@ public class VariationGroupHolder extends AbstractHolder
 	{
 		int[] sortedIds = itemIds.clone();
 		Arrays.sort(sortedIds);
-		_variationGroupData.add((Pair<int[], VariationGroupData>) new ImmutablePair(sortedIds, vgd));
+		_variationGroupData.add(new ImmutablePair<>(sortedIds, vgd));
 	}
 	
 	public void addSorted(int[] sortedIds, VariationGroupData vgd)
 	{
-		_variationGroupData.add((Pair<int[], VariationGroupData>) new ImmutablePair(sortedIds, vgd));
+		_variationGroupData.add(new ImmutablePair<>(sortedIds, vgd));
 	}
 	
 	public List<VariationGroupData> getDataForItemId(int itemId)

@@ -65,7 +65,7 @@ public class CastleMassTeleporterInstance extends NpcInstance
 		{
 			return false;
 		}
-		List<SiegeToggleNpcObject> towers = siegeEvent.getObjects("control_towers");
+		List<SiegeToggleNpcObject> towers = siegeEvent.getObjects("control_towers", SiegeToggleNpcObject.class);
 		for(SiegeToggleNpcObject t : towers)
 		{
 			if(!t.isAlive())

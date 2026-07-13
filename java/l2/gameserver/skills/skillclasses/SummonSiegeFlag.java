@@ -69,7 +69,7 @@ public class SummonSiegeFlag extends Skill
 					return false;
 				}
 				boolean inZone = false;
-				List<ZoneObject> zones = siegeEvent.getObjects("flag_zones");
+				List<ZoneObject> zones = siegeEvent.getObjects("flag_zones", ZoneObject.class);
 				for(ZoneObject zone : zones)
 				{
 					if(!player.isInZone(zone.getZone()))

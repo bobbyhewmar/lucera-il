@@ -79,7 +79,7 @@ public class ClanHallAuctionEvent extends SiegeEvent<ClanHall, AuctionSiegeClanO
 	@Override
 	public void stopEvent(boolean step)
 	{
-		List<AuctionSiegeClanObject> siegeClanObjects = removeObjects("attackers");
+		List<AuctionSiegeClanObject> siegeClanObjects = removeObjects("attackers", AuctionSiegeClanObject.class);
 		AuctionSiegeClanObject[] clans = siegeClanObjects.toArray(new AuctionSiegeClanObject[siegeClanObjects.size()]);
 		Arrays.sort(clans, SiegeClanObject.SiegeClanComparatorImpl.getInstance());
 		Clan oldOwner = getResidence().getOwner();
@@ -155,6 +155,18 @@ public class ClanHallAuctionEvent extends SiegeEvent<ClanHall, AuctionSiegeClanO
 	public boolean isParticle(Player player)
 	{
 		return false;
+	}
+	
+	@Override
+	protected Class<AuctionSiegeClanObject> getSiegeClanType()
+	{
+		return AuctionSiegeClanObject.class;
+	}
+
+	@Override
+	protected Class<ClanHall> getResidenceType()
+	{
+		return ClanHall.class;
 	}
 	
 	@Override

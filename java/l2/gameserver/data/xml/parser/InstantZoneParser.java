@@ -70,7 +70,7 @@ public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 			Element element = (Element) iterator.next();
 			SchedulingPattern resetReuse = new SchedulingPattern("30 6 * * *");
 			int timelimit = -1;
-			IntObjectMap doors = Containers.emptyIntObjectMap();
+			IntObjectMap<InstantZone.DoorInfo> doors = Containers.emptyIntObjectMap();
 			int instanceId = Integer.parseInt(element.attributeValue("id"));
 			String name = element.attributeValue("name");
 			String n = element.attributeValue("timelimit");
@@ -181,7 +181,7 @@ public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 					{
 						if(doors.isEmpty())
 						{
-							doors = new HashIntObjectMap();
+							doors = new HashIntObjectMap<>();
 						}
 						boolean opened = e.attributeValue("opened") != null && Boolean.parseBoolean(e.attributeValue("opened"));
 						boolean invul = e.attributeValue("invul") == null || Boolean.parseBoolean(e.attributeValue("invul"));

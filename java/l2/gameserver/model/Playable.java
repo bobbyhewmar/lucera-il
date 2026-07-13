@@ -6,7 +6,6 @@ import l2.commons.util.concurrent.atomic.AtomicState;
 import l2.gameserver.Config;
 import l2.gameserver.ai.CtrlEvent;
 import l2.gameserver.ai.CtrlIntention;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.model.base.TeamType;
 import l2.gameserver.model.entity.events.GlobalEvent;
@@ -39,6 +38,8 @@ public abstract class Playable extends Creature
 	protected final ReadWriteLock questLock = new ReentrantReadWriteLock();
 	protected final Lock questRead = questLock.readLock();
 	protected final Lock questWrite = questLock.writeLock();
+	private final HardReference<? extends Creature> _creatureRef;
+	private final HardReference<Playable> _playableRef;
 	private final AtomicState _isSilentMoving = new AtomicState();
 	private boolean _isPendingRevive;
 	private long _nonAggroTime;
@@ -46,17 +47,49 @@ public abstract class Playable extends Creature
 	public Playable(int objectId, CharTemplate template)
 	{
 		super(objectId, template);
+		_creatureRef = super.getRef();
+		_playableRef = typedRef(Playable.class);
 	}
 	
 	@Override
 	public HardReference<? extends Playable> getRef()
 	{
-		return (HardReference<? extends Playable>) super.getRef();
+		return _playableRef;
+	}
+	
+	protected final <T extends Playable> HardReference<T> typedRef(Class<T> type)
+	{
+		return new TypedPlayableReference<>(_creatureRef, type);
 	}
 	
 	public abstract Inventory getInventory();
 	
 	public abstract long getWearedMask();
+
+	private static final class TypedPlayableReference<T extends Playable> implements HardReference<T>
+	{
+		private final HardReference<? extends Creature> _delegate;
+		private final Class<T> _type;
+		
+		private TypedPlayableReference(HardReference<? extends Creature> delegate, Class<T> type)
+		{
+			_delegate = delegate;
+			_type = type;
+		}
+		
+		@Override
+		public T get()
+		{
+			Creature creature = _delegate.get();
+			return creature == null ? null : _type.cast(creature);
+		}
+		
+		@Override
+		public void clear()
+		{
+			_delegate.clear();
+		}
+	}
 	
 	@Override
 	public boolean checkPvP(Creature target, Skill skill)
@@ -133,17 +166,17 @@ public abstract class Playable extends Creature
 		}
 		if(target == null || target.isDead())
 		{
-			player.sendPacket(Msg.INVALID_TARGET);
+			player.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(!isInRange(target, 2000))
 		{
-			player.sendPacket(Msg.YOUR_TARGET_IS_OUT_OF_RANGE);
+			player.sendPacket(SystemMsg.YOUR_TARGET_IS_OUT_OF_RANGE);
 			return false;
 		}
 		if(target.isDoor() && !target.isAttackable(this))
 		{
-			player.sendPacket(Msg.INVALID_TARGET);
+			player.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(target.paralizeOnAttack(this))
@@ -161,19 +194,19 @@ public abstract class Playable extends Creature
 		}
 		if(player.isInZone(Zone.ZoneType.epic) != target.isInZone(Zone.ZoneType.epic))
 		{
-			player.sendPacket(Msg.INVALID_TARGET);
+			player.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(target.isPlayable())
 		{
 			if(isInZoneBattle() != target.isInZoneBattle())
 			{
-				player.sendPacket(Msg.INVALID_TARGET);
+				player.sendPacket(SystemMsg.INVALID_TARGET);
 				return false;
 			}
 			if(isInZonePeace() || target.isInZonePeace())
 			{
-				player.sendPacket(Msg.YOU_MAY_NOT_ATTACK_THIS_TARGET_IN_A_PEACEFUL_ZONE);
+				player.sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_THIS_TARGET_IN_A_PEACEFUL_ZONE);
 				return false;
 			}
 			if(player.isOlyParticipant() && !player.isOlyCompetitionStarted())
@@ -274,7 +307,7 @@ public abstract class Playable extends Creature
 				if(_currentMp < bowMpConsume)
 				{
 					getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null, null);
-					player.sendPacket(Msg.NOT_ENOUGH_MP);
+					player.sendPacket(SystemMsg.NOT_ENOUGH_MP);
 					player.sendActionFailed();
 					return;
 				}
@@ -283,7 +316,7 @@ public abstract class Playable extends Creature
 			if(!player.checkAndEquipArrows())
 			{
 				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null, null);
-				player.sendPacket(Msg.YOU_HAVE_RUN_OUT_OF_ARROWS);
+				player.sendPacket(SystemMsg.YOU_HAVE_RUN_OUT_OF_ARROWS);
 				player.sendActionFailed();
 				return;
 			}
@@ -311,12 +344,12 @@ public abstract class Playable extends Creature
 		}
 		if(isInPeaceZone() && (skill.getTargetType() == Skill.SkillTargetType.TARGET_AREA || skill.getTargetType() == Skill.SkillTargetType.TARGET_AURA || skill.getTargetType() == Skill.SkillTargetType.TARGET_MULTIFACE || skill.getTargetType() == Skill.SkillTargetType.TARGET_MULTIFACE_AURA))
 		{
-			getPlayer().sendPacket(Msg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
+			getPlayer().sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
 			return;
 		}
 		if(skill.getSkillType() == Skill.SkillType.DEBUFF && skill.isMagic() && target.isNpc() && target.isInvul() && !target.isMonster())
 		{
-			getPlayer().sendPacket(Msg.INVALID_TARGET);
+			getPlayer().sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		super.doCast(skill, target, forceUse);
@@ -337,7 +370,7 @@ public abstract class Playable extends Creature
 		{
 			if(sendMessage)
 			{
-				attacker.sendPacket(Msg.THE_ATTACK_HAS_BEEN_BLOCKED);
+				attacker.sendPacket(SystemMsg.THE_ATTACK_HAS_BEEN_BLOCKED);
 			}
 			return;
 		}
@@ -349,7 +382,7 @@ public abstract class Playable extends Creature
 			{
 				if(sendMessage)
 				{
-					pcAttacker.sendPacket(Msg.INVALID_TARGET);
+					pcAttacker.sendPacket(SystemMsg.INVALID_TARGET);
 				}
 				return;
 			}
@@ -357,7 +390,7 @@ public abstract class Playable extends Creature
 			{
 				if(sendMessage)
 				{
-					attacker.getPlayer().sendPacket(Msg.INVALID_TARGET);
+					attacker.getPlayer().sendPacket(SystemMsg.INVALID_TARGET);
 				}
 				return;
 			}

@@ -1,0 +1,18 @@
+﻿Buildfile: D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\Full-build.xml
+
+init:
+
+compile-commons:
+   [delete] Deleting directory D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\build\classes
+ant : 
+No linha:15 caractere:4882
++ ... $env:Path"; ant -f Full-build.xml commons-jar gameserver-jar compile- ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+BUILD FAILED
+D:\Jogos\Lineage II\Servidores\Lucera\Souce\main\Full-build.xml:56: Unable to delete file D:\Jogos\Lineage 
+II\Servidores\Lucera\Souce\main\build\classes\handler\items\PetSummon.class
+
+Total time: 1 second

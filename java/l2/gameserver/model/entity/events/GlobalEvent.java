@@ -34,6 +34,7 @@ import org.napile.primitive.maps.impl.CHashIntObjectMap;
 import org.napile.primitive.maps.impl.TreeIntObjectMap;
 
 import java.io.Serializable;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,7 +46,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class GlobalEvent extends LoggerObject
 {
 	public static final String EVENT = "event";
-	protected final IntObjectMap<List<EventAction>> _onTimeActions = new TreeIntObjectMap();
+	protected final IntObjectMap<List<EventAction>> _onTimeActions = new TreeIntObjectMap<>();
 	protected final List<EventAction> _onStartActions = new ArrayList<>(0);
 	protected final List<EventAction> _onStopActions = new ArrayList<>(0);
 	protected final List<EventAction> _onInitActions = new ArrayList<>(0);
@@ -125,7 +126,7 @@ public abstract class GlobalEvent extends LoggerObject
 	
 	public void addOnTimeAction(int time, EventAction action)
 	{
-		List list = _onTimeActions.get(time);
+		List<EventAction> list = _onTimeActions.get(time);
 		if(list != null)
 		{
 			list.add(action);
@@ -144,7 +145,7 @@ public abstract class GlobalEvent extends LoggerObject
 		{
 			return;
 		}
-		List list = _onTimeActions.get(time);
+		List<EventAction> list = _onTimeActions.get(time);
 		if(list != null)
 		{
 			list.addAll(actions);
@@ -157,7 +158,7 @@ public abstract class GlobalEvent extends LoggerObject
 	
 	public void timeActions(int time)
 	{
-		List actions = _onTimeActions.get(time);
+		List<EventAction> actions = _onTimeActions.get(time);
 		if(actions == null)
 		{
 			info("Undefined time : " + time + " for " + this);
@@ -189,15 +190,26 @@ public abstract class GlobalEvent extends LoggerObject
 		ActionRunner.getInstance().clear(_timerName);
 	}
 	
-	public <O extends Serializable> List<O> getObjects(String name)
+	public List<Serializable> getObjects(String name)
 	{
-		List objects = _objects.get(name);
+		List<Serializable> objects = _objects.get(name);
 		return objects == null ? Collections.emptyList() : objects;
 	}
 	
-	public <O extends Serializable> O getFirstObject(String name)
+	public <O extends Serializable> List<O> getObjects(String name, Class<O> type)
 	{
-		List<O> objects = getObjects(name);
+		return typedObjectsView(getObjects(name), type);
+	}
+	
+	public Serializable getFirstObject(String name)
+	{
+		List<Serializable> objects = getObjects(name);
+		return objects.size() > 0 ? objects.get(0) : null;
+	}
+	
+	public <O extends Serializable> O getFirstObject(String name, Class<O> type)
+	{
+		List<O> objects = getObjects(name, type);
 		return objects.size() > 0 ? objects.get(0) : null;
 	}
 	
@@ -233,10 +245,15 @@ public abstract class GlobalEvent extends LoggerObject
 		}
 	}
 	
-	public <O extends Serializable> List<O> removeObjects(String name)
+	public List<Serializable> removeObjects(String name)
 	{
-		List objects = _objects.remove(name);
+		List<Serializable> objects = _objects.remove(name);
 		return objects == null ? Collections.emptyList() : objects;
+	}
+	
+	public <O extends Serializable> List<O> removeObjects(String name, Class<O> type)
+	{
+		return typedObjectsView(removeObjects(name), type);
 	}
 	
 	public void addObjects(String name, List<? extends Serializable> objects)
@@ -252,7 +269,7 @@ public abstract class GlobalEvent extends LoggerObject
 		}
 		else
 		{
-			_objects.put(name, (List<Serializable>) objects);
+			_objects.put(name, new CopyOnWriteArrayList<>(objects));
 		}
 	}
 	
@@ -500,7 +517,7 @@ public abstract class GlobalEvent extends LoggerObject
 	{
 		if(_banishedItems.isEmpty())
 		{
-			_banishedItems = new CHashIntObjectMap();
+			_banishedItems = new CHashIntObjectMap<>();
 		}
 		_banishedItems.put(item.getObjectId(), item);
 	}
@@ -510,7 +527,7 @@ public abstract class GlobalEvent extends LoggerObject
 		Iterator<IntObjectMap.Entry<ItemInstance>> iterator = _banishedItems.entrySet().iterator();
 		while(iterator.hasNext())
 		{
-			IntObjectMap.Entry entry = iterator.next();
+			IntObjectMap.Entry<ItemInstance> entry = iterator.next();
 			iterator.remove();
 			ItemInstance item = ItemsDAO.getInstance().load(entry.getKey());
 			if(item != null)
@@ -525,7 +542,7 @@ public abstract class GlobalEvent extends LoggerObject
 			}
 			else
 			{
-				item = (ItemInstance) entry.getValue();
+				item = entry.getValue();
 			}
 			item.deleteMe();
 		}
@@ -555,9 +572,9 @@ public abstract class GlobalEvent extends LoggerObject
 		{
 			e._onStopActions.add(a);
 		}
-		for(IntObjectMap.Entry entry : _onTimeActions.entrySet())
+		for(IntObjectMap.Entry<List<EventAction>> entry : _onTimeActions.entrySet())
 		{
-			e.addOnTimeActions(entry.getKey(), (List) entry.getValue());
+			e.addOnTimeActions(entry.getKey(), entry.getValue());
 		}
 	}
 	
@@ -581,6 +598,53 @@ public abstract class GlobalEvent extends LoggerObject
 					continue;
 				((OnStartStopListener) listener).onStop(GlobalEvent.this);
 			}
+		}
+	}
+	
+	private static <O extends Serializable> List<O> typedObjectsView(List<Serializable> objects, Class<O> type)
+	{
+		return objects.isEmpty() ? Collections.emptyList() : new TypedObjectsView<>(objects, type);
+	}
+	
+	private static class TypedObjectsView<O extends Serializable> extends AbstractList<O>
+	{
+		private final List<Serializable> _delegate;
+		private final Class<O> _type;
+		
+		private TypedObjectsView(List<Serializable> delegate, Class<O> type)
+		{
+			_delegate = delegate;
+			_type = type;
+		}
+		
+		@Override
+		public O get(int index)
+		{
+			return _type.cast(_delegate.get(index));
+		}
+		
+		@Override
+		public int size()
+		{
+			return _delegate.size();
+		}
+		
+		@Override
+		public void add(int index, O element)
+		{
+			_delegate.add(index, element);
+		}
+		
+		@Override
+		public O set(int index, O element)
+		{
+			return _type.cast(_delegate.set(index, element));
+		}
+		
+		@Override
+		public O remove(int index)
+		{
+			return _type.cast(_delegate.remove(index));
 		}
 	}
 }

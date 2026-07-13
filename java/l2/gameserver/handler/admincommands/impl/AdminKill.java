@@ -1,11 +1,11 @@
 package l2.gameserver.handler.admincommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
+import l2.gameserver.network.l2.components.SystemMsg;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class AdminKill implements IAdminCommandHandler
@@ -79,7 +79,7 @@ public class AdminKill implements IAdminCommandHandler
 		}
 		else
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 		}
 	}
 	
@@ -88,12 +88,12 @@ public class AdminKill implements IAdminCommandHandler
 		GameObject obj = activeChar.getTarget();
 		if(obj == null)
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		if(!obj.isCreature())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Creature cha = (Creature) obj;

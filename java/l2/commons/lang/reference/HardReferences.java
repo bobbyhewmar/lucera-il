@@ -14,6 +14,12 @@ public class HardReferences
 	
 	public static <T> HardReference<T> emptyRef()
 	{
+		return castEmptyRef();
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <T> HardReference<T> castEmptyRef()
+	{
 		return (HardReference<T>) EMPTY_REF;
 	}
 	

@@ -199,7 +199,7 @@ public class CapsuleItemHolder extends AbstractHolder
 				return false;
 			}
 			playable.sendPacket(new SystemMessage(47).addItemName(item.getItemId()));
-			ArrayList chancedItems = new ArrayList();
+			List<Pair<CapsuledItem, Double>> chancedItems = new ArrayList<>();
 			for(CapsuledItem capsuledItem : capsuledItems)
 			{
 				if(capsuledItem.getChance() == 100.0)
@@ -222,12 +222,12 @@ public class CapsuleItemHolder extends AbstractHolder
 					}
 					continue;
 				}
-				chancedItems.add(Pair.of((Object) capsuledItem, (Object) capsuledItem.getChance()));
+				chancedItems.add(Pair.of(capsuledItem, capsuledItem.getChance()));
 			}
 			if(!chancedItems.isEmpty())
 			{
 				Collections.sort(chancedItems, RandomUtils.DOUBLE_GROUP_COMPARATOR);
-				CapsuledItem capsuledItem = (CapsuledItem) RandomUtils.pickRandomSortedGroup(chancedItems, 100.0);
+				CapsuledItem capsuledItem = RandomUtils.pickRandomSortedGroup(chancedItems, 100.0);
 				if(capsuledItem != null)
 				{
 					long count = capsuledItem.getMax() > capsuledItem.getMin() ? Rnd.get(capsuledItem.getMin(), capsuledItem.getMax()) : capsuledItem.getMin();

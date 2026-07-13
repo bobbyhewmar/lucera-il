@@ -8,7 +8,7 @@ import org.napile.primitive.maps.impl.HashIntObjectMap;
 public final class DoorHolder extends AbstractHolder
 {
 	private static final DoorHolder _instance = new DoorHolder();
-	private final IntObjectMap<DoorTemplate> _doors = new HashIntObjectMap();
+	private final IntObjectMap<DoorTemplate> _doors = new HashIntObjectMap<>();
 	
 	public static DoorHolder getInstance()
 	{

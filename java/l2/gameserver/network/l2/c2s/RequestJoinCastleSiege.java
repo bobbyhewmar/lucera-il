@@ -25,7 +25,7 @@ public class RequestJoinCastleSiege extends L2GameClientPacket
 	
 	private static void registerAtCastle(Player player, Castle castle, boolean attacker, boolean join)
 	{
-		CastleSiegeEvent siegeEvent = castle.getSiegeEvent();
+		CastleSiegeEvent siegeEvent = castle.getSiegeEvent(CastleSiegeEvent.class);
 		Clan playerClan = player.getClan();
 		SiegeClanObject siegeClan;
 		if(attacker)
@@ -195,7 +195,7 @@ public class RequestJoinCastleSiege extends L2GameClientPacket
 	
 	private static void registerAtClanHall(Player player, ClanHall clanHall, boolean join)
 	{
-		ClanHallSiegeEvent siegeEvent = clanHall.getSiegeEvent();
+		ClanHallSiegeEvent siegeEvent = clanHall.getSiegeEvent(ClanHallSiegeEvent.class);
 		Clan playerClan = player.getClan();
 		SiegeClanObject siegeClan = siegeEvent.getSiegeClan("attackers", playerClan);
 		if(join)

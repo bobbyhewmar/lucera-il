@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class EmptyIterator<E> implements Iterator<E>
 {
-	private static final Iterator INSTANCE = new EmptyIterator();
+	private static final Iterator<?> INSTANCE = new EmptyIterator<>();
 	
 	private EmptyIterator()
 	{
@@ -12,7 +12,13 @@ public class EmptyIterator<E> implements Iterator<E>
 	
 	public static <E> Iterator<E> getInstance()
 	{
-		return INSTANCE;
+		return castInstance();
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <E> Iterator<E> castInstance()
+	{
+		return (Iterator<E>) INSTANCE;
 	}
 	
 	@Override

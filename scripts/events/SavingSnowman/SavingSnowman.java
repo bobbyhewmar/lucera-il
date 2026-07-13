@@ -32,7 +32,6 @@ import l2.gameserver.templates.npc.NpcTemplate;
 import l2.gameserver.utils.Location;
 import l2.gameserver.utils.PositionUtils;
 import l2.gameserver.utils.Util;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +82,7 @@ public class SavingSnowman extends Functions implements ScriptFile, OnDeathListe
 		DROP_ITEM_CHANCE = 10.0;
 		_active = false;
 		_santaSpawn = new Location[] {new Location(82632, 148712, -3472), new Location(147448, 28552, -2272), new Location(145873, -54756, -2807)};
-		REWARD = Arrays.asList(new Pair[] {new ImmutablePair(new ImmutablePair(14612, 1), 20.0), new ImmutablePair(new ImmutablePair(9627, 1), 10.0), new ImmutablePair(new ImmutablePair(5561, 1), 8.0), new ImmutablePair(new ImmutablePair(5560, 1), 5.0), new ImmutablePair(new ImmutablePair(22206, 1), 5.0), new ImmutablePair(new ImmutablePair(22207, 1), 5.0), new ImmutablePair(new ImmutablePair(21587, 1), 5.0), new ImmutablePair(new ImmutablePair(21588, 1), 5.0), new ImmutablePair(new ImmutablePair(21583, 1), 5.0), new ImmutablePair(new ImmutablePair(21126, 1), 5.0), new ImmutablePair(new ImmutablePair(21124, 1), 5.0), new ImmutablePair(new ImmutablePair(20020, 1), 5.0), new ImmutablePair(new ImmutablePair(13490, 1), 5.0), new ImmutablePair(new ImmutablePair(21618, 1), 1.0), new ImmutablePair(new ImmutablePair(21924, 1), 1.0), new ImmutablePair(new ImmutablePair(21925, 1), 1.0), new ImmutablePair(new ImmutablePair(21926, 1), 1.0), new ImmutablePair(new ImmutablePair(21944, 1), 1.0), new ImmutablePair(new ImmutablePair(21945, 1), 1.0), new ImmutablePair(new ImmutablePair(21946, 1), 1.0), new ImmutablePair(new ImmutablePair(21938, 1), 1.0), new ImmutablePair(new ImmutablePair(21956, 1), 1.0), new ImmutablePair(new ImmutablePair(21963, 1), 1.0), new ImmutablePair(new ImmutablePair(21964, 1), 1.0), new ImmutablePair(new ImmutablePair(21965, 1), 1.0)});
+		REWARD = Arrays.asList(reward(14612, 1L, 20.0), reward(9627, 1L, 10.0), reward(5561, 1L, 8.0), reward(5560, 1L, 5.0), reward(22206, 1L, 5.0), reward(22207, 1L, 5.0), reward(21587, 1L, 5.0), reward(21588, 1L, 5.0), reward(21583, 1L, 5.0), reward(21126, 1L, 5.0), reward(21124, 1L, 5.0), reward(20020, 1L, 5.0), reward(13490, 1L, 5.0), reward(21618, 1L, 1.0), reward(21924, 1L, 1.0), reward(21925, 1L, 1.0), reward(21926, 1L, 1.0), reward(21944, 1L, 1.0), reward(21945, 1L, 1.0), reward(21946, 1L, 1.0), reward(21938, 1L, 1.0), reward(21956, 1L, 1.0), reward(21963, 1L, 1.0), reward(21964, 1L, 1.0), reward(21965, 1L, 1.0));
 		Collections.sort(REWARD, RandomUtils.DOUBLE_GROUP_COMPARATOR);
 		double sum = 0.0;
 		for(Pair<Pair<Integer, Long>, Double> e : REWARD)
@@ -97,6 +96,11 @@ public class SavingSnowman extends Functions implements ScriptFile, OnDeathListe
 	private static boolean isActive()
 	{
 		return IsActive("SavingSnowman");
+	}
+
+	private static Pair<Pair<Integer, Long>, Double> reward(int itemId, long count, double chance)
+	{
+		return Pair.of(Pair.of(itemId, count), chance);
 	}
 	
 	public static void spawnRewarder(Player rewarded)
@@ -451,9 +455,9 @@ public class SavingSnowman extends Functions implements ScriptFile, OnDeathListe
 		{
 			_log.info("WARN: Sum != 100: " + REWARD_CHANCE_SUM);
 		}
-		Pair reward = RandomUtils.pickRandomSortedGroup(REWARD, REWARD_CHANCE_SUM);
-		int rewardItemId = (Integer) reward.getKey();
-		long rewardItemCount = (Long) reward.getValue();
+		Pair<Integer, Long> reward = RandomUtils.pickRandomSortedGroup(REWARD, REWARD_CHANCE_SUM);
+		int rewardItemId = reward.getKey();
+		long rewardItemCount = reward.getValue();
 		addItem(player, rewardItemId, rewardItemCount);
 	}
 	

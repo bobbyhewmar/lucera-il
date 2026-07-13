@@ -26,7 +26,7 @@ public class MultiSellHolder
 	private static final MultiSellHolder _instance = new MultiSellHolder();
 	private static final String NODE_PRODUCTION = "production";
 	private static final String NODE_INGRIDIENT = "ingredient";
-	private final TIntObjectHashMap<MultiSellListContainer> entries = new TIntObjectHashMap();
+	private final TIntObjectHashMap<MultiSellListContainer> entries = new TIntObjectHashMap<>();
 	
 	public MultiSellHolder()
 	{

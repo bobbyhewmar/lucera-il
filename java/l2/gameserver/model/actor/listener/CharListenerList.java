@@ -19,7 +19,7 @@ import l2.gameserver.model.Skill;
 
 public class CharListenerList extends ListenerList<Creature>
 {
-	static final ListenerList<Creature> global = new ListenerList();
+	static final ListenerList<Creature> global = new ListenerList<>();
 	protected final Creature actor;
 	
 	public CharListenerList(Creature actor)

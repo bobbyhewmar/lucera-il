@@ -134,7 +134,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	public void teleportPlayers(String t)
 	{
 		S siegeClan;
-		List<Player> players = new ArrayList();
+		List<Player> players = new ArrayList<>();
 		Clan ownerClan = getResidence().getOwner();
 		if(t.equalsIgnoreCase("owner"))
 		{
@@ -189,7 +189,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	
 	public List<Player> getPlayersInZone()
 	{
-		List<ZoneObject> zones = getObjects("siege_zones");
+		List<ZoneObject> zones = getObjects("siege_zones", ZoneObject.class);
 		LazyArrayList<Player> result = new LazyArrayList<>();
 		for(ZoneObject zone : zones)
 		{
@@ -216,7 +216,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	
 	public boolean checkIfInZone(Creature character)
 	{
-		List<ZoneObject> zones = getObjects("siege_zones");
+		List<ZoneObject> zones = getObjects("siege_zones", ZoneObject.class);
 		for(ZoneObject zone : zones)
 		{
 			if(!zone.checkIfInZone(character))
@@ -248,17 +248,17 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 		addObjects("defenders", SiegeClanDAO.getInstance().load(getResidence(), "defenders"));
 	}
 	
-	public S newSiegeClan(String type, int clanId, long param, long date)
-	{
-		Clan clan = ClanTable.getInstance().getClan(clanId);
-		return (S) (clan == null ? null : new SiegeClanObject(type, clan, param, date));
-	}
+	protected abstract Class<S> getSiegeClanType();
+
+	protected abstract Class<R> getResidenceType();
+	
+	public abstract S newSiegeClan(String type, int clanId, long param, long date);
 	
 	public void updateParticles(boolean start, String... arg)
 	{
 		for(String a : arg)
 		{
-			List<SiegeClanObject> siegeClans = getObjects(a);
+			List<SiegeClanObject> siegeClans = getObjects(a, SiegeClanObject.class);
 			for(SiegeClanObject s : siegeClans)
 			{
 				s.setEvent(start, this);
@@ -277,17 +277,16 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	
 	public S getSiegeClan(String name, int objectId)
 	{
-		List siegeClanList = getObjects(name);
+		List<S> siegeClanList = getObjects(name, getSiegeClanType());
 		if(siegeClanList.isEmpty())
 		{
 			return null;
 		}
-		for(int i = 0;i < siegeClanList.size();++i)
+		for(S siegeClan : siegeClanList)
 		{
-			SiegeClanObject siegeClan = (SiegeClanObject) siegeClanList.get(i);
 			if(siegeClan.getObjectId() != objectId)
 				continue;
-			return (S) siegeClan;
+			return siegeClan;
 		}
 		return null;
 	}
@@ -296,7 +295,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	{
 		for(String type : types)
 		{
-			List<SiegeClanObject> siegeClans = getObjects(type);
+			List<SiegeClanObject> siegeClans = getObjects(type, SiegeClanObject.class);
 			for(SiegeClanObject siegeClan : siegeClans)
 			{
 				siegeClan.broadcast(packet);
@@ -308,7 +307,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	{
 		for(String type : types)
 		{
-			List<SiegeClanObject> siegeClans = getObjects(type);
+			List<SiegeClanObject> siegeClans = getObjects(type, SiegeClanObject.class);
 			for(SiegeClanObject siegeClan : siegeClans)
 			{
 				siegeClan.broadcast(packet);
@@ -319,7 +318,7 @@ public abstract class SiegeEvent<R extends Residence, S extends SiegeClanObject>
 	@Override
 	public void initEvent()
 	{
-		_residence = ResidenceHolder.getInstance().getResidence(getId());
+		_residence = ResidenceHolder.getInstance().getResidence(getResidenceType(), getId());
 		loadSiegeClans();
 		clearActions();
 		super.initEvent();

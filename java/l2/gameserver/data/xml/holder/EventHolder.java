@@ -10,7 +10,7 @@ import org.napile.primitive.maps.impl.TreeIntObjectMap;
 public final class EventHolder extends AbstractHolder
 {
 	private static final EventHolder _instance = new EventHolder();
-	private final IntObjectMap<GlobalEvent> _events = new TreeIntObjectMap();
+	private final IntObjectMap<GlobalEvent> _events = new TreeIntObjectMap<>();
 	
 	public static EventHolder getInstance()
 	{
@@ -22,9 +22,14 @@ public final class EventHolder extends AbstractHolder
 		_events.put(type.step() + event.getId(), event);
 	}
 	
-	public <E extends GlobalEvent> E getEvent(EventType type, int id)
+	public GlobalEvent getEvent(EventType type, int id)
 	{
-		return (E) _events.get(type.step() + id);
+		return _events.get(type.step() + id);
+	}
+
+	public <E extends GlobalEvent> E getEvent(EventType type, int id, Class<E> typeClass)
+	{
+		return typeClass.cast(getEvent(type, id));
 	}
 	
 	public void findEvent(Player player)

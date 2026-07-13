@@ -50,7 +50,7 @@ public class ACbConfigManager implements ScriptFile, ICommunityBoardHandler
 	
 	static
 	{
-		ALLOW_PVPCB_MULTISELL_LIST = new ArrayList();
+		ALLOW_PVPCB_MULTISELL_LIST = new ArrayList<>();
 	}
 	
 	public static void loadPvPCBSettings()

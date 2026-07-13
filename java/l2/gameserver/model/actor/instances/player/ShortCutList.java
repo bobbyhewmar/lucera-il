@@ -1,9 +1,9 @@
 package l2.gameserver.model.actor.instances.player;
 
 import l2.commons.dbutils.DbUtils;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.model.Player;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExAutoSoulShot;
 import l2.gameserver.network.l2.s2c.ShortCutInit;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class ShortCutList
 		ShortCut sc = _shortCuts.get(slot + page * 12);
 		if(sc != null && sc.getType() == 1 && player.getInventory().getItemByObjectId(sc.getId()) == null)
 		{
-			player.sendPacket(Msg.THERE_ARE_NO_MORE_ITEMS_IN_THE_SHORTCUT);
+			player.sendPacket(SystemMsg.THERE_ARE_NO_MORE_ITEMS_IN_THE_SHORTCUT);
 			deleteShortCut(sc.getSlot(), sc.getPage());
 			sc = null;
 		}

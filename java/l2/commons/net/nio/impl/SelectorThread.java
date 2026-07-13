@@ -23,7 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SelectorThread<T extends MMOClient> extends Thread
 {
 	private static final Logger _log = LoggerFactory.getLogger(SelectorThread.class);
-	private static final List<SelectorThread> ALL_SELECTORS = new ArrayList();
+	private static final List<SelectorThread<?>> ALL_SELECTORS = new ArrayList<>();
 	private static final SelectorStats stats = new SelectorStats();
 	public static long MAX_CONNECTIONS = Long.MAX_VALUE;
 	private final Selector _selector = Selector.open();
@@ -43,7 +43,6 @@ public class SelectorThread<T extends MMOClient> extends Thread
 	
 	public SelectorThread(SelectorConfig sc, IPacketHandler<T> packetHandler, IMMOExecutor<T> executor, IClientFactory<T> clientFactory, IAcceptFilter acceptFilter) throws IOException
 	{
-		List var6 = ALL_SELECTORS;
 		synchronized(ALL_SELECTORS)
 		{
 			ALL_SELECTORS.add(this);
@@ -54,8 +53,8 @@ public class SelectorThread<T extends MMOClient> extends Thread
 		_packetHandler = packetHandler;
 		_clientFactory = clientFactory;
 		_executor = executor;
-		_bufferPool = new ArrayDeque(_sc.HELPER_BUFFER_COUNT);
-		_connections = new CopyOnWriteArrayList();
+		_bufferPool = new ArrayDeque<>(_sc.HELPER_BUFFER_COUNT);
+		_connections = new CopyOnWriteArrayList<>();
 		DIRECT_WRITE_BUFFER = ByteBuffer.wrap(new byte[_sc.WRITE_BUFFER_SIZE]).order(_sc.BYTE_ORDER);
 		WRITE_BUFFER = ByteBuffer.wrap(new byte[_sc.WRITE_BUFFER_SIZE]).order(_sc.BYTE_ORDER);
 		READ_BUFFER = ByteBuffer.wrap(new byte[_sc.READ_BUFFER_SIZE]).order(_sc.BYTE_ORDER);
@@ -237,10 +236,11 @@ public class SelectorThread<T extends MMOClient> extends Thread
 		}
 		catch(IOException e)
 		{
-			MMOConnection<T> con = (MMOConnection) key.attachment();
+			MMOConnection<T> con = getAttachmentConnection(key);
 			T client = con.getClient();
-			client.getConnection().onForcedDisconnection();
-			closeConnectionImpl(client.getConnection());
+			MMOConnection<T> clientConnection = getClientConnection(client);
+			clientConnection.onForcedDisconnection();
+			closeConnectionImpl(clientConnection);
 		}
 	}
 	
@@ -261,9 +261,9 @@ public class SelectorThread<T extends MMOClient> extends Thread
 				{
 					sc.configureBlocking(false);
 					SelectionKey clientKey = sc.register(getSelector(), 1);
-					MMOConnection<T> con = new MMOConnection(this, sc.socket(), clientKey);
+					MMOConnection<T> con = new MMOConnection<>(this, sc.socket(), clientKey);
 					T client = getClientFactory().create(con);
-					client.setConnection(con);
+					setClientConnection(client, con);
 					con.setClient(client);
 					clientKey.attach(con);
 					_connections.add(con);
@@ -279,7 +279,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
 	
 	protected void readPacket(SelectionKey key)
 	{
-		MMOConnection<T> con = (MMOConnection) key.attachment();
+		MMOConnection<T> con = getAttachmentConnection(key);
 		if(!con.isClosed())
 		{
 			ByteBuffer buf;
@@ -428,7 +428,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
 	
 	protected void writePacket(SelectionKey key)
 	{
-		MMOConnection<T> con = (MMOConnection) key.attachment();
+		MMOConnection<T> con = getAttachmentConnection(key);
 		prepareWriteBuffer(con);
 		DIRECT_WRITE_BUFFER.flip();
 		int size = DIRECT_WRITE_BUFFER.remaining();
@@ -487,7 +487,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
 			
 			for(int i = 0;i < _sc.MAX_SEND_PER_PASS;++i)
 			{
-				SendablePacket sp;
+				SendablePacket<T> sp;
 				synchronized(con)
 				{
 					if((sp = sendQueue.poll()) == null)
@@ -601,7 +601,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
 			{
 				con.releaseBuffers();
 				con.clearQueues();
-				con.getClient().setConnection(null);
+				setClientConnection(con.getClient(), null);
 				con.getSelectionKey().attach(null);
 				con.getSelectionKey().cancel();
 				_connections.remove(con);
@@ -624,11 +624,11 @@ public class SelectorThread<T extends MMOClient> extends Thread
 	protected void closeAllChannels()
 	{
 		Set<SelectionKey> keys = getSelector().keys();
-		Iterator i = keys.iterator();
+		Iterator<SelectionKey> i = keys.iterator();
 		
 		while(i.hasNext())
 		{
-			SelectionKey key = (SelectionKey) i.next();
+			SelectionKey key = i.next();
 			
 			try
 			{
@@ -651,5 +651,23 @@ public class SelectorThread<T extends MMOClient> extends Thread
 		catch(IOException e)
 		{
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private MMOConnection<T> getAttachmentConnection(SelectionKey key)
+	{
+		return (MMOConnection<T>) key.attachment();
+	}
+
+	@SuppressWarnings("unchecked")
+	private MMOConnection<T> getClientConnection(T client)
+	{
+		return (MMOConnection<T>) client.getConnection();
+	}
+
+	@SuppressWarnings("unchecked")
+	private void setClientConnection(T client, MMOConnection<T> connection)
+	{
+		((MMOClient<MMOConnection<T>>) client).setConnection(connection);
 	}
 }
