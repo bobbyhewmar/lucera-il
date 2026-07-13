@@ -104,7 +104,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 				}
 				String text = activeChar.getName() + ": " + fullString.replaceFirst("admin_toscreen ", "").replaceFirst("admin_s ", "");
 				int time = 3000 + text.length() * 100;
-				ExShowScreenMessage sm = new ExShowScreenMessage(text, time, ExShowScreenMessage.ScreenMessageAlign.TOP_CENTER, text.length() < 64);
+				ExShowScreenMessage sm = new ExShowScreenMessage(text, time, 0, ExShowScreenMessage.ScreenMessageAlign.TOP_CENTER, text.length() < 64, ExShowScreenMessage.STRING_TYPE, -1, false);
 				for(Player player : GameObjectsStorage.getAllPlayersForIterate())
 				{
 					player.sendPacket(sm);
