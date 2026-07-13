@@ -2,12 +2,12 @@ package l2.gameserver.handler.admincommands.impl;
 
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
 import l2.gameserver.network.l2.components.CustomMessage;
+import l2.gameserver.network.l2.components.SystemMsg;
 
 public class AdminDisconnect implements IAdminCommandHandler
 {
@@ -35,7 +35,7 @@ public class AdminDisconnect implements IAdminCommandHandler
 					}
 					if(!target.isPlayer())
 					{
-						activeChar.sendPacket(Msg.INVALID_TARGET);
+						activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 						break;
 					}
 					player = (Player) target;
@@ -62,7 +62,7 @@ public class AdminDisconnect implements IAdminCommandHandler
 					return true;
 				}
 				player.sendMessage(new CustomMessage("admincommandhandlers.AdminDisconnect.YoureKickedByGM", player));
-				player.sendPacket(Msg.YOU_HAVE_BEEN_DISCONNECTED_FROM_THE_SERVER_PLEASE_LOGIN_AGAIN);
+				player.sendPacket(SystemMsg.YOU_HAVE_BEEN_DISCONNECTED_FROM_THE_SERVER_PLEASE_LOGIN_AGAIN);
 				ThreadPoolManager.getInstance().schedule(new RunnableImpl()
 				{
 					

@@ -1,7 +1,6 @@
 package l2.gameserver.handler.admincommands.impl;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.database.mysql;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.GameObject;
@@ -15,6 +14,7 @@ import l2.gameserver.model.base.PlayerClass;
 import l2.gameserver.model.entity.oly.NoblesController;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.components.CustomMessage;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExPCCafePointInfo;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.SkillList;
@@ -483,7 +483,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					}
 					if(transformId != 0 && activeChar.getTransformation() != 0)
 					{
-						activeChar.sendPacket(Msg.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
+						activeChar.sendPacket(SystemMsg.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
 						return false;
 					}
 					activeChar.setTransformation(transformId);
@@ -499,7 +499,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				GameObject target = activeChar.getTarget();
 				if(target == null || !target.isPlayer())
 				{
-					activeChar.sendPacket(Msg.SELECT_TARGET);
+					activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 					return false;
 				}
 				Player player = (Player) target;
@@ -513,7 +513,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						activeChar.sendMessage(new CustomMessage("l2p.gameserver.model.instances.L2VillageMasterInstance.SubclassCouldNotBeAdded", activeChar));
 						return false;
 					}
-					player.sendPacket(Msg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
+					player.sendPacket(SystemMsg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
 				}
 				else
 				{
@@ -774,7 +774,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		if(!target.isPlayer())
@@ -800,7 +800,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer())
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -846,7 +846,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer())
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -961,7 +961,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -1001,12 +1001,12 @@ public class AdminEditChar implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null)
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		if(!target.isPlayable())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Playable playable = (Playable) target;
