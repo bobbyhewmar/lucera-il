@@ -1,6 +1,5 @@
 package l2.gameserver.handler.admincommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.SkillAcquireHolder;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.Creature;
@@ -12,6 +11,7 @@ import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
 import l2.gameserver.model.SkillLearn;
 import l2.gameserver.model.base.AcquireType;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExEnchantSkillList;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.SkillCoolTime;
@@ -139,7 +139,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target_obj = activeChar.getTarget();
 		if(!target_obj.isCreature())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Creature target = (Creature) target_obj;
@@ -176,7 +176,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -218,7 +218,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(!target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -260,7 +260,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -291,7 +291,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayable() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Playable playable = (Playable) target;
@@ -326,7 +326,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayable() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Playable playable = (Playable) target;
@@ -360,7 +360,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(!target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -390,7 +390,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(!target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -416,7 +416,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(target == null || !target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;
@@ -445,7 +445,7 @@ public class AdminSkill implements IAdminCommandHandler
 		GameObject target = activeChar.getTarget();
 		if(!target.isPlayer() || activeChar != target && !activeChar.getPlayerAccess().CanEditCharAll)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		Player player = (Player) target;

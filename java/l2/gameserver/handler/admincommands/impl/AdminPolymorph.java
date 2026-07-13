@@ -1,10 +1,10 @@
 package l2.gameserver.handler.admincommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
+import l2.gameserver.network.l2.components.SystemMsg;
 
 public class AdminPolymorph implements IAdminCommandHandler
 {
@@ -28,7 +28,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			{
 				if(target == null || !target.isPlayer())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				try
@@ -55,7 +55,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			{
 				if(target == null || !target.isPlayer())
 				{
-					activeChar.sendPacket(Msg.INVALID_TARGET);
+					activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 					return false;
 				}
 				((Player) target).setPolyId(0);
