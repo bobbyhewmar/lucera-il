@@ -7,12 +7,13 @@ import l2.gameserver.ThreadPoolManager;
 import l2.gameserver.data.xml.holder.InstantZoneHolder;
 import l2.gameserver.instancemanager.DimensionalRiftManager;
 import l2.gameserver.model.GameObject;
+import l2.gameserver.model.HardSpawner;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
 import l2.gameserver.model.Spawner;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.templates.InstantZone;
+import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.Location;
 
 import java.util.ArrayList;
@@ -117,16 +118,20 @@ public class DimensionalRift extends Reflection
 			@Override
 			public void runImpl() throws Exception
 			{
-				for(SimpleSpawner s : riftRoom.getSpawns())
+				for(SpawnTemplate template : riftRoom.getSpawns())
 				{
-					SimpleSpawner sp = s.clone();
+					HardSpawner sp = new HardSpawner(template);
 					sp.setReflection(DimensionalRift.this);
+					sp.setAmount(template.getCount());
+					sp.setRespawnDelay(template.getRespawn(), template.getRespawnRandom());
+					sp.setRespawnCron(template.getRespawnCron());
+					sp.setRespawnTime(0);
 					addSpawn(sp);
 					if(!isBossRoom)
 					{
 						sp.startRespawn();
 					}
-					for(int i = 0;i < sp.getAmount();++i)
+					for(int i = 0;i < template.getCount();++i)
 					{
 						sp.doSpawn(true);
 					}

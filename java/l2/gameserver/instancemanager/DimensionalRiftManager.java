@@ -5,7 +5,6 @@ import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
 import l2.gameserver.model.Territory;
 import l2.gameserver.model.entity.DimensionalRift;
 import l2.gameserver.model.entity.Reflection;
@@ -13,7 +12,11 @@ import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.TeleportToLocation;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.npc.NpcTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.Location;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,7 +155,7 @@ public class DimensionalRiftManager
 						}
 						if(!_rooms.containsKey(type))
 						{
-							_rooms.put(type, new ConcurrentHashMap());
+							_rooms.put(type, new ConcurrentHashMap<>());
 						}
 						_rooms.get(type).put(roomId, new DimensionalRiftRoom(territory, tele, isBossRoom));
 						for(Node spawn = room.getFirstChild();spawn != null;spawn = spawn.getNextSibling())
@@ -178,12 +181,11 @@ public class DimensionalRiftManager
 							}
 							if(template != null && _rooms.containsKey(type) && _rooms.get(type).containsKey(roomId))
 							{
-								SimpleSpawner spawnDat = new SimpleSpawner(template);
-								spawnDat.setTerritory(territory);
-								spawnDat.setHeading(-1);
-								spawnDat.setRespawnDelay(delay);
-								spawnDat.setAmount(count);
-								_rooms.get(type).get(roomId).getSpawns().add(spawnDat);
+								Territory spawnTerritory = territory;
+								SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, count, delay, 0, null);
+								spawnTemplate.addNpc(new SpawnNpcInfo(template.getNpcId(), count, StatsSet.EMPTY));
+								spawnTemplate.addSpawnRange(geoIndex -> spawnTerritory.getRandomLoc(geoIndex).setH(Rnd.get(65535)));
+								_rooms.get(type).get(roomId).getSpawns().add(spawnTemplate);
 								++countGood;
 								continue;
 							}
@@ -337,7 +339,7 @@ public class DimensionalRiftManager
 		private final Territory _territory;
 		private final Location _teleportCoords;
 		private final boolean _isBossRoom;
-		private final List<SimpleSpawner> _roomSpawns;
+		private final List<SpawnTemplate> _roomSpawns;
 		
 		public DimensionalRiftRoom(Territory territory, Location tele, boolean isBossRoom)
 		{
@@ -367,7 +369,7 @@ public class DimensionalRiftManager
 			return _isBossRoom;
 		}
 		
-		public List<SimpleSpawner> getSpawns()
+		public List<SpawnTemplate> getSpawns()
 		{
 			return _roomSpawns;
 		}
