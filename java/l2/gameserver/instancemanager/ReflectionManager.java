@@ -28,7 +28,7 @@ public class ReflectionManager
 		add(GIRAN_HARBOR);
 		add(JAIL);
 		DEFAULT.init(DoorHolder.getInstance().getDoors(), ZoneHolder.getInstance().getZones());
-		GIRAN_HARBOR.fillSpawns(InstantZoneHolder.getInstance().getInstantZone(10).getSpawnsInfo());
+		GIRAN_HARBOR.fillSpawns(InstantZoneHolder.getInstance().getInstantZone(10).getSpawns());
 		JAIL.setCoreLoc(new Location(-114648, -249384, -2984));
 	}
 	

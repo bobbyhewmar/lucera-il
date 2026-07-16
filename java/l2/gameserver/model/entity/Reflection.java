@@ -4,9 +4,7 @@ import gnu.trove.TIntHashSet;
 import l2.commons.listener.Listener;
 import l2.commons.listener.ListenerList;
 import l2.commons.threading.RunnableImpl;
-import l2.commons.util.Rnd;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.database.mysql;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.idfactory.IdFactory;
@@ -20,7 +18,6 @@ import l2.gameserver.model.GameObject;
 import l2.gameserver.model.HardSpawner;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
 import l2.gameserver.model.Spawner;
 import l2.gameserver.model.World;
 import l2.gameserver.model.Zone;
@@ -29,7 +26,10 @@ import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.components.CustomMessage;
 import l2.gameserver.templates.DoorTemplate;
 import l2.gameserver.templates.InstantZone;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.ZoneTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
 import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.Location;
 import l2.gameserver.utils.NpcUtils;
@@ -581,7 +581,7 @@ public class Reflection
 		return _isCollapseStarted;
 	}
 	
-	public void addSpawn(SimpleSpawner spawn)
+	public void addSpawn(Spawner spawn)
 	{
 		if(spawn != null)
 		{
@@ -589,81 +589,29 @@ public class Reflection
 		}
 	}
 	
-	public void fillSpawns(List<InstantZone.SpawnInfo> si)
+	public void fillSpawns(Map<String, InstantZone.SpawnInfo2> spawns)
 	{
-		if(si == null)
+		if(spawns == null || spawns.isEmpty())
 		{
 			return;
 		}
-		block5:
-		for(InstantZone.SpawnInfo s : si)
+		_spawners = new HashMap<>(spawns.size());
+		for(Map.Entry<String, InstantZone.SpawnInfo2> entry : spawns.entrySet())
 		{
-			SimpleSpawner c;
-			switch(s.getSpawnType())
+			ArrayList<Spawner> spawnList = new ArrayList<>(entry.getValue().getTemplates().size());
+			_spawners.put(entry.getKey(), spawnList);
+			for(SpawnTemplate template : entry.getValue().getTemplates())
 			{
-				case 0:
-				{
-					for(Location loc : s.getCoords())
-					{
-						c = new SimpleSpawner(s.getNpcId());
-						c.setReflection(this);
-						c.setRespawnDelay(s.getRespawnDelay(), s.getRespawnRnd());
-						c.setAmount(s.getCount());
-						c.setLoc(loc);
-						c.doSpawn(true);
-						if(s.getRespawnDelay() == 0)
-						{
-							c.stopRespawn();
-						}
-						else
-						{
-							c.startRespawn();
-						}
-						addSpawn(c);
-					}
-					continue block5;
-				}
-				case 1:
-				{
-					c = new SimpleSpawner(s.getNpcId());
-					c.setReflection(this);
-					c.setRespawnDelay(s.getRespawnDelay(), s.getRespawnRnd());
-					c.setAmount(1);
-					c.setLoc(s.getCoords().get(Rnd.get(s.getCoords().size())));
-					c.doSpawn(true);
-					if(s.getRespawnDelay() == 0)
-					{
-						c.stopRespawn();
-					}
-					else
-					{
-						c.startRespawn();
-					}
-					addSpawn(c);
-					break;
-				}
-				case 2:
-				{
-					c = new SimpleSpawner(s.getNpcId());
-					c.setReflection(this);
-					c.setRespawnDelay(s.getRespawnDelay(), s.getRespawnRnd());
-					c.setAmount(s.getCount());
-					c.setTerritory(s.getLoc());
-					for(int j = 0;j < s.getCount();++j)
-					{
-						c.doSpawn(true);
-					}
-					if(s.getRespawnDelay() == 0)
-					{
-						c.stopRespawn();
-					}
-					else
-					{
-						c.startRespawn();
-					}
-					addSpawn(c);
-				}
+				HardSpawner spawner = new HardSpawner(template);
+				spawnList.add(spawner);
+				spawner.setAmount(template.getCount());
+				spawner.setRespawnDelay(template.getRespawn(), template.getRespawnRandom());
+				spawner.setReflection(this);
+				spawner.setRespawnTime(0);
 			}
+			if(!entry.getValue().isSpawned())
+				continue;
+			spawnByGroup(entry.getKey());
 		}
 	}
 	
@@ -827,8 +775,11 @@ public class Reflection
 	
 	public NpcInstance addSpawnWithRespawn(int npcId, Location loc, int randomOffset, int respawnDelay)
 	{
-		SimpleSpawner sp = new SimpleSpawner(NpcHolder.getInstance().getTemplate(npcId));
-		sp.setLoc(randomOffset > 0 ? Location.findPointToStay(loc, 0, randomOffset, getGeoIndex()) : loc);
+		Location spawnLoc = randomOffset > 0 ? Location.findPointToStay(loc, 0, randomOffset, getGeoIndex()) : loc;
+		SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, 1, respawnDelay, 0, null);
+		spawnTemplate.addNpc(new SpawnNpcInfo(npcId, 1, StatsSet.EMPTY));
+		spawnTemplate.addSpawnRange(spawnLoc);
+		HardSpawner sp = new HardSpawner(spawnTemplate);
 		sp.setReflection(this);
 		sp.setAmount(1);
 		sp.setRespawnDelay(respawnDelay);
@@ -905,28 +856,7 @@ public class Reflection
 		{
 			setReturnLoc(instantZone.getReturnCoords());
 		}
-		fillSpawns(instantZone.getSpawnsInfo());
-		if(instantZone.getSpawns().size() > 0)
-		{
-			_spawners = new HashMap<>(instantZone.getSpawns().size());
-			for(Map.Entry<String, InstantZone.SpawnInfo2> entry : instantZone.getSpawns().entrySet())
-			{
-				ArrayList<Spawner> spawnList = new ArrayList<>(entry.getValue().getTemplates().size());
-				_spawners.put(entry.getKey(), spawnList);
-				for(SpawnTemplate template : entry.getValue().getTemplates())
-				{
-					HardSpawner spawner = new HardSpawner(template);
-					spawnList.add(spawner);
-					spawner.setAmount(template.getCount());
-					spawner.setRespawnDelay(template.getRespawn(), template.getRespawnRandom());
-					spawner.setReflection(this);
-					spawner.setRespawnTime(0);
-				}
-				if(!entry.getValue().isSpawned())
-					continue;
-				spawnByGroup(entry.getKey());
-			}
-		}
+		fillSpawns(instantZone.getSpawns());
 		init0(instantZone.getDoors(), instantZone.getZones());
 		if(!isStatic())
 		{

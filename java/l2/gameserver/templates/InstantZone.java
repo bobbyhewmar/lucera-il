@@ -30,7 +30,6 @@ public class InstantZone
 	private final IntObjectMap<DoorInfo> _doors;
 	private final Map<String, ZoneInfo> _zones;
 	private final Map<String, SpawnInfo2> _spawns;
-	private final List<SpawnInfo> _spawnsInfo;
 	private final int _collapseIfEmpty;
 	private final int _maxChannels;
 	private final int _removedItemId;
@@ -44,7 +43,7 @@ public class InstantZone
 	private final InstantZoneEntryType _entryType;
 	private final boolean _dispelBuffs;
 	
-	public InstantZone(int id, String name, SchedulingPattern resetReuse, int sharedReuseGroup, int timelimit, boolean dispelBuffs, int minLevel, int maxLevel, int minParty, int maxParty, int timer, boolean onPartyDismiss, List<Location> tele, Location ret, int mapx, int mapy, IntObjectMap<DoorInfo> doors, Map<String, ZoneInfo> zones, Map<String, SpawnInfo2> spawns, List<SpawnInfo> spawnsInfo, int collapseIfEmpty, int maxChannels, int removedItemId, int removedItemCount, boolean removedItemNecessity, int giveItemId, int givedItemCount, int requiredQuestId, boolean setReuseUponEntry, StatsSet params)
+	public InstantZone(int id, String name, SchedulingPattern resetReuse, int sharedReuseGroup, int timelimit, boolean dispelBuffs, int minLevel, int maxLevel, int minParty, int maxParty, int timer, boolean onPartyDismiss, List<Location> tele, Location ret, int mapx, int mapy, IntObjectMap<DoorInfo> doors, Map<String, ZoneInfo> zones, Map<String, SpawnInfo2> spawns, int collapseIfEmpty, int maxChannels, int removedItemId, int removedItemCount, boolean removedItemNecessity, int giveItemId, int givedItemCount, int requiredQuestId, boolean setReuseUponEntry, StatsSet params)
 	{
 		_id = id;
 		_name = name;
@@ -64,7 +63,6 @@ public class InstantZone
 		_mapy = mapy;
 		_doors = doors;
 		_zones = zones;
-		_spawnsInfo = spawnsInfo;
 		_spawns = spawns;
 		_collapseIfEmpty = collapseIfEmpty;
 		_maxChannels = maxChannels;
@@ -171,11 +169,6 @@ public class InstantZone
 	public int getMapY()
 	{
 		return _mapy;
-	}
-	
-	public List<SpawnInfo> getSpawnsInfo()
-	{
-		return _spawnsInfo;
 	}
 	
 	public int getSharedReuseGroup()

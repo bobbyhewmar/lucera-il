@@ -3,6 +3,7 @@ package l2.gameserver.data.xml.parser;
 import l2.commons.data.xml.AbstractDirParser;
 import l2.commons.geometry.Polygon;
 import l2.commons.time.cron.SchedulingPattern;
+import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.data.xml.holder.DoorHolder;
 import l2.gameserver.data.xml.holder.InstantZoneHolder;
@@ -13,6 +14,9 @@ import l2.gameserver.templates.DoorTemplate;
 import l2.gameserver.templates.InstantZone;
 import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.ZoneTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnRange;
 import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.Location;
 import org.dom4j.Element;
@@ -28,6 +32,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 {
@@ -61,6 +66,20 @@ public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 		return "instances.dtd";
 	}
 	
+	private static SpawnTemplate createSpawnTemplate(int npcId, int count, int respawn, int respawnRnd, SpawnRange range)
+	{
+		SpawnTemplate template = new SpawnTemplate(null, null, PeriodOfDay.ALL, count, respawn, respawnRnd, null);
+		template.addNpc(new SpawnNpcInfo(npcId, count, StatsSet.EMPTY));
+		template.addSpawnRange(range);
+		return template;
+	}
+
+	private static SpawnRange createRandomSpawnRange(List<Location> locations)
+	{
+		Map<Integer, Location> selectedLocations = new ConcurrentHashMap<>();
+		return geoIndex -> selectedLocations.computeIfAbsent(geoIndex, key -> locations.get(Rnd.get(locations.size())));
+	}
+
 	@Override
 	protected void readData(Element rootElement) throws Exception
 	{
@@ -98,7 +117,7 @@ public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 			int removedItemId = 0;
 			Map<String, InstantZone.SpawnInfo2> spawns2 = Collections.emptyMap();
 			Map<String, InstantZone.ZoneInfo> zones = Collections.emptyMap();
-			ArrayList<InstantZone.SpawnInfo> spawns = new ArrayList<>();
+			List<SpawnTemplate> inlineSpawns = new ArrayList<>();
 			StatsSet params = new StatsSet();
 			boolean setReuseUponEntry = true;
 			boolean removedItemNecessity = false;
@@ -293,12 +312,45 @@ public class InstantZoneParser extends AbstractDirParser<InstantZoneHolder>
 					for(String mob : mobs)
 					{
 						int mobId = Integer.parseInt(mob);
-						InstantZone.SpawnInfo spawnDat = new InstantZone.SpawnInfo(spawnType, mobId, count, respawn, respawnRnd, coords, territory);
-						spawns.add(spawnDat);
+						switch(spawnType)
+						{
+							case 0:
+							{
+								for(Location loc : coords)
+								{
+									inlineSpawns.add(createSpawnTemplate(mobId, count, respawn, respawnRnd, loc));
+								}
+								break;
+							}
+							case 1:
+							{
+								inlineSpawns.add(createSpawnTemplate(mobId, count, respawn, respawnRnd, createRandomSpawnRange(coords)));
+								break;
+							}
+							case 2:
+							{
+								Territory spawnTerritory = territory;
+								inlineSpawns.add(createSpawnTemplate(mobId, count, respawn, respawnRnd, geoIndex -> spawnTerritory.getRandomLoc(geoIndex).setH(Rnd.get(65535))));
+								break;
+							}
+						}
 					}
 				}
 			}
-			InstantZone instancedZone = new InstantZone(instanceId, name, resetReuse, sharedReuseGroup, timelimit, dispelBuffs, minLevel, maxLevel, minParty, maxParty, timer, onPartyDismiss, teleportLocs, ret, mapx, mapy, doors, zones, spawns2, spawns, collapseIfEmpty, maxChannels, removedItemId, removedItemCount, removedItemNecessity, giveItemId, givedItemCount, requiredQuestId, setReuseUponEntry, params);
+			if(!inlineSpawns.isEmpty())
+			{
+				if(spawns2.isEmpty())
+				{
+					spawns2 = new Hashtable<>();
+				}
+				String inlineGroup = "$inline";
+				while(spawns2.containsKey(inlineGroup))
+				{
+					inlineGroup += "$";
+				}
+				spawns2.put(inlineGroup, new InstantZone.SpawnInfo2(inlineSpawns, true));
+			}
+			InstantZone instancedZone = new InstantZone(instanceId, name, resetReuse, sharedReuseGroup, timelimit, dispelBuffs, minLevel, maxLevel, minParty, maxParty, timer, onPartyDismiss, teleportLocs, ret, mapx, mapy, doors, zones, spawns2, collapseIfEmpty, maxChannels, removedItemId, removedItemCount, removedItemNecessity, giveItemId, givedItemCount, requiredQuestId, setReuseUponEntry, params);
 			getHolder().addInstantZone(instancedZone);
 		}
 	}
