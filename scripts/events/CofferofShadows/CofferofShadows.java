@@ -5,7 +5,7 @@ import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.components.CustomMessage;
@@ -23,7 +23,7 @@ public class CofferofShadows extends Functions implements ScriptFile, OnPlayerEn
 	private static final int COFFER_PRICE = 50000;
 	private static final int COFFER_ID = 8659;
 	private static final int EVENT_MANAGER_ID = 32091;
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static final Logger _log = LoggerFactory.getLogger(CofferofShadows.class);
 	private static final int[] buycoffer_counts = {1, 5, 10, 50};
 	private static boolean _active;

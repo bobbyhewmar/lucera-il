@@ -13,10 +13,11 @@ import l2.gameserver.instancemanager.ReflectionManager;
 import l2.gameserver.instancemanager.ServerVariables;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObjectsStorage;
+import l2.gameserver.model.HardSpawner;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Playable;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.Summon;
 import l2.gameserver.model.World;
 import l2.gameserver.model.entity.Reflection;
@@ -29,8 +30,12 @@ import l2.gameserver.network.l2.components.NpcString;
 import l2.gameserver.network.l2.s2c.ExNoticePostArrived;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.NpcSay;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.item.ItemTemplate;
 import l2.gameserver.templates.npc.NpcTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.ItemFunctions;
 import l2.gameserver.utils.Location;
 import l2.gameserver.utils.MapUtils;
@@ -365,7 +370,7 @@ public class Functions
 	}
 	
 	@Deprecated
-	public static void SpawnNPCs(int npcId, int[][] locations, List<SimpleSpawner> list)
+	public static void SpawnNPCs(int npcId, int[][] locations, List<Spawner> list)
 	{
 		NpcTemplate template = NpcHolder.getInstance().getTemplate(npcId);
 		if(template == null)
@@ -376,13 +381,15 @@ public class Functions
 		}
 		for(int[] location : locations)
 		{
-			SimpleSpawner sp = new SimpleSpawner(template);
 			Location loc = new Location(location[0], location[1], location[2]);
 			if(location.length > 3)
 			{
 				loc.setH(location[3]);
 			}
-			sp.setLoc(loc);
+			SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, 1, 0, 0, null);
+			spawnTemplate.addNpc(new SpawnNpcInfo(template.getNpcId(), 1, StatsSet.EMPTY));
+			spawnTemplate.addSpawnRange(loc);
+			HardSpawner sp = new HardSpawner(spawnTemplate);
 			sp.setAmount(1);
 			sp.setRespawnDelay(0);
 			sp.init();
@@ -392,9 +399,9 @@ public class Functions
 		}
 	}
 	
-	public static void deSpawnNPCs(List<SimpleSpawner> list)
+	public static void deSpawnNPCs(List<Spawner> list)
 	{
-		for(SimpleSpawner sp : list)
+		for(Spawner sp : list)
 		{
 			sp.deleteAll();
 		}

@@ -8,7 +8,7 @@ import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.model.reward.RewardData;
@@ -49,7 +49,7 @@ public abstract class LettersCollection extends Functions implements ScriptFile,
 	protected static int EVENT_MANAGER_ID;
 	protected static Map<String, Integer[][]> _words;
 	protected static Map<String, RewardData[]> _rewards;
-	protected static List<SimpleSpawner> _spawns;
+	protected static List<Spawner> _spawns;
 	
 	static
 	{

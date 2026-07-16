@@ -8,7 +8,7 @@ import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.scripts.Functions;
@@ -24,7 +24,7 @@ public class TheFallHarvest extends Functions implements ScriptFile, OnDeathList
 {
 	private static final Logger _log = LoggerFactory.getLogger(TheFallHarvest.class);
 	private static final int EVENT_MANAGER_ID = 31255;
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static final File multiSellFile = new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/TheFallHarvest/31255.xml");
 	private static boolean _active;
 	private static boolean MultiSellLoaded;

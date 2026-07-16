@@ -3,13 +3,18 @@ package npc.model;
 import l2.commons.util.Rnd;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.model.Creature;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.HardSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.instances.BossInstance;
 import l2.gameserver.model.instances.MinionInstance;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.s2c.PlaySound;
 import l2.gameserver.scripts.Functions;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.npc.NpcTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnTemplate;
 import l2.gameserver.utils.Location;
 
 import java.util.ArrayList;
@@ -18,7 +23,7 @@ import java.util.List;
 public class QueenAntInstance extends BossInstance
 {
 	private static final int Queen_Ant_Larva = 29002;
-	private final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private final List<Spawner> _spawns = new ArrayList<>();
 	private NpcInstance Larva;
 	
 	public QueenAntInstance(int objectId, NpcTemplate template)
@@ -69,8 +74,10 @@ public class QueenAntInstance extends BossInstance
 		}
 		try
 		{
-			SimpleSpawner sp = new SimpleSpawner(template);
-			sp.setLoc(loc);
+			SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, 1, 0, 0, null);
+			spawnTemplate.addNpc(new SpawnNpcInfo(template.getNpcId(), 1, StatsSet.EMPTY));
+			spawnTemplate.addSpawnRange(loc);
+			HardSpawner sp = new HardSpawner(spawnTemplate);
 			sp.setAmount(1);
 			sp.setRespawnDelay(0);
 			_spawns.add(sp);

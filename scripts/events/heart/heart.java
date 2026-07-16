@@ -9,7 +9,7 @@ import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.MonsterInstance;
 import l2.gameserver.model.instances.NpcInstance;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class heart extends Functions implements ScriptFile, OnDeathListener, OnPlayerEnterListener
 {
 	private static final Logger _log = LoggerFactory.getLogger(heart.class);
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static final Map<Integer, Integer> Guesses = new HashMap<>();
 	private static final String[][] variants = {{"Rock", "Камень"}, {"Scissors", "Ножницы"}, {"Paper", "Бумага"}};
 	private static final int EVENT_MANAGER_ID = 31227;

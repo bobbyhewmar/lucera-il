@@ -13,6 +13,7 @@ import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObjectsStorage;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.Territory;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.components.ChatType;
@@ -49,7 +50,7 @@ public class Finder extends Functions implements ScriptFile, OnDeathListener
 	private static NpcInstance _hostage;
 	private static NpcInstance _raider;
 	private static Location _hostage_loc;
-	private static ArrayList<SimpleSpawner> _em_spawns;
+	private static ArrayList<Spawner> _em_spawns;
 	private static ScheduledFuture<?> _captureTask;
 	private static ScheduledFuture<?> _shoutTask;
 	private static Map<String, ScheduledFuture<?>> _event_tasks;

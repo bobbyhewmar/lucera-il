@@ -17,6 +17,7 @@ import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObjectsStorage;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.Summon;
 import l2.gameserver.model.Territory;
 import l2.gameserver.model.actor.listener.CharListenerList;
@@ -46,7 +47,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class SavingSnowman extends Functions implements ScriptFile, OnDeathListener, OnPlayerEnterListener
 {
 	private static final Logger _log = LoggerFactory.getLogger(SavingSnowman.class);
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static final int INITIAL_SAVE_DELAY = 1800000;
 	private static final int SAVE_INTERVAL = 7200000;
 	private static final int SNOWMAN_SHOUT_INTERVAL = 60000;
@@ -607,7 +608,7 @@ public class SavingSnowman extends Functions implements ScriptFile, OnDeathListe
 			{
 				return;
 			}
-			for(SimpleSpawner s : _spawns)
+			for(Spawner s : _spawns)
 			{
 				if(s.getCurrentNpcId() != 13184)
 					continue;

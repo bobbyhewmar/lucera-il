@@ -1,7 +1,7 @@
 package events.PcCafePointsExchange;
 
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.scripts.Functions;
 import l2.gameserver.scripts.ScriptFile;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ public class PcCafePointsExchange extends Functions implements ScriptFile
 	private static final Logger _log = LoggerFactory.getLogger(PcCafePointsExchange.class);
 	private static final String EVENT_NAME = "PcCafePointsExchange";
 	private static final int EVENT_MANAGER_ID = 32130;
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	
 	private static boolean isActive()
 	{

@@ -8,7 +8,7 @@ import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.scripts.Functions;
@@ -25,7 +25,7 @@ public class Christmas extends Functions implements ScriptFile, OnDeathListener,
 	private static final int CTREE_ID = 13006;
 	private static final Logger _log = LoggerFactory.getLogger(Christmas.class);
 	private static final int[][] _dropdata = {{5556, 20}, {5557, 20}, {5558, 50}, {5559, 5}};
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static boolean _active;
 	
 	private static boolean isActive()

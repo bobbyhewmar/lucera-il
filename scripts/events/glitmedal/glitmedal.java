@@ -9,7 +9,7 @@ import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
+import l2.gameserver.model.Spawner;
 import l2.gameserver.model.actor.listener.CharListenerList;
 import l2.gameserver.model.instances.MonsterInstance;
 import l2.gameserver.scripts.Functions;
@@ -33,7 +33,7 @@ public class glitmedal extends Functions implements ScriptFile, OnDeathListener,
 	private static final int Badge_of_Hyena = 6400;
 	private static final int Badge_of_Fox = 6401;
 	private static final int Badge_of_Wolf = 6402;
-	private static final List<SimpleSpawner> _spawns = new ArrayList<>();
+	private static final List<Spawner> _spawns = new ArrayList<>();
 	private static final File[] multiSellFiles = {new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/glitmedal/502.xml"), new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/glitmedal/503.xml"), new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/glitmedal/504.xml"), new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/glitmedal/505.xml"), new File(Config.DATAPACK_ROOT, "data/html-en/scripts/events/glitmedal/506.xml")};
 	private static boolean _active;
 	private static boolean MultiSellLoaded;
