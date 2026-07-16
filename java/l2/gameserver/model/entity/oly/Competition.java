@@ -3,7 +3,6 @@ package l2.gameserver.model.entity.oly;
 import gnu.trove.TIntIntHashMap;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Effect;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
@@ -13,6 +12,7 @@ import l2.gameserver.model.base.TeamType;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.model.quest.QuestState;
 import l2.gameserver.network.l2.components.CustomMessage;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.*;
 import l2.gameserver.skills.TimeStamp;
 import l2.gameserver.skills.effects.EffectCubic;
@@ -428,7 +428,7 @@ public class Competition
 	{
 		if(!looserDisconnected)
 		{
-			broadcastPacket(tie ? Msg.THE_GAME_ENDED_IN_A_TIE : new SystemMessage(1497).addString(winn.getName()), true, true);
+			broadcastPacket(tie ? new SystemMessage(SystemMsg.THERE_IS_NO_VICTOR_THE_MATCH_ENDS_IN_A_TIE) : new SystemMessage(1497).addString(winn.getName()), true, true);
 		}
 		long comp_spend_time = 0;
 		if(_start_time > 0)
@@ -634,7 +634,7 @@ public class Competition
 	{
 		if(getState() == CompetitionState.INIT)
 		{
-			broadcastPacket(Msg.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_ENDS_THE_GAME, true, false);
+			broadcastPacket(new SystemMessage(SystemMsg.YOUR_OPPONENT_MADE_HASTE_WITH_THEIR_TAIL_BETWEEN_THEIR_LEGS_THE_MATCH_HAS_BEEN_CANCELLED), true, false);
 			if(!_participants[0].isAlive())
 			{
 				processPoints(_participants[1], _participants[0], false, true);
