@@ -24,13 +24,13 @@ public class GeoMove
 			PathFind n = new PathFind(fromX, fromY, fromZ, toX, toY, toZ, isPlayable, geoIndex);
 			if(n.getPath() != null && !n.getPath().isEmpty())
 			{
-				List<Location> targetRecorder = new ArrayList(n.getPath().size() + 2);
+				List<Location> targetRecorder = new ArrayList<>(n.getPath().size() + 2);
 				targetRecorder.add(new Location(fromX, fromY, fromZ));
-				Iterator var10 = n.getPath().iterator();
+				Iterator<Location> var10 = n.getPath().iterator();
 				
 				while(var10.hasNext())
 				{
-					Location p = (Location) var10.next();
+					Location p = var10.next();
 					targetRecorder.add(p.geo2world());
 				}
 				
@@ -63,7 +63,7 @@ public class GeoMove
 		}
 		else
 		{
-			List<List<Location>> result = new ArrayList(size);
+			List<List<Location>> result = new ArrayList<>(size);
 			
 			for(int i = 1;i < size;++i)
 			{
@@ -108,7 +108,7 @@ public class GeoMove
 			float next_x = (float) begin.x;
 			float next_y = (float) begin.y;
 			float next_z = (float) begin.z;
-			List<Location> result = new ArrayList((int) steps + 1);
+			List<Location> result = new ArrayList<>((int) steps + 1);
 			result.add(new Location(begin.x, begin.y, begin.z));
 			
 			for(int i = 0;(float) i < steps;++i)
@@ -234,7 +234,7 @@ public class GeoMove
 			float nextX = (float) src.getX();
 			float nextY = (float) src.getY();
 			float nextZ = (float) src.getZ();
-			List<Location> straightGeoLine = new ArrayList((int) steps + 1);
+			List<Location> straightGeoLine = new ArrayList<>((int) steps + 1);
 			straightGeoLine.add(new Location(src.getX(), src.getY(), src.getZ()));
 			
 			for(int i = 0;(float) i < steps;++i)
@@ -275,7 +275,7 @@ public class GeoMove
 			Location worldFrom = geoFrom.clone().geo2world();
 			Location worldTo = geoTo.clone().geo2world();
 			Location worldToIndented;
-			List geoPathLine;
+			List<Location> geoPathLine;
 			if(water)
 			{
 				worldToIndented = indent > 0 ? worldTo.clone().indent(worldFrom, indent, true) : worldTo;
@@ -324,10 +324,9 @@ public class GeoMove
 			Location worldFrom = geoFrom.clone().geo2world();
 			Location worldTo = geoTo.clone().geo2world();
 			Location worldToIndented = indent > 0 ? worldTo.clone().indent(worldFrom, indent, !water && !air) : worldTo;
-			List geoPathLine;
+			List<Location> geoPathLine;
 			if(!straightLineIgnoreGeo && Config.ALLOW_GEODATA)
 			{
-				List geoFoundPathLines;
 				Location lastWorldLocInWater;
 				if(air)
 				{
@@ -349,14 +348,14 @@ public class GeoMove
 						lastWorldLocInWater = GeoEngine.moveCheckInAir(worldFrom.getX(), worldFrom.getY(), worldFrom.getZ(), worldToIndented.getX(), worldToIndented.getY(), worldToIndented.getZ(), (double) colRadius, geoIndex);
 						if(lastWorldLocInWater != null && !lastWorldLocInWater.equals(worldFrom))
 						{
-							geoFoundPathLines = straightLineGeoPath(geoFrom, lastWorldLocInWater.world2geo());
-							if(geoFoundPathLines.isEmpty())
+							List<Location> geoFoundPathLine = straightLineGeoPath(geoFrom, lastWorldLocInWater.world2geo());
+							if(geoFoundPathLine.isEmpty())
 							{
 								return false;
 							}
 							else
 							{
-								geoPathLines.add(geoFoundPathLines);
+								geoPathLines.add(geoFoundPathLine);
 								return true;
 							}
 						}
@@ -369,10 +368,10 @@ public class GeoMove
 				else if(water)
 				{
 					lastWorldLocInWater = GeoEngine.moveInWaterCheck(worldFrom.getX(), worldFrom.getY(), worldFrom.getZ(), worldToIndented.getX(), worldToIndented.getY(), worldToIndented.getZ(), waterZ, geoIndex);
-					geoFoundPathLines = straightLineGeoPath(geoFrom, lastWorldLocInWater.clone().world2geo());
-					if(!geoFoundPathLines.isEmpty())
+					List<Location> geoFoundPathLine = straightLineGeoPath(geoFrom, lastWorldLocInWater.clone().world2geo());
+					if(!geoFoundPathLine.isEmpty())
 					{
-						geoPathLines.add(geoFoundPathLines);
+						geoPathLines.add(geoFoundPathLine);
 					}
 					
 					int dz = worldToIndented.getZ() - lastWorldLocInWater.getZ();
@@ -380,12 +379,12 @@ public class GeoMove
 					{
 						if(pathfind)
 						{
-							geoFoundPathLines = findMovePath(lastWorldLocInWater.getX(), lastWorldLocInWater.getY(), lastWorldLocInWater.getZ(), worldTo.getX(), worldTo.getY(), worldTo.getZ(), isPlayable, geoIndex);
+							List<List<Location>> geoFoundPathLines = findMovePath(lastWorldLocInWater.getX(), lastWorldLocInWater.getY(), lastWorldLocInWater.getZ(), worldTo.getX(), worldTo.getY(), worldTo.getZ(), isPlayable, geoIndex);
 							if(!geoFoundPathLines.isEmpty())
 							{
 								if(indent > 0)
 								{
-									List<Location> lastGeoFoundPathLine = (List) geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
+									List<Location> lastGeoFoundPathLine = geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
 									lastGeoFoundPathLine = applyGeoIndent(lastGeoFoundPathLine, indent >> 4);
 									if(!lastGeoFoundPathLine.isEmpty())
 									{
@@ -401,10 +400,10 @@ public class GeoMove
 						}
 						else
 						{
-							geoFoundPathLines = GeoEngine.MoveList(lastWorldLocInWater.getX(), lastWorldLocInWater.getY(), lastWorldLocInWater.getZ(), worldTo.getX(), worldTo.getY(), geoIndex, false);
-							if(geoFoundPathLines != null && !geoFoundPathLines.isEmpty())
+							geoFoundPathLine = GeoEngine.MoveList(lastWorldLocInWater.getX(), lastWorldLocInWater.getY(), lastWorldLocInWater.getZ(), worldTo.getX(), worldTo.getY(), geoIndex, false);
+							if(geoFoundPathLine != null && !geoFoundPathLine.isEmpty())
 							{
-								geoPathLines.add(geoFoundPathLines);
+								geoPathLines.add(geoFoundPathLine);
 							}
 						}
 					}
@@ -438,12 +437,12 @@ public class GeoMove
 					{
 						if(pathfind)
 						{
-							geoFoundPathLines = findMovePath(worldFrom.getX(), worldFrom.getY(), worldFrom.getZ(), worldTo.getX(), worldTo.getY(), worldTo.getZ(), isPlayable, geoIndex);
+							List<List<Location>> geoFoundPathLines = findMovePath(worldFrom.getX(), worldFrom.getY(), worldFrom.getZ(), worldTo.getX(), worldTo.getY(), worldTo.getZ(), isPlayable, geoIndex);
 							if(!geoFoundPathLines.isEmpty())
 							{
 								if(indent > 0)
 								{
-									List<Location> lastGeoFoundPathLine = (List) geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
+									List<Location> lastGeoFoundPathLine = geoFoundPathLines.remove(geoFoundPathLines.size() - 1);
 									lastGeoFoundPathLine = applyGeoIndent(lastGeoFoundPathLine, indent >> 4);
 									if(!lastGeoFoundPathLine.isEmpty())
 									{
