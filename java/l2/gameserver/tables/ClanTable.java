@@ -51,21 +51,6 @@ public class ClanTable
 		return _instance;
 	}
 	
-	public static void unload()
-	{
-		if(_instance != null)
-		{
-			try
-			{
-				_instance.finalize();
-			}
-			catch(Throwable e)
-			{
-				
-			}
-		}
-	}
-	
 	public Clan[] getClans()
 	{
 		return _clans.values().toArray(new Clan[_clans.size()]);
