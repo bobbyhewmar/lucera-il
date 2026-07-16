@@ -41,12 +41,12 @@ public class TradeRequest extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		if(activeChar.isInTrade())
@@ -56,7 +56,7 @@ public class TradeRequest extends L2GameClientPacket
 		}
 		if(activeChar.isProcessingRequest())
 		{
-			activeChar.sendPacket(Msg.WAITING_FOR_ANOTHER_REPLY);
+			activeChar.sendPacket(SystemMsg.WAITING_FOR_ANOTHER_REPLY);
 			return;
 		}
 		String tradeBan = activeChar.getVar("tradeBan");
@@ -80,7 +80,7 @@ public class TradeRequest extends L2GameClientPacket
 		}
 		if(!target.isInActingRange(activeChar))
 		{
-			activeChar.sendPacket(Msg.YOUR_TARGET_IS_OUT_OF_RANGE);
+			activeChar.sendPacket(SystemMsg.YOUR_TARGET_IS_OUT_OF_RANGE);
 			return;
 		}
 		Player reciever = (Player) target;

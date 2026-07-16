@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.PremiumItem;
@@ -86,7 +87,7 @@ public final class RequestWithDrawPremiumItem extends L2GameClientPacket
 		}
 		if(activeChar.getPremiumItemList().isEmpty())
 		{
-			activeChar.sendPacket(Msg.THERE_ARE_NO_MORE_VITAMIN_ITEMS_TO_BE_FOUND);
+			activeChar.sendPacket(SystemMsg.THERE_ARE_NO_MORE_VITAMIN_ITEMS_TO_BE_FOUND);
 		}
 		else
 		{

@@ -1,7 +1,7 @@
 package l2.gameserver.network.authcomm.as2gs;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.authcomm.AuthServerCommunication;
 import l2.gameserver.network.authcomm.ReceivablePacket;
@@ -55,7 +55,7 @@ public class PlayerAuthResponse extends ReceivablePacket
 				Player activeChar = oldClient.getActiveChar();
 				if(activeChar != null)
 				{
-					activeChar.sendPacket(Msg.ANOTHER_PERSON_HAS_LOGGED_IN_WITH_THE_SAME_ACCOUNT);
+					activeChar.sendPacket(SystemMsg.ANOTHER_PERSON_HAS_LOGGED_IN_WITH_THE_SAME_ACCOUNT);
 					activeChar.logout();
 				}
 				else

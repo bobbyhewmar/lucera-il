@@ -2,7 +2,7 @@ package l2.gameserver.skills.effects;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.ai.CtrlEvent;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Effect;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.s2c.ChangeWaitType;
@@ -68,7 +68,7 @@ public final class EffectFakeDeath extends Effect
 		double manaDam = calc();
 		if(manaDam > getEffected().getCurrentMp() && getSkill().isToggle())
 		{
-			getEffected().sendPacket(Msg.NOT_ENOUGH_MP);
+			getEffected().sendPacket(SystemMsg.NOT_ENOUGH_MP);
 			getEffected().sendPacket(new SystemMessage(749).addSkillName(getSkill().getId(), getSkill().getDisplayLevel()));
 			return false;
 		}

@@ -3,6 +3,7 @@ package l2.gameserver.network.l2.c2s;
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.RecipeHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Recipe;
@@ -53,7 +54,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		Recipe recipe = RecipeHolder.getInstance().getRecipeById(_recipeId);
@@ -64,7 +65,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 		}
 		if(activeChar.getCurrentMp() < (double) recipe.getMpConsume())
 		{
-			activeChar.sendPacket(Msg.NOT_ENOUGH_MP, new RecipeItemMakeInfo(activeChar, recipe, 0));
+			activeChar.sendPacket(SystemMsg.NOT_ENOUGH_MP, new RecipeItemMakeInfo(activeChar, recipe, 0));
 			return;
 		}
 		if(!activeChar.findRecipe(_recipeId))

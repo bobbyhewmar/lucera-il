@@ -2,6 +2,7 @@ package l2.gameserver.service.teleport;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ResidenceHolder;
 import l2.gameserver.model.ClientTeleportData;
 import l2.gameserver.model.Player;
@@ -185,7 +186,7 @@ public class GatekeeperTeleportService
 		{
 			if(player.getAdena() < price)
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				return false;
 			}
 
@@ -194,7 +195,7 @@ public class GatekeeperTeleportService
 
 		if(ItemFunctions.getItemCount(player, itemId) < price)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return false;
 		}
 

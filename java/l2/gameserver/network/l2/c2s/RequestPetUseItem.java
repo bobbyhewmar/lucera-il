@@ -1,7 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
@@ -36,7 +36,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		activeChar.setActive();

@@ -1,7 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.events.impl.SiegeEvent;
 import l2.gameserver.model.pledge.Clan;
@@ -74,6 +73,6 @@ public class RequestOustPledgeMember extends L2GameClientPacket
 		memberPlayer.broadcastCharInfo();
 		memberPlayer.broadcastRelationChanged();
 		memberPlayer.store(true);
-		memberPlayer.sendPacket(Msg.YOU_HAVE_RECENTLY_BEEN_DISMISSED_FROM_A_CLAN_YOU_ARE_NOT_ALLOWED_TO_JOIN_ANOTHER_CLAN_FOR_24_HOURS, PledgeShowMemberListDeleteAll.STATIC);
+		memberPlayer.sendPacket(SystemMsg.YOU_HAVE_RECENTLY_BEEN_DISMISSED_FROM_A_CLAN, PledgeShowMemberListDeleteAll.STATIC);
 	}
 }

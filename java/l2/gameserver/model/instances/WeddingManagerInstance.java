@@ -2,7 +2,7 @@ package l2.gameserver.model.instances;
 
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.instancemanager.CoupleManager;
 import l2.gameserver.model.GameObjectsStorage;
 import l2.gameserver.model.Player;
@@ -139,7 +139,7 @@ public class WeddingManagerInstance extends NpcInstance
 			}
 			if(player.getAdena() < (long) Config.WEDDING_PRICE)
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				return;
 			}
 			player.setMaryAccepted(true);

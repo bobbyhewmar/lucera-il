@@ -2,6 +2,7 @@ package l2.gameserver.model.instances;
 
 import l2.gameserver.ai.CtrlIntention;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.BuyListHolder;
 import l2.gameserver.data.xml.holder.ResidenceHolder;
 import l2.gameserver.instancemanager.CastleManorManager;
@@ -77,7 +78,7 @@ public class ManorManagerInstance extends MerchantInstance
 		{
 			if(CastleManorManager.getInstance().isUnderMaintenance())
 			{
-				player.sendPacket(ActionFail.STATIC, Msg.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
+				player.sendPacket(ActionFail.STATIC, SystemMsg.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 				return;
 			}
 			String params = command.substring(command.indexOf("?") + 1);

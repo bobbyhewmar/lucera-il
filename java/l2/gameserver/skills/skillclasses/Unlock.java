@@ -2,6 +2,7 @@ package l2.gameserver.skills.skillclasses;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
@@ -26,7 +27,7 @@ public class Unlock extends Skill
 	{
 		if(target == null || target instanceof ChestInstance && target.isDead())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(target instanceof ChestInstance && activeChar.isPlayer())
@@ -35,7 +36,7 @@ public class Unlock extends Skill
 		}
 		if(!target.isDoor() || _unlockPower == 0)
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		DoorInstance door = (DoorInstance) target;

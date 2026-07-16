@@ -4,6 +4,7 @@ import l2.commons.lang.ArrayUtils;
 import l2.gameserver.Config;
 import l2.gameserver.cache.ItemInfoCache;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.handler.voicecommands.IVoicedCommandHandler;
 import l2.gameserver.handler.voicecommands.VoicedCommandHandler;
 import l2.gameserver.instancemanager.PetitionManager;
@@ -226,7 +227,7 @@ public class Say2C extends L2GameClientPacket
 						activeChar.sendPacket(cs);
 						break;
 					}
-					activeChar.sendPacket(Msg.THE_PERSON_IS_IN_A_MESSAGE_REFUSAL_MODE);
+					activeChar.sendPacket(SystemMsg.THAT_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
 					break;
 				}
 				if(receiver == null)
@@ -345,7 +346,7 @@ public class Say2C extends L2GameClientPacket
 			{
 				if(!activeChar.isInParty() || !activeChar.getParty().isInCommandChannel())
 				{
-					activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
+					activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
 					return;
 				}
 				if(activeChar.getParty().getCommandChannel().getChannelLeader() == activeChar)
@@ -360,7 +361,7 @@ public class Say2C extends L2GameClientPacket
 			{
 				if(!activeChar.isInParty() || !activeChar.getParty().isInCommandChannel())
 				{
-					activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
+					activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_AUTHORITY_TO_USE_THE_COMMAND_CHANNEL);
 					return;
 				}
 				if(activeChar.getParty().isLeader(activeChar))

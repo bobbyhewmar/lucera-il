@@ -33,7 +33,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		}
 		if((activeChar.getClanPrivileges() & 32) != 32)
 		{
-			activeChar.sendPacket(Msg.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT, ActionFail.STATIC);
+			activeChar.sendPacket(SystemMsg.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT, ActionFail.STATIC);
 			return;
 		}
 		Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);

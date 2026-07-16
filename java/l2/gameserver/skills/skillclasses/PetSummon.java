@@ -1,6 +1,7 @@
 package l2.gameserver.skills.skillclasses;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Player;
@@ -61,7 +62,7 @@ public class PetSummon extends Skill
 		}
 		if(player.isOlyParticipant())
 		{
-			player.sendPacket(Msg.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+			player.sendPacket(SystemMsg.YOU_CANNOT_USE_THAT_ITEM_IN_A_GRAND_OLYMPIAD_MATCH);
 			return false;
 		}
 		if(player.isCursedWeaponEquipped())

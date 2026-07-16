@@ -3,6 +3,7 @@ package l2.gameserver.tables;
 import l2.commons.dbutils.DbUtils;
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.idfactory.IdFactory;
 import l2.gameserver.model.GameObjectsStorage;
@@ -272,7 +273,7 @@ public class ClanTable
 		{
 			clanMember.setClan(null);
 			clanMember.setTitle("");
-			clanMember.sendPacket(PledgeShowMemberListDeleteAll.STATIC, Msg.YOU_HAVE_RECENTLY_BEEN_DISMISSED_FROM_A_CLAN_YOU_ARE_NOT_ALLOWED_TO_JOIN_ANOTHER_CLAN_FOR_24_HOURS);
+			clanMember.sendPacket(PledgeShowMemberListDeleteAll.STATIC, SystemMsg.YOU_HAVE_RECENTLY_BEEN_DISMISSED_FROM_A_CLAN);
 			clanMember.broadcastCharInfo();
 			clanMember.setLeaveClanTime(curtime);
 		}

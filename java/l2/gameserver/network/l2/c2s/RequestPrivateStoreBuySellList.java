@@ -2,6 +2,7 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.commons.math.SafeMath;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.model.items.TradeItem;
@@ -72,7 +73,7 @@ public class RequestPrivateStoreBuySellList extends L2GameClientPacket
 			}
 			if(seller.isInStoreMode())
 			{
-				seller.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+				seller.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 				return;
 			}
 			if(seller.isInTrade())
@@ -82,7 +83,7 @@ public class RequestPrivateStoreBuySellList extends L2GameClientPacket
 			}
 			if(seller.isFishing())
 			{
-				seller.sendPacket(Msg.YOU_CANNOT_DO_ANYTHING_ELSE_WHILE_FISHING);
+				seller.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_2);
 				return;
 			}
 			if(!seller.getPlayerAccess().UseTrade)
@@ -174,14 +175,14 @@ public class RequestPrivateStoreBuySellList extends L2GameClientPacket
 					}
 					if(!buyer.getInventory().validateCapacity(slots))
 					{
-						buyer.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+						buyer.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 						seller.sendPacket(Msg.THE_ATTEMPT_TO_SELL_HAS_FAILED);
 						seller.sendActionFailed();
 						return;
 					}
 					if(!buyer.reduceAdena(totalCost))
 					{
-						buyer.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+						buyer.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 						seller.sendPacket(Msg.THE_ATTEMPT_TO_SELL_HAS_FAILED);
 						seller.sendActionFailed();
 						return;

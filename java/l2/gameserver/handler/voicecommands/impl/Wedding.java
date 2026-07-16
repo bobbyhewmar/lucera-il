@@ -248,7 +248,7 @@ public class Wedding implements IVoicedCommandHandler
 		}
 		if(!activeChar.reduceAdena(Config.WEDDING_TELEPORT_PRICE, true))
 		{
-			activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			return false;
 		}
 		int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL;

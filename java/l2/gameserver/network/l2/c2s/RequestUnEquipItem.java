@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
 
@@ -30,7 +30,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_ANYTHING_ELSE_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_2);
 			return;
 		}
 		if(!(_slot != 128 && _slot != 256 && _slot != 16384 || !activeChar.isCursedWeaponEquipped() && activeChar.getActiveWeaponFlagAttachment() == null))

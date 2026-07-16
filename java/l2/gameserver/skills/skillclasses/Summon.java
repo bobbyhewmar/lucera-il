@@ -64,7 +64,7 @@ public class Summon extends Skill
 			{
 				if(!player.isInZonePeace())
 					break;
-				activeChar.sendPacket(Msg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
+				activeChar.sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
 				return false;
 			}
 			case PET:

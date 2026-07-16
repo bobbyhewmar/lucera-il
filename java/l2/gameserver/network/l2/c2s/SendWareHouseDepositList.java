@@ -61,7 +61,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isInTrade())
@@ -122,7 +122,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			long fee = SafeMath.mulAndCheck((long) items, 30);
 			if(fee + adenaDeposit > activeChar.getAdena())
 			{
-				activeChar.sendPacket(Msg.YOU_LACK_THE_FUNDS_NEEDED_TO_PAY_FOR_THIS_TRANSACTION);
+				activeChar.sendPacket(SystemMsg.YOU_LACK_THE_FUNDS_NEEDED_TO_PAY_FOR_THIS_TRANSACTION);
 				return;
 			}
 			if(!activeChar.reduceAdena(fee, true))
@@ -150,6 +150,6 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			inventory.writeUnlock();
 		}
 		activeChar.sendChanges();
-		activeChar.sendPacket(Msg.THE_TRANSACTION_IS_COMPLETE);
+		activeChar.sendPacket(SystemMsg.THE_TRANSACTION_IS_COMPLETE);
 	}
 }

@@ -63,7 +63,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isInTrade())
@@ -132,7 +132,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			}
 			if(!activeChar.getInventory().validateCapacity(slots))
 			{
-				activeChar.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+				activeChar.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 				return;
 			}
 			if(!activeChar.getInventory().validateWeight(weight))
@@ -158,6 +158,6 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			inventory.writeUnlock();
 		}
 		activeChar.sendChanges();
-		activeChar.sendPacket(Msg.THE_TRANSACTION_IS_COMPLETE);
+		activeChar.sendPacket(SystemMsg.THE_TRANSACTION_IS_COMPLETE);
 	}
 }

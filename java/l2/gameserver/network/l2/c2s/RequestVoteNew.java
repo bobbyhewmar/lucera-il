@@ -25,7 +25,7 @@ public class RequestVoteNew extends L2GameClientPacket
 		}
 		if(activeChar.getTarget() == null)
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		if(!activeChar.getTarget().isPlayer() || activeChar.getTarget().getObjectId() != _targetObjectId)
@@ -36,7 +36,7 @@ public class RequestVoteNew extends L2GameClientPacket
 		Player target = activeChar.getTarget().getPlayer();
 		if(target == activeChar)
 		{
-			activeChar.sendPacket(Msg.SELECT_TARGET);
+			activeChar.sendPacket(SystemMsg.SELECT_TARGET);
 			return;
 		}
 		if(activeChar.getLevel() < 10)

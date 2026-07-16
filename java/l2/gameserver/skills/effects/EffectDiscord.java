@@ -2,7 +2,6 @@ package l2.gameserver.skills.effects;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.ai.CtrlIntention;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Effect;
 import l2.gameserver.model.Player;
@@ -63,7 +62,7 @@ public class EffectDiscord extends Effect
 		{
 			if(!multitargets)
 			{
-				getEffector().sendPacket(Msg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
+				getEffector().sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
 			}
 			return false;
 		}

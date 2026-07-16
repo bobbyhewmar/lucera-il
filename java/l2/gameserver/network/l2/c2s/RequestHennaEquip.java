@@ -1,6 +1,5 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.HennaHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.components.SystemMsg;
@@ -27,7 +26,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		Henna temp = HennaHolder.getInstance().getHenna(_symbolId);
 		if(temp == null || !temp.isForThisClass(player))
 		{
-			player.sendPacket(Msg.THE_SYMBOL_CANNOT_BE_DRAWN);
+			player.sendPacket(SystemMsg.THE_SYMBOL_CANNOT_BE_DRAWN);
 			return;
 		}
 		long adena = player.getAdena();

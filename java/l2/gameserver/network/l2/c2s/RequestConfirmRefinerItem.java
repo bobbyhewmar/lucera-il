@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.handler.items.IRefineryHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
@@ -31,7 +31,7 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 		IRefineryHandler refineryHandler = activeChar.getRefineryHandler();
 		if(targetItem == null || mineralItem == null || refineryHandler == null)
 		{
-			activeChar.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM, ExPutIntensiveResultForVariationMake.FAIL_PACKET);
+			activeChar.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM, ExPutIntensiveResultForVariationMake.FAIL_PACKET);
 			return;
 		}
 		refineryHandler.onPutMineralItem(activeChar, targetItem, mineralItem);

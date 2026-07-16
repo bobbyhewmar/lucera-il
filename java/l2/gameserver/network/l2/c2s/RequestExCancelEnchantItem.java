@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 
 public class RequestExCancelEnchantItem extends L2GameClientPacket
@@ -17,7 +17,7 @@ public class RequestExCancelEnchantItem extends L2GameClientPacket
 		if(activeChar != null)
 		{
 			activeChar.setEnchantScroll(null);
-			activeChar.sendPacket(Msg.INAPPROPRIATE_ENCHANT_CONDITIONS);
+			activeChar.sendPacket(SystemMsg.INAPPROPRIATE_ENCHANT_CONDITIONS);
 		}
 	}
 }

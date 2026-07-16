@@ -379,7 +379,7 @@ public final class VillageMasterInstance extends NpcInstance
 	{
 		if(player.getLevel() < Config.CHARACTER_MIN_LEVEL_FOR_CLAN_CREATE)
 		{
-			player.sendPacket(Msg.YOU_ARE_NOT_QUALIFIED_TO_CREATE_A_CLAN);
+			player.sendPacket(SystemMsg.YOU_ARE_NOT_QUALIFIED_TO_CREATE_A_CLAN);
 			return;
 		}
 		if(player.getClanId() != 0)
@@ -394,22 +394,22 @@ public final class VillageMasterInstance extends NpcInstance
 		}
 		if(clanName.length() > 16)
 		{
-			player.sendPacket(Msg.CLAN_NAMES_LENGTH_IS_INCORRECT);
+			player.sendPacket(SystemMsg.CLAN_NAMES_LENGTH_IS_INCORRECT);
 			return;
 		}
 		if(!Util.isMatchingRegexp(clanName, Config.CLAN_NAME_TEMPLATE))
 		{
-			player.sendPacket(Msg.CLAN_NAME_IS_INCORRECT);
+			player.sendPacket(SystemMsg.CLAN_NAME_IS_INVALID);
 			return;
 		}
 		Clan clan = ClanTable.getInstance().createClan(player, clanName);
 		if(clan == null)
 		{
-			player.sendPacket(Msg.THIS_NAME_ALREADY_EXISTS);
+			player.sendPacket(SystemMsg.THIS_NAME_ALREADY_EXISTS);
 			return;
 		}
 		player.sendPacket(clan.listAll());
-		player.sendPacket(new PledgeShowInfoUpdate(clan), Msg.CLAN_HAS_BEEN_CREATED);
+		player.sendPacket(new PledgeShowInfoUpdate(clan), SystemMsg.CLAN_HAS_BEEN_CREATED);
 		player.updatePledgeClass();
 		player.broadcastCharInfo();
 	}
@@ -482,7 +482,7 @@ public final class VillageMasterInstance extends NpcInstance
 		}
 		if(!Util.isMatchingRegexp(clanName, Config.CLAN_NAME_TEMPLATE))
 		{
-			player.sendPacket(Msg.CLAN_NAME_IS_INCORRECT);
+			player.sendPacket(SystemMsg.CLAN_NAME_IS_INVALID);
 			return;
 		}
 		Collection<SubUnit> subPledge = clan.getAllSubUnits();
@@ -566,7 +566,7 @@ public final class VillageMasterInstance extends NpcInstance
 		}
 		if(!player.isClanLeader())
 		{
-			player.sendPacket(Msg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
+			player.sendPacket(SystemMsg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 			return;
 		}
 		SubUnit targetUnit = null;
@@ -618,7 +618,7 @@ public final class VillageMasterInstance extends NpcInstance
 		Clan clan = player.getClan();
 		if(!player.isClanLeader())
 		{
-			player.sendPacket(Msg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
+			player.sendPacket(SystemMsg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 			return;
 		}
 		if(clan.getAllyId() != 0)
@@ -655,7 +655,7 @@ public final class VillageMasterInstance extends NpcInstance
 		}
 		if(!player.isClanLeader())
 		{
-			player.sendPacket(Msg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
+			player.sendPacket(SystemMsg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 			return;
 		}
 		boolean increaseClanLevel = false;
@@ -739,7 +739,7 @@ public final class VillageMasterInstance extends NpcInstance
 			}
 			if(clan.getLevel() == 5)
 			{
-				player.sendPacket(Msg.NOW_THAT_YOUR_CLAN_LEVEL_IS_ABOVE_LEVEL_5_IT_CAN_ACCUMULATE_CLAN_REPUTATION_POINTS);
+				player.sendPacket(SystemMsg.NOW_THAT_YOUR_CLAN_LEVEL_IS_ABOVE_LEVEL_5_IT_CAN_ACCUMULATE_CLAN_REPUTATION_POINTS);
 			}
 			PledgeShowInfoUpdate pu = new PledgeShowInfoUpdate(clan);
 			PledgeStatusChanged ps = new PledgeStatusChanged(clan);
@@ -748,7 +748,7 @@ public final class VillageMasterInstance extends NpcInstance
 				if(!mbr.isOnline())
 					continue;
 				mbr.getPlayer().updatePledgeClass();
-				mbr.getPlayer().sendPacket(Msg.CLANS_SKILL_LEVEL_HAS_INCREASED, pu, ps);
+				mbr.getPlayer().sendPacket(SystemMsg.CLANS_SKILL_LEVEL_HAS_INCREASED, pu, ps);
 				mbr.getPlayer().broadcastCharInfo();
 			}
 		}

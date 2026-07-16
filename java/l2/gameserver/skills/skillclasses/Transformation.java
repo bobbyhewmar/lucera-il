@@ -2,6 +2,7 @@ package l2.gameserver.skills.skillclasses;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.instancemanager.ReflectionManager;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
@@ -35,7 +36,7 @@ public class Transformation extends Skill
 		}
 		if(player.getTransformation() != 0 && getId() != 619)
 		{
-			activeChar.sendPacket(Msg.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
+			activeChar.sendPacket(SystemMsg.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN);
 			return false;
 		}
 		if(!(getId() != 840 && getId() != 841 && getId() != 842 || player.getX() <= -166168 && player.getZ() > 0 && player.getZ() < 6000 && player.getPet() == null && player.getReflection() == ReflectionManager.DEFAULT))

@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.CommandChannel;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Request;
@@ -48,7 +49,7 @@ public class RequestExMPCCAcceptJoin extends L2GameClientPacket
 		if(requestor == null)
 		{
 			request.cancel();
-			activeChar.sendPacket(Msg.THAT_PLAYER_IS_NOT_ONLINE);
+			activeChar.sendPacket(SystemMsg.THAT_PLAYER_IS_NOT_ONLINE);
 			activeChar.sendActionFailed();
 			return;
 		}

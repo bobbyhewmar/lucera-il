@@ -2,7 +2,6 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.commons.math.SafeMath;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.OptionDataHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Request;
@@ -66,7 +65,7 @@ public class AddTradeItem extends L2GameClientPacket
 		{
 			request.cancel();
 			parthner1.sendPacket(SendTradeDone.FAIL);
-			parthner1.sendPacket(Msg.THAT_PLAYER_IS_NOT_ONLINE);
+			parthner1.sendPacket(SystemMsg.THAT_PLAYER_IS_NOT_ONLINE);
 			parthner1.sendActionFailed();
 			return;
 		}

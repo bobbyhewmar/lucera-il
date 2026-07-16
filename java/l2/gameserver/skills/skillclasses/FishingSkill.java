@@ -3,6 +3,7 @@ package l2.gameserver.skills.skillclasses;
 import l2.commons.collections.LazyArrayList;
 import l2.commons.util.Rnd;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Fishing;
@@ -38,7 +39,7 @@ public class FishingSkill extends Skill
 		if(player.isFishing())
 		{
 			player.stopFishing();
-			player.sendPacket(Msg.CANCELS_FISHING);
+			player.sendPacket(SystemMsg.CANCELS_FISHING);
 			return false;
 		}
 		if(player.isInBoat())
@@ -132,7 +133,7 @@ public class FishingSkill extends Skill
 		List<FishTemplate> fishs = FishTable.getInstance().getFish(group, type, fishLvl);
 		if(fishs == null || fishs.size() == 0)
 		{
-			player.sendPacket(Msg.SYSTEM_ERROR);
+			player.sendPacket(SystemMsg.SYSTEM_ERROR);
 			return;
 		}
 		if(!player.getInventory().destroyItemByObjectId(player.getInventory().getPaperdollObjectId(8), 1))

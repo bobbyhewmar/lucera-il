@@ -1,6 +1,6 @@
 package l2.gameserver.skills.effects;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.idfactory.IdFactory;
@@ -94,7 +94,7 @@ public final class EffectSymbol extends Effect
 		}
 		if(mpConsume > effector.getCurrentMp())
 		{
-			effector.sendPacket(Msg.NOT_ENOUGH_MP);
+			effector.sendPacket(SystemMsg.NOT_ENOUGH_MP);
 			return false;
 		}
 		effector.reduceCurrentMp(mpConsume, effector);

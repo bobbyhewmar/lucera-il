@@ -2,6 +2,7 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.network.l2.components.CustomMessage;
@@ -46,7 +47,7 @@ public class RequestDropItem extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isSitting() || activeChar.isDropDisabled())
@@ -61,7 +62,7 @@ public class RequestDropItem extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		if(activeChar.isActionBlocked("drop_item"))

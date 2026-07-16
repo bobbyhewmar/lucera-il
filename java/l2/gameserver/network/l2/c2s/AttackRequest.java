@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.Playable;
 import l2.gameserver.model.Player;
@@ -63,12 +64,12 @@ public class AttackRequest extends L2GameClientPacket
 		{
 			if(activeChar.isInZonePeace())
 			{
-				activeChar.sendPacket(Msg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE, ActionFail.STATIC);
+				activeChar.sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE, ActionFail.STATIC);
 				return;
 			}
 			if(((Playable) target).isInZonePeace())
 			{
-				activeChar.sendPacket(Msg.YOU_MAY_NOT_ATTACK_THIS_TARGET_IN_A_PEACEFUL_ZONE, ActionFail.STATIC);
+				activeChar.sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_THIS_TARGET_IN_A_PEACEFUL_ZONE, ActionFail.STATIC);
 				return;
 			}
 		}

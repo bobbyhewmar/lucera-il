@@ -1,6 +1,6 @@
 package l2.gameserver.skills.effects;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Effect;
 import l2.gameserver.stats.Env;
 import l2.gameserver.stats.Stats;
@@ -48,7 +48,7 @@ public class EffectDamOverTime extends Effect
 		{
 			if(!getSkill().isOffensive())
 			{
-				_effected.sendPacket(Msg.NOT_ENOUGH_HP);
+				_effected.sendPacket(SystemMsg.NOT_ENOUGH_HP);
 			}
 			return false;
 		}

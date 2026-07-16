@@ -2,6 +2,7 @@ package l2.gameserver.model.instances;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.SevenSigns;
@@ -111,12 +112,12 @@ public class SignsPriestInstance extends NpcInstance
 				{
 					if(!player.getInventory().validateCapacity(1))
 					{
-						player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+						player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 						return;
 					}
 					if(500 > player.getAdena())
 					{
-						player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+						player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 						return;
 					}
 					player.reduceAdena(500, true);
@@ -334,7 +335,7 @@ public class SignsPriestInstance extends NpcInstance
 					}
 					if(ancientAdenaAmount < ancientAdenaConvert || ancientAdenaConvert < 1)
 					{
-						player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+						player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 						return;
 					}
 					if(!player.getInventory().destroyItemByItemId(5575, ancientAdenaConvert))
@@ -375,7 +376,7 @@ public class SignsPriestInstance extends NpcInstance
 						long ancientAdenaCost = Long.parseLong(st.nextToken());
 						if(ancientAdenaCost > 0 && !player.getInventory().destroyItemByItemId(5575, ancientAdenaCost))
 						{
-							player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+							player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 							return;
 						}
 						player.teleToLocation(x, y, z);

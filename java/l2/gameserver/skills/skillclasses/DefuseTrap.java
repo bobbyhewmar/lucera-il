@@ -1,6 +1,6 @@
 package l2.gameserver.skills.skillclasses;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Skill;
 import l2.gameserver.model.instances.TrapInstance;
@@ -20,7 +20,7 @@ public class DefuseTrap extends Skill
 	{
 		if(target == null || !target.isTrap())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		return super.checkCondition(activeChar, target, forceUse, dontMove, first);

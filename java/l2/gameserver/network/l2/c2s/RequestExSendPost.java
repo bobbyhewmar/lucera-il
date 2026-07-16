@@ -132,7 +132,7 @@ public class RequestExSendPost extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		if(!activeChar.antiFlood.canMail())

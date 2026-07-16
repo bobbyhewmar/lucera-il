@@ -4,6 +4,7 @@ import l2.commons.math.SafeMath;
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.data.xml.holder.ResidenceHolder;
 import l2.gameserver.model.GameObject;
@@ -67,7 +68,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isInTrade())
@@ -166,7 +167,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			}
 			if(activeChar.getInventory().getAdena() < totalFee)
 			{
-				activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				return;
 			}
 			for(i = 0;i < _count;++i)
@@ -205,7 +206,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 					SystemMessage sm = new SystemMessage(1491);
 					sm.addItemName(cropId);
 					sm.addNumber(count);
-					activeChar.sendPacket(sm, Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					activeChar.sendPacket(sm, SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 					continue;
 				}
 				crop.setAmount(crop.getAmount() - count);

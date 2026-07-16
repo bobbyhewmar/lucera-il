@@ -2,6 +2,7 @@ package l2.gameserver.model.instances;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.instancemanager.games.LotteryManager;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
@@ -188,7 +189,7 @@ public class LotteryManagerInstance extends NpcInstance
 				}
 				if(player.getAdena() < (long) price)
 				{
-					player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 					return;
 				}
 				player.reduceAdena(price, true);

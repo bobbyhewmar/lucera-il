@@ -2,6 +2,7 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.commons.math.SafeMath;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Request;
 import l2.gameserver.model.items.ItemInstance;
@@ -52,7 +53,7 @@ public class TradeDone extends L2GameClientPacket
 					{
 						request.cancel();
 						parthner1.sendPacket(SendTradeDone.FAIL);
-						parthner1.sendPacket(Msg.THAT_PLAYER_IS_NOT_ONLINE);
+						parthner1.sendPacket(SystemMsg.THAT_PLAYER_IS_NOT_ONLINE);
 						parthner1.sendActionFailed();
 					}
 					else if(parthner2.getRequest() != request)
@@ -69,7 +70,7 @@ public class TradeDone extends L2GameClientPacket
 					}
 					else if(!parthner2.isInActingRange(parthner1))
 					{
-						parthner1.sendPacket(Msg.YOUR_TARGET_IS_OUT_OF_RANGE);
+						parthner1.sendPacket(SystemMsg.YOUR_TARGET_IS_OUT_OF_RANGE);
 					}
 					else
 					{
@@ -115,7 +116,7 @@ public class TradeDone extends L2GameClientPacket
 								{
 									if(!parthner2.getInventory().validateCapacity((long) slots))
 									{
-										parthner2.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+										parthner2.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 										return;
 									}
 									
@@ -147,7 +148,7 @@ public class TradeDone extends L2GameClientPacket
 									
 									if(!parthner1.getInventory().validateCapacity((long) slots))
 									{
-										parthner1.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+										parthner1.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 										return;
 									}
 									

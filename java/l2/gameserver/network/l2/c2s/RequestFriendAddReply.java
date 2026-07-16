@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Request;
 import l2.gameserver.network.l2.s2c.L2Friend;
@@ -51,7 +52,7 @@ public class RequestFriendAddReply extends L2GameClientPacket
 		if(requestor == null)
 		{
 			request.cancel();
-			activeChar.sendPacket(Msg.THE_USER_WHO_REQUESTED_TO_BECOME_FRIENDS_IS_NOT_FOUND_IN_THE_GAME);
+			activeChar.sendPacket(SystemMsg.THE_USER_WHO_REQUESTED_TO_BECOME_FRIENDS_IS_NOT_FOUND_IN_THE_GAME);
 			activeChar.sendActionFailed();
 			return;
 		}

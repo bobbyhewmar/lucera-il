@@ -2,6 +2,7 @@ package l2.gameserver.utils;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.idfactory.IdFactory;
 import l2.gameserver.instancemanager.CursedWeaponsManager;
@@ -161,7 +162,7 @@ public final class ItemFunctions
 		}
 		if(!player.getInventory().validateCapacity(item))
 		{
-			player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+			player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 			return false;
 		}
 		if(!item.getTemplate().getHandler().pickupItem(player, item))

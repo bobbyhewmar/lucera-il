@@ -1,7 +1,6 @@
 package l2.gameserver.model.instances;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.MultiSellHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.entity.oly.CompetitionController;
@@ -44,12 +43,12 @@ public class OlympiadManagerInstance extends NpcInstance
 	{
 		if(leader.getParty() == null)
 		{
-			leader.sendPacket(Msg.THE_REQUEST_CANNOT_BE_MADE_BECAUSE_THE_REQUIREMENTS_HAVE_NOT_BEEN_MET_TO_PARTICIPATE_IN_A_TEAM);
+			leader.sendPacket(SystemMsg.THE_REQUEST_CANNOT_BE_MADE_BECAUSE_THE_REQUIREMENTS_HAVE_NOT_BEEN_MET);
 			return null;
 		}
 		if(!leader.getParty().isLeader(leader))
 		{
-			leader.sendPacket(Msg.ONLY_A_PARTY_LEADER_CAN_REQUEST_A_TEAM_MATCH);
+			leader.sendPacket(SystemMsg.ONLY_A_PARTY_LEADER_CAN_REQUEST_A_TEAM_MATCH);
 			return null;
 		}
 		if(!checkMatchLimit(leader, CompetitionType.TEAM_CLASS_FREE))
@@ -72,7 +71,7 @@ public class OlympiadManagerInstance extends NpcInstance
 				ret[i] = pm;
 				continue;
 			}
-			leader.sendPacket(Msg.THE_REQUEST_CANNOT_BE_MADE_BECAUSE_THE_REQUIREMENTS_HAVE_NOT_BEEN_MET_TO_PARTICIPATE_IN_A_TEAM);
+			leader.sendPacket(SystemMsg.THE_REQUEST_CANNOT_BE_MADE_BECAUSE_THE_REQUIREMENTS_HAVE_NOT_BEEN_MET);
 			return null;
 		}
 		return ret;
@@ -144,7 +143,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}
@@ -154,7 +153,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						{
 							if(!checkMatchLimit(player, CompetitionType.CLASS_INDIVIDUAL))
 								return;
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 							sm = CompetitionController.getInstance().AddParticipationRequest(CompetitionType.CLASS_INDIVIDUAL, new Player[] {player});
 							if(sm == null)
 								return;
@@ -163,7 +162,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}
@@ -178,7 +177,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}
@@ -194,7 +193,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}
@@ -206,12 +205,12 @@ public class OlympiadManagerInstance extends NpcInstance
 							if(ctype == null)
 								return;
 							ParticipantPool.getInstance().removeEntryByPlayer(ctype, player);
-							player.sendPacket(Msg.YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME);
+							player.sendPacket(SystemMsg.YOU_HAVE_BEEN_REMOVED_FROM_THE_GRAND_OLYMPIAD_WAITING_LIST);
 							return;
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}
@@ -224,7 +223,7 @@ public class OlympiadManagerInstance extends NpcInstance
 						}
 						else
 						{
-							player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+							player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 						}
 						return;
 					}

@@ -3,6 +3,7 @@ package l2.gameserver.network.l2.c2s;
 import l2.commons.math.SafeMath;
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.data.xml.holder.MultiSellHolder;
 import l2.gameserver.instancemanager.ReflectionManager;
@@ -67,7 +68,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 		}
 		if(activeChar.isInStoreMode())
 		{
-			activeChar.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			activeChar.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(activeChar.isInTrade())
@@ -77,7 +78,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 		}
 		if(activeChar.isFishing())
 		{
-			activeChar.sendPacket(Msg.YOU_CANNOT_DO_THAT_WHILE_FISHING);
+			activeChar.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_);
 			return;
 		}
 		if(!Config.ALT_GAME_KARMA_PLAYER_CAN_SHOP && activeChar.getKarma() > 0 && !activeChar.isGM())
@@ -136,7 +137,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 			}
 			if(!inventory.validateCapacity(slots))
 			{
-				activeChar.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+				activeChar.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 				activeChar.sendActionFailed();
 				return;
 			}
@@ -164,7 +165,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 					}
 					if((long) activeChar.getClan().getReputationScore() < totalAmount)
 					{
-						activeChar.sendPacket(Msg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
+						activeChar.sendPacket(SystemMsg.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW);
 						return;
 					}
 					if(activeChar.getClan().getLeaderId() != activeChar.getObjectId())
@@ -212,7 +213,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 								}
 								if(itemToTake == null)
 								{
-									activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+									activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 									return;
 								}
 								if(!ingridient.getMantainIngredient())
@@ -230,7 +231,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 								}
 								if(itemToTake == null)
 								{
-									activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+									activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 									return;
 								}
 								if(!ingridient.getMantainIngredient())
@@ -250,7 +251,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 						ItemInstance item;
 						if((item = inventory.getItemByItemId(ingridientItemId)) == null || item.getCount() < totalAmount)
 						{
-							activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+							activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 							return;
 						}
 						if(!ingridient.getMantainIngredient())
@@ -261,7 +262,7 @@ public class RequestMultiSellChoose extends L2GameClientPacket
 				}
 				if(activeChar.getAdena() >= totalPrice)
 					continue;
-				activeChar.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				activeChar.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				return;
 			}
 			int enchantLevel = 0;

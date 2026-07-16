@@ -2,6 +2,7 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.RecipeHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Recipe;
@@ -47,7 +48,7 @@ public class RequestRecipeShopMakeDo extends L2GameClientPacket
 		}
 		if(buyer.isInStoreMode())
 		{
-			buyer.sendPacket(Msg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
+			buyer.sendPacket(SystemMsg.WHILE_OPERATING_A_PRIVATE_STORE_OR_WORKSHOP_YOU_CANNOT_DISCARD_DESTROY_OR_TRADE_AN_ITEM);
 			return;
 		}
 		if(buyer.isInTrade())
@@ -57,7 +58,7 @@ public class RequestRecipeShopMakeDo extends L2GameClientPacket
 		}
 		if(buyer.isFishing())
 		{
-			buyer.sendPacket(Msg.YOU_CANNOT_DO_ANYTHING_ELSE_WHILE_FISHING);
+			buyer.sendPacket(SystemMsg.YOU_CANNOT_DO_THAT_WHILE_FISHING_2);
 			return;
 		}
 		if(!buyer.getPlayerAccess().UseTrade)
@@ -98,8 +99,8 @@ public class RequestRecipeShopMakeDo extends L2GameClientPacket
 		}
 		if(manufacturer.getCurrentMp() < (double) recipe.getMpConsume())
 		{
-			manufacturer.sendPacket(Msg.NOT_ENOUGH_MP);
-			buyer.sendPacket(Msg.NOT_ENOUGH_MP, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
+			manufacturer.sendPacket(SystemMsg.NOT_ENOUGH_MP);
+			buyer.sendPacket(SystemMsg.NOT_ENOUGH_MP, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
 			return;
 		}
 		List<Pair<ItemTemplate, Long>> materials = recipe.getMaterials();
@@ -109,7 +110,7 @@ public class RequestRecipeShopMakeDo extends L2GameClientPacket
 		{
 			if(buyer.getAdena() < _price)
 			{
-				buyer.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
+				buyer.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
 				return;
 			}
 			for(Pair<ItemTemplate, Long> material : materials)
@@ -138,7 +139,7 @@ public class RequestRecipeShopMakeDo extends L2GameClientPacket
 			}
 			if(!buyer.reduceAdena(_price, false))
 			{
-				buyer.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
+				buyer.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA, new RecipeShopItemInfo(buyer, manufacturer, _recipeId, _price, success));
 				return;
 			}
 			for(Pair<ItemTemplate, Long> material : materials)

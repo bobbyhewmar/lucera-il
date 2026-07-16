@@ -2,7 +2,7 @@ package l2.gameserver.skills.skillclasses;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Effect;
 import l2.gameserver.model.Skill;
@@ -39,7 +39,7 @@ public class StealBuff extends Skill
 	{
 		if(target == null || !target.isPlayer())
 		{
-			activeChar.sendPacket(Msg.THAT_IS_THE_INCORRECT_TARGET);
+			activeChar.sendPacket(SystemMsg.THAT_IS_AN_INCORRECT_TARGET);
 			return false;
 		}
 		return super.checkCondition(activeChar, target, forceUse, dontMove, first);

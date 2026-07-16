@@ -1,6 +1,7 @@
 package l2.gameserver.skills.skillclasses;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
@@ -28,7 +29,7 @@ public class ClanGate extends Skill
 		Clan clan = player.getClan();
 		if(clan == null || !player.isClanLeader() || clan.getCastle() == 0)
 		{
-			player.sendPacket(Msg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
+			player.sendPacket(SystemMsg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 			return false;
 		}
 		SystemMessage msg = Call.canSummonHere(player);

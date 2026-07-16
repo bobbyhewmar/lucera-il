@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.handler.items.IRefineryHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
@@ -28,7 +28,7 @@ public class RequestConfirmCancelItem extends L2GameClientPacket
 		if(item == null || refineryHandler == null)
 		{
 			activeChar.sendActionFailed();
-			activeChar.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			activeChar.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 		refineryHandler.onPutTargetCancelItem(activeChar, item);

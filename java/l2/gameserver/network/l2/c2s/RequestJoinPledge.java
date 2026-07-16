@@ -36,7 +36,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 		}
 		if(activeChar.isProcessingRequest())
 		{
-			activeChar.sendPacket(Msg.WAITING_FOR_ANOTHER_REPLY);
+			activeChar.sendPacket(SystemMsg.WAITING_FOR_ANOTHER_REPLY);
 			return;
 		}
 		Clan clan = activeChar.getClan();
@@ -52,7 +52,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 		}
 		if((activeChar.getClanPrivileges() & 2) != 2)
 		{
-			activeChar.sendPacket(Msg.ONLY_THE_LEADER_CAN_GIVE_OUT_INVITATIONS);
+			activeChar.sendPacket(SystemMsg.ONLY_THE_LEADER_CAN_GIVE_OUT_INVITATIONS);
 			return;
 		}
 		GameObject object = activeChar.getVisibleObject(_objectId);

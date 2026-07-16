@@ -1,7 +1,6 @@
 package l2.gameserver.skills.effects;
 
 import l2.gameserver.ai.CtrlIntention;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.geodata.GeoEngine;
 import l2.gameserver.model.Effect;
 import l2.gameserver.model.Player;
@@ -40,7 +39,7 @@ public final class EffectFear extends Effect
 		}
 		if(_effected.isInZonePeace())
 		{
-			getEffector().sendPacket(Msg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
+			getEffector().sendPacket(SystemMsg.YOU_MAY_NOT_ATTACK_IN_A_PEACEFUL_ZONE);
 			return false;
 		}
 		return super.checkCondition();

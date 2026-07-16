@@ -67,7 +67,7 @@ public class Recall extends Skill
 			}
 			if(p.isOlyParticipant())
 			{
-				activeChar.sendPacket(Msg.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
+				activeChar.sendPacket(SystemMsg.YOU_CANNOT_USE_THAT_SKILL_IN_A_GRAND_OLYMPIAD_MATCH);
 				return false;
 			}
 		}
@@ -92,7 +92,7 @@ public class Recall extends Skill
 				continue;
 			if(pcTarget.getActiveWeaponFlagAttachment() != null)
 			{
-				activeChar.sendPacket(Msg.YOU_CANNOT_TELEPORT_WHILE_IN_POSSESSION_OF_A_WARD);
+				activeChar.sendPacket(SystemMsg.YOU_CANNOT_TELEPORT_WHILE_IN_POSSESSION_OF_A_WARD);
 				continue;
 			}
 			if(pcTarget.isFestivalParticipant())

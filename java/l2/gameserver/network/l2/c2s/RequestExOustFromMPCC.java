@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.World;
 import l2.gameserver.network.l2.s2c.SystemMessage;
@@ -35,7 +36,7 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 		}
 		if(!target.isInParty() || !target.getParty().isInCommandChannel() || activeChar.getParty().getCommandChannel() != target.getParty().getCommandChannel())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return;
 		}
 		if(activeChar.getParty().getCommandChannel().getChannelLeader() != activeChar)

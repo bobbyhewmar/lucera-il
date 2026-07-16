@@ -330,12 +330,12 @@ public class CompetitionController
 	{
 		if(!OlyController.getInstance().isRegAllowed())
 		{
-			player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+			player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 			return;
 		}
 		if(player.isOlyParticipant() || ParticipantPool.getInstance().isRegistred(player))
 		{
-			player.sendPacket(Msg.WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME);
+			player.sendPacket(SystemMsg.YOU_MAY_NOT_OBSERVE_A_GRAND_OLYMPIAD_GAMES_MATCH_WHILE_YOU_ARE_ON_THE_WAITING_LIST);
 			return;
 		}
 		StringBuilder sb = new StringBuilder();
@@ -386,7 +386,7 @@ public class CompetitionController
 	{
 		if(!OlyController.getInstance().isRegAllowed())
 		{
-			player.sendPacket(Msg.THE_OLYMPIAD_GAME_IS_NOT_CURRENTLY_IN_PROGRESS);
+			player.sendPacket(SystemMsg.THE_GRAND_OLYMPIAD_GAMES_ARE_NOT_CURRENTLY_IN_PROGRESS);
 			return;
 		}
 		if(player.getPet() != null || player.isMounted())
@@ -403,7 +403,7 @@ public class CompetitionController
 		}
 		if(player.isOlyParticipant() || ParticipantPool.getInstance().isRegistred(player))
 		{
-			player.sendPacket(Msg.WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME);
+			player.sendPacket(SystemMsg.YOU_MAY_NOT_OBSERVE_A_GRAND_OLYMPIAD_GAMES_MATCH_WHILE_YOU_ARE_ON_THE_WAITING_LIST);
 			return;
 		}
 		Stadium stadium = StadiumPool.getInstance().getStadium(stadium_id - 1);

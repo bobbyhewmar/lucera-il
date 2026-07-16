@@ -1,6 +1,7 @@
 package l2.gameserver.network.l2.c2s;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.CommandChannel;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
@@ -34,7 +35,7 @@ public class RequestExMPCCAskJoin extends L2GameClientPacket
 		}
 		if(activeChar.isProcessingRequest())
 		{
-			activeChar.sendPacket(Msg.WAITING_FOR_ANOTHER_REPLY);
+			activeChar.sendPacket(SystemMsg.WAITING_FOR_ANOTHER_REPLY);
 			return;
 		}
 		if(!activeChar.isInParty())

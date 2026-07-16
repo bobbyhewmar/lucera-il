@@ -1,6 +1,7 @@
 package l2.gameserver.skills.skillclasses;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
@@ -33,7 +34,7 @@ public class Sweep extends Skill
 		}
 		if(!target.isMonster() || !target.isDead())
 		{
-			activeChar.sendPacket(Msg.INVALID_TARGET);
+			activeChar.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(!((MonsterInstance) target).isSpoiled())

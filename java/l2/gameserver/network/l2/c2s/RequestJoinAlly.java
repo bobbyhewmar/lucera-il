@@ -35,7 +35,7 @@ public class RequestJoinAlly extends L2GameClientPacket
 		}
 		if(activeChar.isProcessingRequest())
 		{
-			activeChar.sendPacket(Msg.WAITING_FOR_ANOTHER_REPLY);
+			activeChar.sendPacket(SystemMsg.WAITING_FOR_ANOTHER_REPLY);
 			return;
 		}
 		if(activeChar.getAlliance().getMembersCount() >= Config.ALT_MAX_ALLY_SIZE)

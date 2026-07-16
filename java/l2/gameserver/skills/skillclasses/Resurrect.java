@@ -1,6 +1,5 @@
 package l2.gameserver.skills.skillclasses;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.listener.actor.player.OnAnswerListener;
 import l2.gameserver.listener.actor.player.impl.ReviveAnswerListener;
 import l2.gameserver.model.Creature;
@@ -96,11 +95,11 @@ public class Resurrect extends Skill
 				{
 					if(reviveAsk.isForPet())
 					{
-						activeChar.sendPacket(Msg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
+						activeChar.sendPacket(SystemMsg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
 					}
 					else
 					{
-						activeChar.sendPacket(Msg.SINCE_THE_MASTER_WAS_IN_THE_PROCESS_OF_BEING_RESURRECTED_THE_ATTEMPT_TO_RESURRECT_THE_PET_HAS_BEEN_CANCELLED);
+						activeChar.sendPacket(SystemMsg.SINCE_THE_MASTER_WAS_IN_THE_PROCESS_OF_BEING_RESURRECTED_THE_ATTEMPT_TO_RESURRECT_THE_PET_HAS_BEEN_CANCELLED);
 					}
 					return false;
 				}
@@ -119,11 +118,11 @@ public class Resurrect extends Skill
 				{
 					if(reviveAsk.isForPet())
 					{
-						activeChar.sendPacket(Msg.WHILE_A_PET_IS_ATTEMPTING_TO_RESURRECT_IT_CANNOT_HELP_IN_RESURRECTING_ITS_MASTER);
+						activeChar.sendPacket(SystemMsg.WHILE_A_PET_IS_ATTEMPTING_TO_RESURRECT_IT_CANNOT_HELP_IN_RESURRECTING_ITS_MASTER);
 					}
 					else
 					{
-						activeChar.sendPacket(Msg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
+						activeChar.sendPacket(SystemMsg.BETTER_RESURRECTION_HAS_BEEN_ALREADY_PROPOSED);
 					}
 					return false;
 				}

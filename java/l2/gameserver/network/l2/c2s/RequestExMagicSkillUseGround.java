@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Skill;
@@ -51,7 +51,7 @@ public class RequestExMagicSkillUseGround extends L2GameClientPacket
 			}
 			if(!activeChar.isInRange(_loc, (long) skill.getCastRange()))
 			{
-				activeChar.sendPacket(Msg.YOUR_TARGET_IS_OUT_OF_RANGE);
+				activeChar.sendPacket(SystemMsg.YOUR_TARGET_IS_OUT_OF_RANGE);
 				activeChar.sendActionFailed();
 				return;
 			}

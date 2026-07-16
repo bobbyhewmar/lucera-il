@@ -1,6 +1,5 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.instances.PetInstance;
 import l2.gameserver.model.items.ItemInstance;
@@ -90,12 +89,12 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			}
 			if(!pet.getInventory().validateWeight(weight))
 			{
-				activeChar.sendPacket(Msg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
+				activeChar.sendPacket(SystemMsg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
 				return;
 			}
 			if(!pet.getInventory().validateCapacity((long) (slots ? 1 : 0)))
 			{
-				activeChar.sendPacket(Msg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
+				activeChar.sendPacket(SystemMsg.EXCEEDED_PET_INVENTORYS_WEIGHT_LIMIT);
 				return;
 			}
 			item = playerInventory.removeItemByObjectId(_objectId, _amount);

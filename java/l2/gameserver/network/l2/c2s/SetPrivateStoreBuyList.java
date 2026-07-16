@@ -2,6 +2,7 @@ package l2.gameserver.network.l2.c2s;
 
 import l2.commons.math.SafeMath;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.TradeItem;
@@ -104,7 +105,7 @@ public class SetPrivateStoreBuyList extends L2GameClientPacket
 		}
 		if(buyList.size() > buyer.getTradeLimit())
 		{
-			buyer.sendPacket(Msg.YOU_HAVE_EXCEEDED_THE_QUANTITY_THAT_CAN_BE_INPUTTED);
+			buyer.sendPacket(SystemMsg.YOU_HAVE_EXCEEDED_THE_QUANTITY_THAT_CAN_BE_INPUTTED);
 			buyer.sendPacket(new PrivateStoreManageListBuy(buyer));
 			return;
 		}

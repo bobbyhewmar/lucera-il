@@ -1,6 +1,6 @@
 package l2.gameserver.network.l2.c2s;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
 import l2.gameserver.model.items.TradeItem;
@@ -81,7 +81,7 @@ public class SetPrivateStoreSellList extends L2GameClientPacket
 		}
 		if(sellList.size() > seller.getTradeLimit())
 		{
-			seller.sendPacket(Msg.YOU_HAVE_EXCEEDED_THE_QUANTITY_THAT_CAN_BE_INPUTTED);
+			seller.sendPacket(SystemMsg.YOU_HAVE_EXCEEDED_THE_QUANTITY_THAT_CAN_BE_INPUTTED);
 			seller.sendPacket(new PrivateStoreManageListSell(seller, _package));
 			return;
 		}
