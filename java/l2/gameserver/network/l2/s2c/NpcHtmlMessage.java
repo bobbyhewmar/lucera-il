@@ -44,7 +44,7 @@ public class NpcHtmlMessage extends L2GameServerPacket
 				setFile(filename);
 			}
 			String replaces = "";
-			Object[] script_args = {new Integer(val)};
+			Object[] script_args = {Integer.valueOf(val)};
 			for(Scripts.ScriptClassAndMethod append : appends)
 			{
 				Object obj = Scripts.getInstance().callScripts(player, append.className, append.methodName, script_args);

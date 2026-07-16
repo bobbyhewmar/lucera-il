@@ -277,7 +277,7 @@ public class MentorController
 				pstmt.executeUpdate();
 				if(m == null)
 				{
-					m = new Mentoring(roid, Collections.singleton(new Integer(eoid)));
+					m = new Mentoring(roid, Collections.singleton(Integer.valueOf(eoid)));
 					_cache.add(m);
 				}
 				else
