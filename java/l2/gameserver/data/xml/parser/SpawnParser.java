@@ -183,7 +183,7 @@ public final class SpawnParser extends AbstractDirParser<SpawnHolder>
 								{
 									if(aiParams == StatsSet.EMPTY)
 									{
-										aiParams = new MultiValueSet();
+										aiParams = new MultiValueSet<>();
 									}
 									
 									aiParams.set(npcAiParamsElement.attributeValue("name"), npcAiParamsElement.attributeValue("val"));

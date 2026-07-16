@@ -567,7 +567,7 @@ public class Functions
 	
 	public static Map<String, ScheduledFuture<?>> ScheduleTimeStarts(Runnable r, String[] times)
 	{
-		HashMap result = new HashMap();
+		HashMap<String, ScheduledFuture<?>> result = new HashMap<>();
 		if(r == null || times == null || times.length == 0)
 		{
 			return result;

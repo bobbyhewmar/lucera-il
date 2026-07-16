@@ -114,7 +114,7 @@ public class RestartPointParser extends AbstractFileParser<MapRegionManager>
 				{
 					throw new RuntimeException("RestartPointParser: restarts not defined!");
 				}
-				restartArea.add(new ImmutablePair(territory, restarts));
+				restartArea.add(new ImmutablePair<>(territory, restarts));
 				continue;
 			}
 			if(!"restart_loc".equals(listElement.getName()))

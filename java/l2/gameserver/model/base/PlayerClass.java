@@ -151,7 +151,7 @@ public enum PlayerClass
 		subclasseSet3 = EnumSet.of(Hawkeye, SilverRanger, PhantomRanger);
 		subclasseSet4 = EnumSet.of(Warlock, ElementalSummoner, PhantomSummoner);
 		subclasseSet5 = EnumSet.of(Sorceror, Spellsinger, Spellhowler);
-		subclassSetMap = new EnumMap(PlayerClass.class);
+		subclassSetMap = new EnumMap<>(PlayerClass.class);
 		EnumSet<PlayerClass> subclasses = getSet(null, ClassLevel.Third);
 		if(!Config.ALTSUBCLASS_ALLOW_OVER_AND_WARSMITH_TO_ALL)
 		{

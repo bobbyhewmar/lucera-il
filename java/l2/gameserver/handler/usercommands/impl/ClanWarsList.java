@@ -27,7 +27,7 @@ public class ClanWarsList implements IUserCommandHandler
 			activeChar.sendPacket(Msg.NOT_JOINED_IN_ANY_CLAN);
 			return false;
 		}
-		List<Clan> data = new ArrayList();
+		List<Clan> data = new ArrayList<>();
 		if(id == 88)
 		{
 			activeChar.sendPacket(Msg._ATTACK_LIST_);

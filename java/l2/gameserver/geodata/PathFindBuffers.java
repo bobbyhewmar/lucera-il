@@ -19,7 +19,7 @@ public class PathFindBuffers
 	public static final int MIN_MAP_SIZE = 64;
 	public static final int STEP_MAP_SIZE = 32;
 	public static final int MAX_MAP_SIZE = 512;
-	private static final TIntObjectHashMap<PathFindBuffer[]> buffers = new TIntObjectHashMap();
+	private static final TIntObjectHashMap<PathFindBuffer[]> buffers = new TIntObjectHashMap<>();
 	private static final Lock lock = new ReentrantLock();
 	private static int[] sizes = new int[0];
 	

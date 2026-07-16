@@ -15,7 +15,7 @@ import l2.gameserver.handler.usercommands.impl.Time;
 public class UserCommandHandler extends AbstractHolder
 {
 	private static final UserCommandHandler _instance = new UserCommandHandler();
-	private final TIntObjectHashMap<IUserCommandHandler> _datatable = new TIntObjectHashMap();
+	private final TIntObjectHashMap<IUserCommandHandler> _datatable = new TIntObjectHashMap<>();
 	
 	private UserCommandHandler()
 	{

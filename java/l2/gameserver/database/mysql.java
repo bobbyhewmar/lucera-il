@@ -114,7 +114,7 @@ public abstract class mysql
 			{
 				if(md.getColumnCount() > 1)
 				{
-					Map<String, Object> tmp = new HashMap();
+					Map<String, Object> tmp = new HashMap<>();
 					
 					for(int i = md.getColumnCount();i > 0;--i)
 					{
@@ -144,7 +144,7 @@ public abstract class mysql
 	
 	public static List<Map<String, Object>> getAll(String query)
 	{
-		List<Map<String, Object>> ret = new ArrayList();
+		List<Map<String, Object>> ret = new ArrayList<>();
 		Connection con = null;
 		Statement statement = null;
 		ResultSet rset = null;
@@ -158,7 +158,7 @@ public abstract class mysql
 			
 			while(rset.next())
 			{
-				Map<String, Object> tmp = new HashMap();
+				Map<String, Object> tmp = new HashMap<>();
 				
 				for(int i = md.getColumnCount();i > 0;--i)
 				{
@@ -183,7 +183,7 @@ public abstract class mysql
 	
 	public static List<Object> get_array(DatabaseFactory db, String query)
 	{
-		List<Object> ret = new ArrayList();
+		List<Object> ret = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement statement = null;
 		ResultSet rset = null;
@@ -206,7 +206,7 @@ public abstract class mysql
 				{
 					if(md.getColumnCount() > 1)
 					{
-						Map<String, Object> tmp = new HashMap();
+						Map<String, Object> tmp = new HashMap<>();
 						
 						for(int i = 0;i < md.getColumnCount();++i)
 						{
@@ -309,7 +309,7 @@ public abstract class mysql
 			con = db.getConnection();
 			statement = con.prepareStatement(query);
 			rset = statement.executeQuery();
-			List<Integer[]> al = new ArrayList();
+			List<Integer[]> al = new ArrayList<>();
 			
 			int row;
 			for(row = 0;rset.next();++row)

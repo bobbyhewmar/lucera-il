@@ -67,9 +67,9 @@ public final class ResidenceParser extends AbstractDirParser<ResidenceHolder>
 		Residence residence;
 		try
 		{
-			Class clazz = Class.forName("l2.gameserver.model.entity.residence." + impl);
-			Constructor constructor = clazz.getConstructor(StatsSet.class);
-			residence = (Residence) constructor.newInstance(set);
+			Class<? extends Residence> clazz = Class.forName("l2.gameserver.model.entity.residence." + impl).asSubclass(Residence.class);
+			Constructor<? extends Residence> constructor = clazz.getConstructor(StatsSet.class);
+			residence = constructor.newInstance(set);
 			getHolder().addResidence(residence);
 		}
 		catch(Exception e)

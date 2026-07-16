@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 public class VariationGroupParser extends AbstractFileParser<VariationGroupHolder>
 {
 	private static final VariationGroupParser _instance = new VariationGroupParser();
-	private final HashMap<Integer, VariationGroupData> _byMineralId = new HashMap();
+	private final HashMap<Integer, VariationGroupData> _byMineralId = new HashMap<>();
 	
 	private VariationGroupParser()
 	{

@@ -51,17 +51,17 @@ public class VariationChanceParser extends AbstractFileParser<VariationChanceHol
 			if(!"group".equalsIgnoreCase(ge.getName()))
 				continue;
 			double groupChance = Double.parseDouble(ge.attributeValue("chance"));
-			ArrayList<ImmutablePair<Integer, Double>> groupOptions = new ArrayList<>();
+			List<Pair<Integer, Double>> groupOptions = new ArrayList<>();
 			Iterator it2 = ge.elementIterator();
 			while(it2.hasNext())
 			{
 				Element oe = (Element) it2.next();
 				int id = Integer.parseInt(oe.attributeValue("id"));
 				double chance = Double.parseDouble(oe.attributeValue("chance"));
-				groupOptions.add(new ImmutablePair(id, chance));
+				groupOptions.add(new ImmutablePair<>(id, chance));
 			}
 			Collections.sort(groupOptions, RandomUtils.DOUBLE_GROUP_COMPARATOR);
-			variation.add(new ImmutablePair(groupOptions, groupChance));
+			variation.add(new ImmutablePair<>(groupOptions, groupChance));
 		}
 		return variation;
 	}
@@ -114,7 +114,7 @@ public class VariationChanceParser extends AbstractFileParser<VariationChanceHol
 				}
 				throw new RuntimeException("Unknown type " + typeStr);
 			}
-			getHolder().add((Pair<VariationChanceData, VariationChanceData>) new ImmutablePair(warriorData, mageData));
+			getHolder().add(new ImmutablePair<>(warriorData, mageData));
 		}
 	}
 }

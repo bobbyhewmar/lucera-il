@@ -296,10 +296,10 @@ public class RefineryHandler implements IRefineryHandler
 			variation1Groups = variationChanceData.getLeft().getVariation1();
 			variation2Groups = variationChanceData.getLeft().getVariation2();
 		}
-		List variation1 = RandomUtils.pickRandomSortedGroup(variation1Groups, 100.0);
-		List variation2 = RandomUtils.pickRandomSortedGroup(variation2Groups, 100.0);
-		Integer option1 = variation1 != null ? (Integer) RandomUtils.pickRandomSortedGroup(variation1, 100.0) : 0;
-		Integer option2 = variation2 != null ? (Integer) RandomUtils.pickRandomSortedGroup(variation2, 100.0) : 0;
+		List<Pair<Integer, Double>> variation1 = RandomUtils.pickRandomSortedGroup(variation1Groups, 100.0);
+		List<Pair<Integer, Double>> variation2 = RandomUtils.pickRandomSortedGroup(variation2Groups, 100.0);
+		Integer option1 = variation1 != null ? RandomUtils.pickRandomSortedGroup(variation1, 100.0) : 0;
+		Integer option2 = variation2 != null ? RandomUtils.pickRandomSortedGroup(variation2, 100.0) : 0;
 		if(!player.getInventory().destroyItem(gemstoneItem, variationGroupDataOfMineral.getGemstoneItemCnt()))
 		{
 			return;

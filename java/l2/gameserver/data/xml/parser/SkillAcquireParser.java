@@ -69,7 +69,7 @@ public final class SkillAcquireParser extends AbstractDirParser<SkillAcquireHold
 		iterator = rootElement.elementIterator("normal_skill_tree");
 		while(iterator.hasNext())
 		{
-			TIntObjectHashMap map = new TIntObjectHashMap();
+			TIntObjectHashMap<List<SkillLearn>> map = new TIntObjectHashMap<>();
 			Element nxt = (Element) iterator.next();
 			Iterator classIterator = nxt.elementIterator("class");
 			while(classIterator.hasNext())
