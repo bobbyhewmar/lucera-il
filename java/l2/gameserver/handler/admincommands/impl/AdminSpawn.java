@@ -6,15 +6,20 @@ import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.handler.admincommands.IAdminCommandHandler;
 import l2.gameserver.instancemanager.RaidBossSpawnManager;
 import l2.gameserver.model.GameObject;
+import l2.gameserver.model.HardSpawner;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
 import l2.gameserver.model.Spawner;
 import l2.gameserver.model.World;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.scripts.Scripts;
 import l2.gameserver.taskmanager.SpawnTaskManager;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.npc.NpcTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnTemplate;
+import l2.gameserver.utils.Location;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -324,10 +329,12 @@ public class AdminSpawn implements IAdminCommandHandler
 		}
 		try
 		{
-			SimpleSpawner spawn = new SimpleSpawner(template);
-			spawn.setLoc(target.getLoc());
+			Location spawnLoc = target.getLoc().setH(activeChar.getHeading());
+			SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, mobCount, respawnTime, 0, null);
+			spawnTemplate.addNpc(new SpawnNpcInfo(template.getNpcId(), mobCount, StatsSet.EMPTY));
+			spawnTemplate.addSpawnRange(spawnLoc);
+			HardSpawner spawn = new HardSpawner(spawnTemplate);
 			spawn.setAmount(mobCount);
-			spawn.setHeading(activeChar.getHeading());
 			spawn.setRespawnDelay(respawnTime);
 			spawn.setReflection(activeChar.getReflection());
 			if(RaidBossSpawnManager.getInstance().isDefined(template.getNpcId()))

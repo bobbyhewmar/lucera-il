@@ -8,13 +8,18 @@ import l2.gameserver.instancemanager.ServerVariables;
 import l2.gameserver.model.Creature;
 import l2.gameserver.model.GameObject;
 import l2.gameserver.model.GameObjectsStorage;
+import l2.gameserver.model.HardSpawner;
 import l2.gameserver.model.Player;
-import l2.gameserver.model.SimpleSpawner;
 import l2.gameserver.model.WorldRegion;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.model.instances.RaidBossInstance;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
+import l2.gameserver.templates.StatsSet;
 import l2.gameserver.templates.npc.NpcTemplate;
+import l2.gameserver.templates.spawn.PeriodOfDay;
+import l2.gameserver.templates.spawn.SpawnNpcInfo;
+import l2.gameserver.templates.spawn.SpawnTemplate;
+import l2.gameserver.utils.Location;
 
 import java.lang.reflect.Field;
 import java.util.StringTokenizer;
@@ -191,10 +196,12 @@ public class AdminServer implements IAdminCommandHandler
 		}
 		try
 		{
-			SimpleSpawner spawn = new SimpleSpawner(template);
-			spawn.setLoc(target.getLoc());
+			Location spawnLoc = target.getLoc().setH(activeChar.getHeading());
+			SpawnTemplate spawnTemplate = new SpawnTemplate(null, null, PeriodOfDay.ALL, mobCount, respawnTime, 0, null);
+			spawnTemplate.addNpc(new SpawnNpcInfo(template.getNpcId(), mobCount, StatsSet.EMPTY));
+			spawnTemplate.addSpawnRange(spawnLoc);
+			HardSpawner spawn = new HardSpawner(spawnTemplate);
 			spawn.setAmount(mobCount);
-			spawn.setHeading(activeChar.getHeading());
 			spawn.setRespawnDelay(respawnTime);
 			spawn.setReflection(activeChar.getReflection());
 			spawn.init();
