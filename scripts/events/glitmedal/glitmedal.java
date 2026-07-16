@@ -3,7 +3,7 @@ package events.glitmedal;
 import l2.commons.util.Rnd;
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.MultiSellHolder;
 import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
@@ -188,7 +188,7 @@ public class glitmedal extends Functions implements ScriptFile, OnDeathListener,
 			addItem(player, EVENT_GLITTMEDAL, (long) 10);
 			return;
 		}
-		player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+		player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 	}
 	
 	public void medal()

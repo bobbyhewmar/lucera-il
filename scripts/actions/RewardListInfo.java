@@ -1,7 +1,6 @@
 package actions;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.base.Experience;
 import l2.gameserver.model.instances.ChestInstance;
@@ -41,13 +40,13 @@ public class RewardListInfo extends Functions
 	{
 		if(npc == null)
 		{
-			player.sendPacket(Msg.THAT_IS_THE_INCORRECT_TARGET);
+			player.sendPacket(SystemMsg.THAT_IS_AN_INCORRECT_TARGET);
 			player.sendActionFailed();
 			return false;
 		}
 		if(!Config.ALLOW_TALK_WHILE_SITTING && player.isSitting())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_MOVE_WHILE_SITTING);
+			player.sendPacket(SystemMsg.YOU_CANNOT_MOVE_WHILE_SITTING);
 			player.sendActionFailed();
 			return false;
 		}

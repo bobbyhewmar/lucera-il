@@ -3,7 +3,7 @@ package events.l2day;
 import l2.commons.util.Rnd;
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
@@ -185,7 +185,7 @@ public abstract class LettersCollection extends Functions implements ScriptFile,
 		{
 			if(getItemCount(player, l[0]) >= (long) l[1].intValue())
 				continue;
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return;
 		}
 		for(Integer[] l : mss)

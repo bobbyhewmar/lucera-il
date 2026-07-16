@@ -1,7 +1,7 @@
 package services;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.instancemanager.ReflectionManager;
 import l2.gameserver.listener.zone.OnZoneEnterLeaveListener;
 import l2.gameserver.model.Creature;
@@ -69,7 +69,7 @@ public class TeleToGH extends Functions implements ScriptFile
 		}
 		if(player.getAdena() < (long) Config.SERVICES_GIRAN_HARBOR_PRICE)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			return;
 		}
 		player.reduceAdena((long) Config.SERVICES_GIRAN_HARBOR_PRICE, true);

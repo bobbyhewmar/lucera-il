@@ -1,7 +1,6 @@
 package handler.items;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.model.Playable;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.items.ItemInstance;
@@ -25,7 +24,7 @@ public class FishItem extends ScriptItemHandler
 		Player player = (Player) playable;
 		if(player.getWeightPenalty() >= 3 || player.getInventory().getSize() > player.getInventoryLimit() - 10)
 		{
-			player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+			player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 			return false;
 		}
 		if(!player.getInventory().destroyItem(item, 1))

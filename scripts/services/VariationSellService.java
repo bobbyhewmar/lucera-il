@@ -1,7 +1,7 @@
 package services;
 
 import l2.commons.dbutils.DbUtils;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.VariationGroupHolder;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.model.Player;
@@ -70,7 +70,7 @@ public class VariationSellService extends Functions implements ScriptFile
 	{
 		if(player.isInStoreMode())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION);
+			player.sendPacket(SystemMsg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_A_PRIVATE_STORE_OR_PRIVATE_WORKSHOP_IS_IN_OPERATION);
 			return false;
 		}
 		if(player.isInTrade())
@@ -80,22 +80,22 @@ public class VariationSellService extends Functions implements ScriptFile
 		}
 		if(player.isDead())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD);
+			player.sendPacket(SystemMsg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD);
 			return false;
 		}
 		if(player.isParalyzed())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED);
+			player.sendPacket(SystemMsg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_PARALYZED);
 			return false;
 		}
 		if(player.isFishing())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING);
+			player.sendPacket(SystemMsg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_FISHING);
 			return false;
 		}
 		if(player.isSitting())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN);
+			player.sendPacket(SystemMsg.YOU_CANNOT_AUGMENT_ITEMS_WHILE_SITTING_DOWN);
 			return false;
 		}
 		if(player.isActionsDisabled())
@@ -174,7 +174,7 @@ public class VariationSellService extends Functions implements ScriptFile
 			{
 				if(player.getInventory().getCountOf(consumeItem.getLeft().getItemId()) >= consumeItem.getRight())
 					continue;
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 				return false;
 			}
 			return true;
@@ -187,7 +187,7 @@ public class VariationSellService extends Functions implements ScriptFile
 			{
 				if(ItemFunctions.removeItem(player, consumeItem.getLeft().getItemId(), consumeItem.getRight(), true) >= consumeItem.getRight())
 					continue;
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 				return false;
 			}
 			return true;
@@ -211,13 +211,13 @@ public class VariationSellService extends Functions implements ScriptFile
 			}
 			if(targetItem.isAugmented())
 			{
-				player.sendPacket(Msg.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN, ActionFail.STATIC);
+				player.sendPacket(SystemMsg.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN, ActionFail.STATIC);
 				return null;
 			}
 			List variationGroupDataList = VariationGroupHolder.getInstance().getDataForItemId(targetItem.getItemId());
 			if(variationGroupDataList == null || variationGroupDataList.isEmpty())
 			{
-				player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM, ActionFail.STATIC);
+				player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM, ActionFail.STATIC);
 				return null;
 			}
 			if(!consume(player))

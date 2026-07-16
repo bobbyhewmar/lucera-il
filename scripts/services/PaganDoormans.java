@@ -1,6 +1,6 @@
 package services;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.instances.DoorInstance;
 import l2.gameserver.model.instances.NpcInstance;
@@ -37,7 +37,7 @@ public class PaganDoormans extends Functions
 		long items = getItemCount(player, 8064);
 		if(items == 0 && getItemCount(player, 8067) == 0)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return;
 		}
 		if(items > 0)

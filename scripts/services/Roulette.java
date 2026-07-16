@@ -2,7 +2,7 @@ package services;
 
 import l2.commons.util.Rnd;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.components.CustomMessage;
@@ -123,7 +123,7 @@ public class Roulette extends Functions
 		}
 		if(player.getAdena() < bet)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			show("You do not have enough adena!<br><a action=\"bypass -h scripts_services.Roulette:dialog\">Back</a>", player);
 			return;
 		}

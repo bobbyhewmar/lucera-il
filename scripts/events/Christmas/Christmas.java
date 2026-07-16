@@ -3,7 +3,7 @@ package events.Christmas;
 import l2.commons.util.Rnd;
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.listener.actor.OnDeathListener;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Creature;
@@ -155,7 +155,7 @@ public class Christmas extends Functions implements ScriptFile, OnDeathListener,
 				addItem(player, 5560, (long) 1);
 				return;
 			}
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 		}
 		if(var[0].equalsIgnoreCase("1"))
 		{
@@ -165,7 +165,7 @@ public class Christmas extends Functions implements ScriptFile, OnDeathListener,
 				addItem(player, 5561, (long) 1);
 				return;
 			}
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 		}
 		if(var[0].equalsIgnoreCase("2"))
 		{
@@ -175,7 +175,7 @@ public class Christmas extends Functions implements ScriptFile, OnDeathListener,
 				addItem(player, 7836, (long) 1);
 				return;
 			}
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 		}
 		if(var[0].equalsIgnoreCase("3"))
 		{
@@ -185,7 +185,7 @@ public class Christmas extends Functions implements ScriptFile, OnDeathListener,
 				addItem(player, 8936, (long) 1);
 				return;
 			}
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 		}
 	}
 	

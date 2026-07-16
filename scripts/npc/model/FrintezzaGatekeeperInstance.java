@@ -1,7 +1,7 @@
 package npc.model;
 
 import bosses.FrintezzaManager;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.CommandChannel;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
@@ -69,7 +69,7 @@ public final class FrintezzaGatekeeperInstance extends NpcInstance
 							}
 							if(ItemFunctions.removeItem(player, 8073, (long) 1, true) < 1)
 							{
-								player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+								player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 								return;
 							}
 							FrintezzaManager.getInstance().tryEnter(partyList);

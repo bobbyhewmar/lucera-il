@@ -7,6 +7,7 @@ import l2.gameserver.Announcements;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.data.xml.holder.ZoneHolder;
 import l2.gameserver.geodata.GeoEngine;
@@ -448,7 +449,7 @@ public class SavingSnowman extends Functions implements ScriptFile, OnDeathListe
 		}
 		if(getItemCount(player, Config.EVENT_SAVING_SNOWMAN_LOTERY_CURENCY) < Config.EVENT_SAVING_SNOWMAN_LOTERY_PRICE)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return;
 		}
 		removeItem(player, Config.EVENT_SAVING_SNOWMAN_LOTERY_CURENCY, Config.EVENT_SAVING_SNOWMAN_LOTERY_PRICE);

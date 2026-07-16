@@ -70,7 +70,7 @@ public class RideHire extends Functions
 		}
 		if(player.getActiveWeaponFlagAttachment() != null)
 		{
-			player.sendPacket(Msg.YOU_CANNOT_MOUNT_BECAUSE_YOU_DO_NOT_MEET_THE_REQUIREMENTS);
+			player.sendPacket(SystemMsg.YOU_CANNOT_BOARD_BECAUSE_YOU_DO_NOT_MEET_THE_REQUIREMENTS);
 			return;
 		}
 		if(player.getTransformation() != 0)

@@ -1,6 +1,6 @@
 package quests;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.instances.NpcInstance;
 import l2.gameserver.model.quest.Quest;
 import l2.gameserver.model.quest.QuestState;
@@ -132,7 +132,7 @@ public class _635_InTheDimensionalRift extends Quest implements ScriptFile
 		int fee = level < 30 ? 2000 : level < 40 ? 4500 : level < 50 ? 8000 : level < 60 ? 12500 : level < 70 ? 18000 : 24500;
 		if(!st.getPlayer().reduceAdena((long) fee, true))
 		{
-			st.getPlayer().sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			st.getPlayer().sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			return false;
 		}
 		return true;

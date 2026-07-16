@@ -79,7 +79,7 @@ public class ClanSkillSell extends Functions
 		{
 			if(Config.SERVICES_CLAN_SKILL_SELL_ITEM == 57)
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			}
 			else
 			{

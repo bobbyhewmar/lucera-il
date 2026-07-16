@@ -1,7 +1,7 @@
 package npc.model;
 
 import l2.commons.util.Rnd;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.instancemanager.DimensionalRiftManager;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
@@ -33,7 +33,7 @@ public final class DelustionGatekeeperInstance extends NpcInstance
 			Map rooms = DimensionalRiftManager.getInstance().getRooms(type);
 			if(rooms == null)
 			{
-				player.sendPacket(Msg.SYSTEM_ERROR);
+				player.sendPacket(SystemMsg.SYSTEM_ERROR);
 				return;
 			}
 			Reflection r = player.getActiveReflection();

@@ -2,7 +2,6 @@ package services.community.custom;
 
 import l2.commons.lang.ArrayUtils;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.handler.bbs.CommunityBoardManager;
@@ -233,7 +232,7 @@ public class CommunityQuests implements ScriptFile, ICommunityBoardHandler
 		{
 			if(itemId == 57)
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			}
 			else
 			{

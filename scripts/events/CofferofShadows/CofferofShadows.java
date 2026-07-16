@@ -2,7 +2,7 @@ package events.CofferofShadows;
 
 import l2.gameserver.Announcements;
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.listener.actor.player.OnPlayerEnterListener;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Spawner;
@@ -109,7 +109,7 @@ public class CofferofShadows extends Functions implements ScriptFile, OnPlayerEn
 		long need_adena = (long) ((double) COFFER_PRICE * Config.EVENT_CofferOfShadowsPriceRate * (double) coffer_count);
 		if(player.getAdena() < need_adena)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			return;
 		}
 		player.reduceAdena(need_adena, true);

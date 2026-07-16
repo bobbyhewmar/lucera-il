@@ -2,6 +2,7 @@ package handler.items;
 
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.handler.items.IRefineryHandler;
 import l2.gameserver.model.Playable;
 import l2.gameserver.model.Player;
@@ -111,7 +112,7 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(!targetItem.isWeapon() && !targetItem.isArmor() || !targetItem.canBeEnchanted(false))
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			return;
 		}
 		player.sendMessage("Select the second item to make an appearance from it.");
@@ -134,19 +135,19 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(targetItem == mineralItem || !targetItem.isWeapon() && !targetItem.isArmor() || !targetItem.canBeEnchanted(false) || !mineralItem.isWeapon() && !mineralItem.isArmor() || !mineralItem.canBeEnchanted(false))
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getBodyPart() != mineralItem.getTemplate().getBodyPart() || targetItem.getTemplate().getItemClass() != mineralItem.getTemplate().getItemClass())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getItemType() != mineralItem.getTemplate().getItemType())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
@@ -169,25 +170,25 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(targetItem == mineralItem || !targetItem.isWeapon() && !targetItem.isArmor() || !targetItem.canBeEnchanted(false) || !mineralItem.isWeapon() && !mineralItem.isArmor() || !mineralItem.canBeEnchanted(false))
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getBodyPart() != mineralItem.getTemplate().getBodyPart() || targetItem.getTemplate().getItemClass() != mineralItem.getTemplate().getItemClass())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getItemType() != mineralItem.getTemplate().getItemType())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(gemstoneItem.getItemId() != Config.APPEARANCE_SUPPORT_ITEM_ID)
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
@@ -197,7 +198,7 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 			player.sendActionFailed();
 			return;
 		}
-		player.sendPacket(new ExPutCommissionResultForVariationMake(gemstoneItem.getObjectId(), Config.APPEARANCE_SUPPORT_ITEM_CNT), Msg.PRESS_THE_AUGMENT_BUTTON_TO_BEGIN);
+		player.sendPacket(new ExPutCommissionResultForVariationMake(gemstoneItem.getObjectId(), Config.APPEARANCE_SUPPORT_ITEM_CNT), SystemMsg.PRESS_THE_AUGMENT_BUTTON_TO_BEGIN);
 	}
 	
 	@Override
@@ -216,25 +217,25 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(targetItem == mineralItem || !targetItem.isWeapon() && !targetItem.isArmor() || !targetItem.canBeEnchanted(false) || !mineralItem.isWeapon() && !mineralItem.isArmor() || !mineralItem.canBeEnchanted(false))
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getBodyPart() != mineralItem.getTemplate().getBodyPart() || targetItem.getTemplate().getItemClass() != mineralItem.getTemplate().getItemClass())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(targetItem.getTemplate().getItemType() != mineralItem.getTemplate().getItemType())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(gemstoneItem.getItemId() != Config.APPEARANCE_SUPPORT_ITEM_ID)
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
@@ -304,13 +305,13 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(targetCancelItem.getVisibleItemId() == targetCancelItem.getItemId())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(!targetCancelItem.isWeapon() && !targetCancelItem.isArmor())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
@@ -327,13 +328,13 @@ public class Appearance extends ScriptItemHandler implements IRefineryHandler
 		}
 		if(targetCancelItem.getVisibleItemId() == targetCancelItem.getItemId())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}
 		if(!targetCancelItem.isWeapon() && !targetCancelItem.isArmor())
 		{
-			player.sendPacket(Msg.THIS_IS_NOT_A_SUITABLE_ITEM);
+			player.sendPacket(SystemMsg.THIS_IS_NOT_A_SUITABLE_ITEM);
 			player.sendActionFailed();
 			return;
 		}

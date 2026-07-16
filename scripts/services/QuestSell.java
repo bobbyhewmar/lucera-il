@@ -1,7 +1,7 @@
 package services;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.StringHolder;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.instancemanager.QuestManager;
@@ -269,14 +269,14 @@ public class QuestSell extends Functions implements ScriptFile
 		{
 			if(ItemFunctions.getItemCount(player, requiredItem.getKey()) >= requiredItem.getValue())
 				continue;
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return;
 		}
 		for(Pair<Integer, Long> requiredItem : price)
 		{
 			if(ItemFunctions.removeItem(player, requiredItem.getKey(), requiredItem.getValue(), true) >= requiredItem.getValue())
 				continue;
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 			return;
 		}
 		for(Quest quest : quests)

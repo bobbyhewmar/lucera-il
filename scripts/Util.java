@@ -188,7 +188,7 @@ public class Util extends Functions
 		long price = Long.parseLong(param[2]);
 		if(getItemCount(player, item) < price)
 		{
-			player.sendPacket(item == 57 ? Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA : SystemMsg.INCORRECT_ITEM_COUNT);
+			player.sendPacket(item == 57 ? SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA : SystemMsg.INCORRECT_ITEM_COUNT);
 			return;
 		}
 		removeItem(player, item, price);
@@ -223,7 +223,7 @@ public class Util extends Functions
 		}
 		if(getItemCount(player, 57) < 200)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			return;
 		}
 		removeItem(player, 57, (long) 200);

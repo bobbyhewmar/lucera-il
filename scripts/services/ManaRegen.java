@@ -1,6 +1,6 @@
 package services;
 
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.s2c.SystemMessage;
 import l2.gameserver.scripts.Functions;
@@ -17,7 +17,7 @@ public class ManaRegen extends Functions
 		long fullCost = mp * 5;
 		if(fullCost <= 0)
 		{
-			player.sendPacket(Msg.NOTHING_HAPPENED);
+			player.sendPacket(SystemMsg.NOTHING_HAPPENED);
 			return;
 		}
 		if(getItemCount(player, 57) >= fullCost)
@@ -28,7 +28,7 @@ public class ManaRegen extends Functions
 		}
 		else
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 		}
 	}
 }

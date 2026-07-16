@@ -1,6 +1,5 @@
 package handler.items;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.instancemanager.MapRegionManager;
 import l2.gameserver.model.Manor;
 import l2.gameserver.model.Playable;
@@ -50,12 +49,12 @@ public class Seed extends ScriptItemHandler
 		MonsterInstance target = (MonsterInstance) playable.getTarget();
 		if(target == null)
 		{
-			player.sendPacket(Msg.INVALID_TARGET);
+			player.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(target.isDead())
 		{
-			player.sendPacket(Msg.INVALID_TARGET);
+			player.sendPacket(SystemMsg.INVALID_TARGET);
 			return false;
 		}
 		if(target.isSeeded())

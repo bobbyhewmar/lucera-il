@@ -3,6 +3,7 @@ package services.community.custom;
 import l2.commons.dbutils.DbUtils;
 import l2.gameserver.Config;
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.database.DatabaseFactory;
 import l2.gameserver.handler.bbs.CommunityBoardManager;
@@ -35,7 +36,7 @@ public class CommunityTeleport implements ScriptFile, ICommunityBoardHandler
 		}
 		if(player.getActiveWeaponFlagAttachment() != null)
 		{
-			player.sendPacket(Msg.YOU_CANNOT_TELEPORT_WHILE_IN_POSSESSION_OF_A_WARD);
+			player.sendPacket(SystemMsg.YOU_CANNOT_TELEPORT_WHILE_IN_POSSESSION_OF_A_WARD);
 			return false;
 		}
 		if(player.isOlyParticipant())
@@ -89,7 +90,7 @@ public class CommunityTeleport implements ScriptFile, ICommunityBoardHandler
 		}
 		if(player.isInStoreMode() || player.isInTrade())
 		{
-			player.sendPacket(Msg.YOU_CANNOT_SUMMON_DURING_A_TRADE_OR_WHILE_USING_THE_PRIVATE_SHOPS);
+			player.sendPacket(SystemMsg.YOU_CANNOT_SUMMON_DURING_A_TRADE_OR_WHILE_USING_A_PRIVATE_STORE);
 			return false;
 		}
 		if(player.isInBoat() || player.isParalyzed() || player.isStunned() || player.isSleeping())
@@ -116,7 +117,7 @@ public class CommunityTeleport implements ScriptFile, ICommunityBoardHandler
 			Zone zone = player.getZone(zoneType);
 			if(zone == null)
 				continue;
-			player.sendPacket(Msg.YOU_DO_NOT_MEET_THE_REQUIRED_CONDITION_TO_EQUIP_THAT_ITEM);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_MEET_THE_REQUIRED_CONDITION_TO_EQUIP_THAT_ITEM);
 			return false;
 		}
 		return true;

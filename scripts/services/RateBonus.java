@@ -1,7 +1,6 @@
 package services;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.dao.AccountBonusDAO;
 import l2.gameserver.data.StringHolder;
 import l2.gameserver.data.htm.HtmCache;
@@ -83,7 +82,7 @@ public class RateBonus extends Functions
 		{
 			if(rateBonusInfo.consumeItemId == 57)
 			{
-				player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+				player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 			}
 			else
 			{

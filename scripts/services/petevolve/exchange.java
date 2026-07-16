@@ -1,7 +1,6 @@
 package services.petevolve;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.Summon;
@@ -124,7 +123,7 @@ public class exchange extends Functions
 		}
 		else if(Config.SERVICES_CHANGE_PET_NAME_ITEM == 57)
 		{
-			player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+			player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 		}
 		else
 		{

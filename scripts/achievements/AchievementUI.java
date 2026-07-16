@@ -1,6 +1,7 @@
 package achievements;
 
 import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.StringHolder;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.model.Player;
@@ -234,7 +235,7 @@ public class AchievementUI extends Functions implements ScriptFile
 			}
 			if(!player.getInventory().validateCapacity(slots))
 			{
-				player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+				player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 				return;
 			}
 			achievement.setLevelRewarded(level, true);

@@ -266,7 +266,7 @@ public class PawnShop extends Functions implements ScriptFile
 		}
 		if(player.getWeightPenalty() >= 3 || player.getInventory().getSize() > player.getInventoryLimit() - 10)
 		{
-			player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+			player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 			return;
 		}
 		PawnShopItem pawnShopItem = null;
@@ -366,7 +366,7 @@ public class PawnShop extends Functions implements ScriptFile
 		}
 		if(player.getWeightPenalty() >= 3 || player.getInventory().getSize() > player.getInventoryLimit() - 10)
 		{
-			player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+			player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 			return;
 		}
 		PawnShopItem pawnShopItem = null;

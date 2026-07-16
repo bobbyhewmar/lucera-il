@@ -299,7 +299,7 @@ public class CommandClassMaster extends Functions implements ScriptFile, OnGainE
 			}
 			if(!player.getInventory().validateCapacity(slots))
 			{
-				player.sendPacket(Msg.YOUR_INVENTORY_IS_FULL);
+				player.sendPacket(SystemMsg.YOUR_INVENTORY_IS_FULL);
 				return;
 			}
 			for(Pair<Integer, Long> requiredItem : classMasterPath.getPrice())
@@ -325,7 +325,7 @@ public class CommandClassMaster extends Functions implements ScriptFile, OnGainE
 		}
 		else
 		{
-			player.sendPacket(Msg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
+			player.sendPacket(SystemMsg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
 		}
 		player.setClassId(classId.getId(), false, false);
 		player.broadcastCharInfo();

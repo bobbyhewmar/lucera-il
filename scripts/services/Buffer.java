@@ -3,7 +3,7 @@ package services;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.data.htm.HtmCache;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.handler.items.IItemHandler;
@@ -101,7 +101,7 @@ public class Buffer extends Functions implements ScriptFile
 				}
 				if(!player.reduceAdena(100, true))
 				{
-					player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 					return;
 				}
 				if(player.getPet() != null)
@@ -121,7 +121,7 @@ public class Buffer extends Functions implements ScriptFile
 				}
 				if(!player.reduceAdena(50, true))
 				{
-					player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 					return;
 				}
 				if(!checkReuse(player))
@@ -685,12 +685,12 @@ public class Buffer extends Functions implements ScriptFile
 					Creature target = aimingTarget(player);
 					if(target == null)
 					{
-						player.sendPacket(Msg.THAT_IS_THE_INCORRECT_TARGET);
+						player.sendPacket(SystemMsg.THAT_IS_AN_INCORRECT_TARGET);
 						return;
 					}
 					if(!consumeRequirements(player))
 					{
-						player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
+						player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_REQUIRED_ITEMS);
 						return;
 					}
 					applyBuff(target);
@@ -712,7 +712,7 @@ public class Buffer extends Functions implements ScriptFile
 				Creature target = aimingTarget(player);
 				if(target == null)
 				{
-					player.sendPacket(Msg.THAT_IS_THE_INCORRECT_TARGET);
+					player.sendPacket(SystemMsg.THAT_IS_AN_INCORRECT_TARGET);
 					return false;
 				}
 				if(!consumeRequirements(player))
@@ -807,7 +807,7 @@ public class Buffer extends Functions implements ScriptFile
 			{
 				if(getItem().isAdena())
 				{
-					player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				}
 				else
 				{

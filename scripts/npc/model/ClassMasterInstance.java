@@ -114,7 +114,7 @@ public final class ClassMasterInstance extends MerchantInstance
 				}
 				else if(itemId == 57)
 				{
-					player.sendPacket(Msg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
+					player.sendPacket(SystemMsg.YOU_DO_NOT_HAVE_ENOUGH_ADENA);
 				}
 				else
 				{
@@ -140,7 +140,7 @@ public final class ClassMasterInstance extends MerchantInstance
 		}
 		else
 		{
-			player.sendPacket(Msg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
+			player.sendPacket(SystemMsg.CONGRATULATIONS_YOU_HAVE_TRANSFERRED_TO_A_NEW_CLASS);
 		}
 		player.setClassId(val, false, false);
 		player.broadcastCharInfo();

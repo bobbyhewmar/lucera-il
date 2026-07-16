@@ -56,7 +56,7 @@ public class Keys extends ScriptItemHandler
 		}
 		if(player.getDistance(door) > 300.0)
 		{
-			player.sendPacket(Msg.YOU_CANNOT_CONTROL_BECAUSE_YOU_ARE_TOO_FAR);
+			player.sendPacket(SystemMsg.YOU_CANNOT_CONTROL_BECAUSE_YOU_ARE_TOO_FAR);
 			return false;
 		}
 		if(!player.getInventory().destroyItem(item, 1))
