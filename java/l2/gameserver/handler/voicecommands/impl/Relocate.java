@@ -1,7 +1,6 @@
 package l2.gameserver.handler.voicecommands.impl;
 
 import l2.gameserver.Config;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.voicecommands.IVoicedCommandHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.pledge.Clan;
@@ -38,7 +37,7 @@ public class Relocate extends Functions implements IVoicedCommandHandler
 		}
 		if(cl.getLeaderId() != player.getObjectId())
 		{
-			player.sendPacket(Msg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
+			player.sendPacket(SystemMsg.ONLY_THE_CLAN_LEADER_IS_ENABLED);
 			return false;
 		}
 		SystemMessage msg = Call.canSummonHere(player);
