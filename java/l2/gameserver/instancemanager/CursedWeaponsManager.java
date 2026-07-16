@@ -578,7 +578,7 @@ public class CursedWeaponsManager
 	{
 		SystemMessage sm = new SystemMessage(1814);
 		sm.addString(cw.getName());
-		sm.addNumber(new Long(cw.getTimeLeft() / 60000).intValue());
+		sm.addNumber((int) (cw.getTimeLeft() / 60000));
 		player.sendPacket(sm);
 	}
 	
