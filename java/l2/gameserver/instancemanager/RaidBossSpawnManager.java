@@ -51,8 +51,8 @@ public class RaidBossSpawnManager
 	static
 	{
 		_spawntable = new ConcurrentHashMap<>();
-		KEY_RANK = new Integer(-1);
-		KEY_TOTAL_POINTS = new Integer(0);
+		KEY_RANK = Integer.valueOf(-1);
+		KEY_TOTAL_POINTS = Integer.valueOf(0);
 	}
 	
 	private final Lock pointsLock = new ReentrantLock();
