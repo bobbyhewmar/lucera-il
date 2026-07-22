@@ -1,10 +1,10 @@
 package l2.gameserver.handler.usercommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.usercommands.IUserCommandHandler;
 import l2.gameserver.model.Player;
 import l2.gameserver.model.pledge.Alliance;
 import l2.gameserver.model.pledge.Clan;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.SystemMessage;
 
 import java.util.ArrayList;
@@ -24,23 +24,23 @@ public class ClanWarsList implements IUserCommandHandler
 		Clan clan = activeChar.getClan();
 		if(clan == null)
 		{
-			activeChar.sendPacket(Msg.NOT_JOINED_IN_ANY_CLAN);
+			activeChar.sendPacket(SystemMsg.NOT_JOINED_IN_ANY_CLAN);
 			return false;
 		}
 		List<Clan> data = new ArrayList<>();
 		if(id == 88)
 		{
-			activeChar.sendPacket(Msg._ATTACK_LIST_);
+			activeChar.sendPacket(SystemMsg._ATTACK_LIST_);
 			data = clan.getEnemyClans();
 		}
 		else if(id == 89)
 		{
-			activeChar.sendPacket(Msg._UNDER_ATTACK_LIST_);
+			activeChar.sendPacket(SystemMsg._UNDER_ATTACK_LIST_);
 			data = clan.getAttackerClans();
 		}
 		else
 		{
-			activeChar.sendPacket(Msg._WAR_LIST_);
+			activeChar.sendPacket(SystemMsg._WAR_LIST_);
 			for(Clan c : clan.getEnemyClans())
 			{
 				if(!clan.getAttackerClans().contains(c))
@@ -55,7 +55,7 @@ public class ClanWarsList implements IUserCommandHandler
 			SystemMessage sm = alliance != null ? new SystemMessage(1200).addString(clanName).addString(alliance.getAllyName()) : new SystemMessage(1202).addString(clanName);
 			activeChar.sendPacket(sm);
 		}
-		activeChar.sendPacket(Msg.__EQUALS__);
+		activeChar.sendPacket(SystemMsg.__EQUALS__);
 		return true;
 	}
 	

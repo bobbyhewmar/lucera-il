@@ -6,7 +6,6 @@ import l2.commons.lang.reference.HardReferences;
 import l2.commons.threading.RunnableImpl;
 import l2.gameserver.Config;
 import l2.gameserver.ThreadPoolManager;
-import l2.gameserver.cache.Msg;
 import l2.gameserver.data.xml.holder.ItemHolder;
 import l2.gameserver.data.xml.holder.NpcHolder;
 import l2.gameserver.instancemanager.ReflectionManager;
@@ -27,6 +26,7 @@ import l2.gameserver.model.mail.Mail;
 import l2.gameserver.network.l2.components.ChatType;
 import l2.gameserver.network.l2.components.CustomMessage;
 import l2.gameserver.network.l2.components.NpcString;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExNoticePostArrived;
 import l2.gameserver.network.l2.s2c.NpcHtmlMessage;
 import l2.gameserver.network.l2.s2c.NpcSay;
@@ -329,7 +329,7 @@ public class Functions
 		}
 		if(player.getPet() != null)
 		{
-			player.sendPacket(Msg.YOU_ALREADY_HAVE_A_PET);
+			player.sendPacket(SystemMsg.YOU_ALREADY_HAVE_A_PET);
 			return false;
 		}
 		player.setMount(pet, 0, 0);
@@ -531,7 +531,7 @@ public class Functions
 		mail.setExpireTime(2592000 + (int) (System.currentTimeMillis() / 1000));
 		mail.save();
 		receiver.sendPacket(ExNoticePostArrived.STATIC_TRUE);
-		receiver.sendPacket(Msg.THE_MAIL_HAS_ARRIVED);
+		receiver.sendPacket(SystemMsg.THE_MAIL_HAS_ARRIVED);
 	}
 	
 	public static final String truncateHtmlTagsSpaces(String srcHtml)

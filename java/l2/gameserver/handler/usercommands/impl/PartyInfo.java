@@ -1,10 +1,10 @@
 package l2.gameserver.handler.usercommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.usercommands.IUserCommandHandler;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.components.CustomMessage;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.SystemMessage;
 
 public class PartyInfo implements IUserCommandHandler
@@ -30,37 +30,37 @@ public class PartyInfo implements IUserCommandHandler
 		}
 		int memberCount = playerParty.getMemberCount();
 		int lootDistribution = playerParty.getLootDistribution();
-		activeChar.sendPacket(Msg._PARTY_INFORMATION_);
+		activeChar.sendPacket(SystemMsg._PARTY_INFORMATION_);
 		switch(lootDistribution)
 		{
 			case 0:
 			{
-				activeChar.sendPacket(Msg.LOOTING_METHOD_FINDERS_KEEPERS);
+				activeChar.sendPacket(SystemMsg.LOOTING_METHOD_FINDERS_KEEPERS);
 				break;
 			}
 			case 3:
 			{
-				activeChar.sendPacket(Msg.LOOTING_METHOD_BY_TURN);
+				activeChar.sendPacket(SystemMsg.LOOTING_METHOD_BY_TURN);
 				break;
 			}
 			case 4:
 			{
-				activeChar.sendPacket(Msg.LOOTING_METHOD_BY_TURN_INCLUDING_SPOIL);
+				activeChar.sendPacket(SystemMsg.LOOTING_METHOD_BY_TURN_INCLUDING_SPOIL);
 				break;
 			}
 			case 1:
 			{
-				activeChar.sendPacket(Msg.LOOTING_METHOD_RANDOM);
+				activeChar.sendPacket(SystemMsg.LOOTING_METHOD_RANDOM);
 				break;
 			}
 			case 2:
 			{
-				activeChar.sendPacket(Msg.LOOTING_METHOD_RANDOM_INCLUDING_SPOIL);
+				activeChar.sendPacket(SystemMsg.LOOTING_METHOD_RANDOM_INCLUDING_SPOIL);
 			}
 		}
 		activeChar.sendPacket(new SystemMessage(1611).addString(partyLeader.getName()));
 		activeChar.sendMessage(new CustomMessage("scripts.commands.user.PartyInfo.Members", activeChar).addNumber(memberCount));
-		activeChar.sendPacket(Msg.__DASHES__);
+		activeChar.sendPacket(SystemMsg.__DASHES__);
 		return true;
 	}
 	

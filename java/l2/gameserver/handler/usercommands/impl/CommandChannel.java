@@ -1,10 +1,10 @@
 package l2.gameserver.handler.usercommands.impl;
 
-import l2.gameserver.cache.Msg;
 import l2.gameserver.handler.usercommands.IUserCommandHandler;
 import l2.gameserver.model.Party;
 import l2.gameserver.model.Player;
 import l2.gameserver.network.l2.components.CustomMessage;
+import l2.gameserver.network.l2.components.SystemMsg;
 import l2.gameserver.network.l2.s2c.ExMultiPartyCommandChannelInfo;
 import l2.gameserver.network.l2.s2c.SystemMessage;
 
@@ -38,7 +38,7 @@ public class CommandChannel implements IUserCommandHandler
 					channel.disbandChannel();
 					break;
 				}
-				activeChar.sendPacket(Msg.ONLY_THE_CREATOR_OF_A_CHANNEL_CAN_USE_THE_CHANNEL_DISMISS_COMMAND);
+				activeChar.sendPacket(SystemMsg.ONLY_THE_CREATOR_OF_A_CHANNEL_CAN_USE_THE_CHANNEL_DISMISS_COMMAND);
 				break;
 			}
 			case 96:
@@ -49,7 +49,7 @@ public class CommandChannel implements IUserCommandHandler
 				}
 				if(!activeChar.getParty().isLeader(activeChar))
 				{
-					activeChar.sendPacket(Msg.ONLY_A_PARTY_LEADER_CAN_CHOOSE_THE_OPTION_TO_LEAVE_A_CHANNEL);
+					activeChar.sendPacket(SystemMsg.ONLY_A_PARTY_LEADER_CAN_CHOOSE_THE_OPTION_TO_LEAVE_A_CHANNEL);
 					return true;
 				}
 				l2.gameserver.model.CommandChannel channel = activeChar.getParty().getCommandChannel();
@@ -64,7 +64,7 @@ public class CommandChannel implements IUserCommandHandler
 				}
 				Party party = activeChar.getParty();
 				channel.removeParty(party);
-				party.broadCast(Msg.YOU_HAVE_QUIT_THE_COMMAND_CHANNEL);
+				party.broadCast(SystemMsg.YOU_HAVE_QUIT_THE_COMMAND_CHANNEL);
 				channel.broadCast(new SystemMessage(1587).addString(activeChar.getName()));
 				break;
 			}
